@@ -7,8 +7,11 @@ import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
+import Utils.Point;
 
 import java.util.ArrayList;
+
+import Enemies.Fireball;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -25,6 +28,9 @@ public abstract class Player extends GameObject {
     protected float momentumY = 0;
     protected float moveAmountX, moveAmountY;
     protected float lastAmountMovedX, lastAmountMovedY;
+
+    // Element Powers
+    protected float fireCoolDown = 0;
 
     // values used to keep track of player's current state
     protected PlayerState playerState;
@@ -43,6 +49,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
+    protected Key FIRE_KEY = Key.Z;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -60,6 +67,9 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
+        if (fireCoolDown != 0) {
+            fireCoolDown--;
+        }
 
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
@@ -102,19 +112,24 @@ public abstract class Player extends GameObject {
     }
 
     // based on player's current state, call appropriate player state handling method
+    // Player can shoot fire in any state as of now, can be modified here if needed
     protected void handlePlayerState() {
         switch (playerState) {
             case STANDING:
                 playerStanding();
+                playerShootFire();
                 break;
             case WALKING:
                 playerWalking();
+                playerShootFire();
                 break;
             case CROUCHING:
                 playerCrouching();
+                playerShootFire();
                 break;
             case JUMPING:
                 playerJumping();
+                playerShootFire();
                 break;
         }
     }
@@ -226,6 +241,12 @@ public abstract class Player extends GameObject {
         // if player last frame was in air and this frame is now on ground, player enters STANDING state
         else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
+        }
+    }
+    // Shoots fire is the "FIRE_KEY" is pressed and cooldown is up
+    protected void playerShootFire() {
+        if (Keyboard.isKeyDown(FIRE_KEY) && fireCoolDown == 0) {
+            shootFire();
         }
     }
 
@@ -402,4 +423,23 @@ public abstract class Player extends GameObject {
         drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
     }
     */
-}
+   
+    // Shoots a fireball from the player
+    public void shootFire() {
+        int fireballX;
+        float movementSpeed;
+        if (facingDirection == Direction.RIGHT) {
+        fireballX = Math.round(getX()) + getWidth();
+            movementSpeed = 3.0f;
+        } else {
+            fireballX = Math.round(getX() - 21);
+            movementSpeed = -3.0f;
+        }
+        int fireballY = Math.round(getY()) + 15;
+        Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
+        map.addEnemy(fireball);
+        // Modify to change cooldown (60 = 1 second)
+        fireCoolDown = 20;
+        }
+    }
+
