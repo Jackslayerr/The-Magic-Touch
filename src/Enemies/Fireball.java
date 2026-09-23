@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class Fireball extends Enemy {
     private float movementSpeed;
     private int existenceFrames;
+    private boolean fromPlayer;
     ArrayList<Enemy> enemies;
     public Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
@@ -26,6 +27,9 @@ public class Fireball extends Enemy {
 
         // how long the fireball will exist for before disappearing
         this.existenceFrames = existenceFrames;
+        
+        // if the fireball was shot by the player
+        this.fromPlayer = fromPlayer;
 
         initialize();
     }
@@ -63,9 +67,11 @@ public class Fireball extends Enemy {
 
     @Override
     public void touchedPlayer(Player player) {
-        // if fireball touches player, it disappears
-        super.touchedPlayer(player);
-        this.mapEntityStatus = MapEntityStatus.REMOVED;
+        // if fireball touches player, it disappears, unless the fireball is from the player
+        if (!fromPlayer) {
+            super.touchedPlayer(player);
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
+        }
     }
 
     @Override
