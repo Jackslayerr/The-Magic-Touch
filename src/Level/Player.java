@@ -1,5 +1,7 @@
 package Level;
 
+import Builders.FrameBuilder;
+import Engine.ImageLoader;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 
 import Enemies.Fireball;
 
+import static javax.swing.UIManager.put;
+
 public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
@@ -22,6 +26,7 @@ public abstract class Player extends GameObject {
     protected float jumpDegrade = 0;
     protected float terminalVelocityY = 0;
     protected float momentumYIncrease = 0;
+    protected int fireAnimationTimer = 0;
 
     // values used to handle player movement
     protected float jumpForce = 0;
@@ -245,9 +250,12 @@ public abstract class Player extends GameObject {
     }
     // Shoots fire is the "FIRE_KEY" is pressed and cooldown is up
     protected void playerShootFire() {
-        if (Keyboard.isKeyDown(FIRE_KEY) && fireCoolDown == 0) {
+        if (Keyboard.isKeyDown(FIRE_KEY) && !keyLocker.isKeyLocked(FIRE_KEY) && fireCoolDown == 0) {
+            keyLocker.lockKey(FIRE_KEY);
             shootFire();
+            fireAnimationTimer = 15;
         }
+
     }
 
     // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
@@ -262,10 +270,18 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyUp(JUMP_KEY)) {
             keyLocker.unlockKey(JUMP_KEY);
         }
+        if (Keyboard.isKeyUp(FIRE_KEY)) {
+            keyLocker.unlockKey(FIRE_KEY);
+        }
     }
 
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
+        if (fireAnimationTimer > 0) {
+            fireAnimationTimer--;
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+            return;
+        }
         if (playerState == PlayerState.STANDING) {
             // sets animation to a STAND animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
