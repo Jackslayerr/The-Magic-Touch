@@ -2,6 +2,7 @@ package Screens;
 
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Engine.ImageLoader;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -10,10 +11,13 @@ import Level.PlayerListener;
 import Maps.TestMap;
 import Players.Cat;
 
+import java.awt.image.BufferedImage;
+
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
+    protected BufferedImage backgroundImage;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected int screenTimer;
@@ -28,6 +32,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         // define/setup map
         this.map = new TestMap();
+        this.backgroundImage = ImageLoader.load("game-background-level1.png");
 
         // setup player
         this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
@@ -43,12 +48,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void update() {
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
-            // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 player.update();
                 map.update(player);
                 break;
-            // if level has been completed, bring up the level cleared screen
+
             case LEVEL_COMPLETED:
                 if (levelCompletedStateChangeStart) {
                     screenTimer = 130;
@@ -61,7 +65,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     }
                 }
                 break;
-            // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
+
             case LEVEL_LOSE:
                 levelLoseScreen.update();
                 break;
@@ -72,12 +76,20 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
+                // Draw the background first
+                graphicsHandler.drawImage(backgroundImage, 0, 0, 800, 605);
+
+                // Draw the map on top of the background
                 map.draw(graphicsHandler);
+
+                // Draw the player on top of everything
                 player.draw(graphicsHandler);
                 break;
+
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
                 break;
+
             case LEVEL_LOSE:
                 levelLoseScreen.draw(graphicsHandler);
                 break;
