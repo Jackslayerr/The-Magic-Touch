@@ -7,6 +7,7 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
+import NPCs.Torch;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -61,6 +62,9 @@ public class TestMap extends Map {
 
         Walrus walrus = new Walrus(getMapTile(30, 10).getLocation().subtractY(13));
         npcs.add(walrus);
+
+        Torch torch = new Torch(getMapTile(4, 11).getLocation().subtractY(13));
+        npcs.add(torch);
 
         return npcs;
     }
