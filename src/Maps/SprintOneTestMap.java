@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class SprintOneTestMap extends Map {
 
     public SprintOneTestMap() {
-        super("test_map.txt", new CastleTileset());
+        super("sprint_one_test_map.txt", new CastleTileset());
         this.playerStartPosition = getMapTile(2, 11).getLocation();
     }
 
