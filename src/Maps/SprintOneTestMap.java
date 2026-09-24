@@ -36,6 +36,16 @@ public class SprintOneTestMap extends Map {
     }
 
     @Override
+    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
+        enhancedMapTiles.add(endLevelBox);
+
+        return enhancedMapTiles;
+    }
+
+    @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
