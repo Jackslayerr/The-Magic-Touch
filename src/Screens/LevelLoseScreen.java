@@ -4,11 +4,11 @@ import Engine.*;
 import SpriteFont.SpriteFont;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 // This is the class for the level lose screen
 public class LevelLoseScreen extends Screen {
-    protected SpriteFont loseMessage;
-    protected SpriteFont instructions;
+    protected BufferedImage backgroundImage;
     protected KeyLocker keyLocker = new KeyLocker();
     protected PlayLevelScreen playLevelScreen;
 
@@ -19,8 +19,8 @@ public class LevelLoseScreen extends Screen {
 
     @Override
     public void initialize() {
-        loseMessage = new SpriteFont("You lose!", 350, 239, "Arial", 30, Color.white);
-        instructions = new SpriteFont("Press Space to try again or Escape to go back to the main menu", 120, 279,"Arial", 20, Color.white);
+        backgroundImage = ImageLoader.load("you-lost.png");
+
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
     }
@@ -43,8 +43,6 @@ public class LevelLoseScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
-        loseMessage.draw(graphicsHandler);
-        instructions.draw(graphicsHandler);
+        graphicsHandler.drawImage(backgroundImage, 0, 0, 794, 576);
     }
 }
