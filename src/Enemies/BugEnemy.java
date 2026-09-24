@@ -18,14 +18,14 @@ import java.util.HashMap;
 // enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class BugEnemy extends Enemy {
-    private float gravity = .5f;
-    private float movementSpeed = .5f;
+    private float gravity = 2.0f;
+    private float movementSpeed = 1.5f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
 
     public BugEnemy(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("GoblinEnemy.png"), 24, 24), "WALK_LEFT");
         this.startFacingDirection = facingDirection;
         this.initialize();
     }
@@ -99,25 +99,25 @@ public class BugEnemy extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
-                            .withBounds(6, 6, 12, 7)
+                            .withScale(3)
+                            .withBounds(6, 14, 12, 7)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
-                            .withBounds(6, 6, 12, 7)
+                            .withScale(3)
+                            .withBounds(6, 13, 12, 7)
                             .build()
             });
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
+                            .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
+                            .withBounds(6, 14, 12, 7)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
+                            .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
+                            .withBounds(6, 13, 12, 7)
                             .build()
             });
         }};
