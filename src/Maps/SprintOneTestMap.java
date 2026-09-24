@@ -26,7 +26,7 @@ public class SprintOneTestMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(19, 11).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
 
         DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
@@ -38,9 +38,6 @@ public class SprintOneTestMap extends Map {
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
-
-        Walrus walrus = new Walrus(getMapTile(30, 10).getLocation().subtractY(13));
-        npcs.add(walrus);
 
         Torch torch = new Torch(getMapTile(4, 11).getLocation().subtractY(13));
         npcs.add(torch);
