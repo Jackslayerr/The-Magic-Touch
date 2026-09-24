@@ -1,15 +1,12 @@
 package Screens;
 
-import Engine.GraphicsHandler;
-import Engine.Screen;
-import Engine.ScreenManager;
-import SpriteFont.SpriteFont;
-
+import Engine.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 // This class is for the level cleared screen
 public class LevelClearedScreen extends Screen {
-    protected SpriteFont winMessage;
+    protected BufferedImage backgroundImage;
 
     public LevelClearedScreen() {
         initialize();
@@ -17,7 +14,7 @@ public class LevelClearedScreen extends Screen {
 
     @Override
     public void initialize() {
-        winMessage = new SpriteFont("Level Cleared", 320, 239, "Arial", 30, Color.white);
+        backgroundImage = ImageLoader.load("level-cleared-level1.png");
     }
 
     @Override
@@ -25,9 +22,8 @@ public class LevelClearedScreen extends Screen {
 
     }
 
+    @Override
     public void draw(GraphicsHandler graphicsHandler) {
-        // paint entire screen black and dislpay level cleared text
-        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
-        winMessage.draw(graphicsHandler);
+        graphicsHandler.drawImage(backgroundImage, 0, 0, 794, 576);
     }
 }

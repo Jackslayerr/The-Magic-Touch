@@ -20,10 +20,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected BufferedImage backgroundImage;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
-    protected int screenTimer;
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
-    protected boolean levelCompletedStateChangeStart;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -54,16 +52,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
 
             case LEVEL_COMPLETED:
-                if (levelCompletedStateChangeStart) {
-                    screenTimer = 130;
-                    levelCompletedStateChangeStart = false;
-                } else {
-                    levelClearedScreen.update();
-                    screenTimer--;
-                    if (screenTimer == 0) {
-                        goBackToMenu();
-                    }
-                }
+                // Stay on the Level Cleared screen
+                levelClearedScreen.update();
                 break;
 
             case LEVEL_LOSE:
@@ -104,7 +94,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void onLevelCompleted() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-            levelCompletedStateChangeStart = true;
         }
     }
 
@@ -128,3 +117,4 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }
 }
+
