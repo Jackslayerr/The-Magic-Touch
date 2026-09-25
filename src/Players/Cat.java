@@ -18,9 +18,9 @@ public class Cat extends Player {
         super(new SpriteSheet(ImageLoader.load("flamehandmc.png"), 24, 24), x, y, "STAND_RIGHT");
         gravity = .5f;
         terminalVelocityY = 6f;
-        jumpHeight = 14.5f;
+        jumpHeight = 10.3f;
         jumpDegrade = .5f;
-        walkSpeed = 2.3f;
+        walkSpeed = 3.3f;
         momentumYIncrease = .5f;
     }
 
