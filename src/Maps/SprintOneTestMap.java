@@ -28,6 +28,11 @@ public class SprintOneTestMap extends Map {
 
         BugEnemy bugEnemy = new BugEnemy(getMapTile(22, 11).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
+        BugEnemy bugEnemy2 = new BugEnemy(getMapTile(30, 11).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(bugEnemy2);
+        BugEnemy bugEnemy3 = new BugEnemy(getMapTile(31, 11).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(bugEnemy3);
+
 
         // DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
         // enemies.add(dinosaurEnemy);

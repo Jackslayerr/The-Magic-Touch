@@ -119,7 +119,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     "♥",
                     x,
                     y + 25,
-                    new Font("Arial", Font.PLAIN, 28),
+                    new Font("Arial", Font.PLAIN, 56),
                     Color.RED
             );
         }
