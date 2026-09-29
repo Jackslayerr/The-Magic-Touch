@@ -36,16 +36,6 @@ public class MovementTestMap extends Map {
     }
 
     @Override
-    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
-        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-
-        // EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
-        // enhancedMapTiles.add(endLevelBox);
-
-        return enhancedMapTiles;
-    }
-
-    @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
@@ -53,5 +43,23 @@ public class MovementTestMap extends Map {
         // npcs.add(torch);
 
         return npcs;
+    }
+
+    @Override
+    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
+                ImageLoader.load("CastleMovingPlatform.png"),
+                getMapTile(8, 8).getLocation(),
+                getMapTile(14, 8).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6,48,4),
+                Direction.RIGHT
+        );
+        enhancedMapTiles.add(hmp);
+
+        return enhancedMapTiles;
     }
 }
