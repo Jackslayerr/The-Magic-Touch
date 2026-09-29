@@ -7,6 +7,8 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
+import Level.MapEntityStatus;
+import Level.MapTile;
 import Level.NPC;
 import Level.Player;
 import Utils.Point;
@@ -16,11 +18,14 @@ import java.util.HashMap;
 
 // This class is for the Torch NPC
 public class Torch extends NPC {
-
-    public Torch(Point location) {
+    int id;
+    MapTile changeToTile;
+    boolean puzzleDone = false;
+    public Torch(Point location, int id) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("torch-sprites-pixilart (4).png"), 24, 24), "Unlit");
         isInteractable = true;
         talkedToTime = -200;
+        this.id = id;
         //textbox.setText("Hello!");
         // textboxOffsetX = -4;
         // textboxOffsetY = -34;
@@ -30,12 +35,23 @@ public class Torch extends NPC {
         // while npc is being talked to, it raises its tail up (in excitement?)
         if (talkedTo) {
             currentAnimationName = "Lit";
+            if (id == 1 && puzzleDone == false) {
+                changeToTile = map.getMapTile(14, 7);
+                for (int i=7;i<11;i++) {
+                    map.setMapTile(15, i, changeToTile);
+                    puzzleDone = true;
+                }
+            }
         } else {
             currentAnimationName = "Unlit";
         }
         
 
         super.update(player);
+    }
+    @Override
+    public void checkTalkedTo(Player player) {
+        // TODO Auto-generated method stub
     }
 
     @Override

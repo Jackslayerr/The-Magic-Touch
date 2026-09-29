@@ -49,7 +49,7 @@ public class SprintOneTestMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Torch torch = new Torch(getMapTile(4, 11).getLocation().subtractY(13));
+        Torch torch = new Torch(getMapTile(4, 11).getLocation().subtractY(13), 1);
         npcs.add(torch);
 
         return npcs;
