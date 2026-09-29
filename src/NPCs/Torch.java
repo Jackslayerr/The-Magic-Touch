@@ -6,10 +6,12 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
+import Level.Enemy;
 import Level.NPC;
 import Level.Player;
 import Utils.Point;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 // This class is for the Torch NPC
@@ -31,6 +33,7 @@ public class Torch extends NPC {
         } else {
             currentAnimationName = "Unlit";
         }
+        
 
         super.update(player);
     }

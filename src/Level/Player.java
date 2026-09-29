@@ -446,13 +446,13 @@ public abstract class Player extends GameObject {
         float movementSpeed;
         if (facingDirection == Direction.RIGHT) {
         fireballX = Math.round(getX()) + getWidth();
-            movementSpeed = 3.0f;
+            movementSpeed = 5.0f;
         } else {
             fireballX = Math.round(getX() - 21);
-            movementSpeed = -3.0f;
+            movementSpeed = -5.0f;
         }
         int fireballY = Math.round(getY()) + 15;
-        Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, true);
+        Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 45, true);
         map.addEnemy(fireball);
         // Modify to change cooldown (60 = 1 second)
         fireCoolDown = 20;

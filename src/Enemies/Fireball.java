@@ -7,11 +7,13 @@ import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
+import Level.NPC;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import NPCs.Torch;
 
 // This class is for the fireball enemy that the DinosaurEnemy class shoots out
 // it will travel in a straight line (x axis) for a set time before disappearing
@@ -21,6 +23,7 @@ public class Fireball extends Enemy {
     private int existenceFrames;
     private boolean fromPlayer;
     ArrayList<Enemy> enemies;
+    ArrayList<NPC> npcs;
     public Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
         this.movementSpeed = movementSpeed;
@@ -30,7 +33,8 @@ public class Fireball extends Enemy {
         
         // if the fireball was shot by the player
         this.fromPlayer = fromPlayer;
-
+        // Grabs map npcs
+        
         initialize();
     }
 
@@ -44,9 +48,16 @@ public class Fireball extends Enemy {
             // move fireball forward
             moveXHandleCollision(movementSpeed);
             enemies = map.getEnemies();
+            npcs = map.getNPCs();
             for (Enemy enemy : enemies) {
                 if (this.intersects(enemy) && this != enemy) {
                     enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                }
+            }
+            for (NPC npc : npcs) {
+                if (npc instanceof Torch && this.intersects(npc)) {
+                    npc.talkedTo = true;
                     this.setMapEntityStatus(MapEntityStatus.REMOVED);
                 }
             }
@@ -79,7 +90,7 @@ public class Fireball extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
+                            .withScale(4)
                             .withBounds(1, 1, 5, 5)
                             .build()
             });

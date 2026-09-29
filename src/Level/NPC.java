@@ -12,7 +12,7 @@ import java.util.HashMap;
 // This class is a base class for all npcs in the game -- all npcs should extend from it
 public class NPC extends MapEntity {
     protected boolean isInteractable = false;
-    protected boolean talkedTo = false;
+    public boolean talkedTo = false;
     protected SpriteFont message;
     protected int talkedToTime; // how long after talking to NPC will textbox stay open -- use negative number to have it be infinite time
     protected int timer;
