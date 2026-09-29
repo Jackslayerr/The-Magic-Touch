@@ -18,10 +18,10 @@ public class Torch extends NPC {
     public Torch(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("torch-sprites-pixilart (4).png"), 24, 24), "Unlit");
         isInteractable = true;
-        talkedToTime = 200;
-        textbox.setText("Hello!");
-        textboxOffsetX = -4;
-        textboxOffsetY = -34;
+        talkedToTime = -200;
+        //textbox.setText("Hello!");
+        // textboxOffsetX = -4;
+        // textboxOffsetY = -34;
     }
 
     public void update(Player player) {

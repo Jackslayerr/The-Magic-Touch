@@ -75,7 +75,7 @@ public class NPC extends MapEntity {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        if (talkedTo) {
+        if (talkedTo && talkedToTime >= 0) {
             textbox.draw(graphicsHandler);
         }
     }

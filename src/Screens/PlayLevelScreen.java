@@ -31,7 +31,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public void initialize() {
         // define/setup map
-        this.map = new MovementTestMap();
+        this.map = new SprintOneTestMap();
         this.backgroundImage = ImageLoader.load("game-background-level1.png");
 
         // setup player
