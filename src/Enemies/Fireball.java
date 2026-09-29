@@ -25,7 +25,7 @@ public class Fireball extends Enemy {
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
     public Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("fireball.png"), 7, 7), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
         // how long the fireball will exist for before disappearing
