@@ -57,4 +57,58 @@ public class SlopeTileLayoutUtils {
         }
         return new TileLayout(slopeLayout, Direction.LEFT);
     }
+
+    // bottom piece of right 30 degree slope
+    public static TileLayout createBottomRight30SlopeLayout(int tileSize, int scale) {
+        int[][] slopeLayout = new int[(tileSize * scale)][(tileSize * scale)];
+
+        int colCounter = 0;
+
+        for (int i = slopeLayout.length - 1; i >= slopeLayout.length / 2; i--) {
+            for (int j = colCounter; j < slopeLayout[i].length; j++) {
+                slopeLayout[i][j] = 1;
+            }
+            colCounter += 2;
+        }
+
+        // Flip horizontally
+        for (int i = 0; i < slopeLayout.length; i++) {
+            for (int j = 0; j < slopeLayout[i].length / 2; j++) {
+                int temp = slopeLayout[i][j];
+                slopeLayout[i][j] = slopeLayout[i][slopeLayout[i].length - 1 - j];
+                slopeLayout[i][slopeLayout[i].length - 1 - j] = temp;
+            }
+        }
+
+        return new TileLayout(slopeLayout, Direction.RIGHT);
+    }
+
+
+    // top piece of right 30 degree slope
+    public static TileLayout createTopRight30SlopeLayout(int tileSize, int scale) {
+        int[][] slopeLayout = new int[(tileSize * scale)][(tileSize * scale)];
+
+        int colCounter = 0;
+
+        for (int i = slopeLayout.length - 1; i >= 0; i--) {
+            for (int j = colCounter; j < slopeLayout[i].length; j++) {
+                slopeLayout[i][j] = 1;
+            }
+
+            if (i < slopeLayout.length / 2) {
+                colCounter += 2;
+            }
+        }
+
+        // Flip horizontally
+        for (int i = 0; i < slopeLayout.length; i++) {
+            for (int j = 0; j < slopeLayout[i].length / 2; j++) {
+                int temp = slopeLayout[i][j];
+                slopeLayout[i][j] = slopeLayout[i][slopeLayout[i].length - 1 - j];
+                slopeLayout[i][slopeLayout[i].length - 1 - j] = temp;
+            }
+        }
+
+        return new TileLayout(slopeLayout, Direction.RIGHT);
+    }
 }
