@@ -7,6 +7,7 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
+import NPCs.Mentor;
 import NPCs.Torch;
 import NPCs.Walrus;
 import Tilesets.CastleTileset;
@@ -54,6 +55,9 @@ public class LevelOneMap extends Map {
         npcs.add(sign1);
         Walrus sign2 = new Walrus(getMapTile(27, 14).getLocation().subtractY(13), "Watch out for the goblin! Use your fireball to defeat him");
         npcs.add(sign2);
+
+        Mentor mentor = new Mentor(getMapTile(4, 11).getLocation().subtractY(13));
+        npcs.add(mentor);
 
         return npcs;
     }
