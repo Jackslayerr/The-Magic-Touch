@@ -1,6 +1,7 @@
 package MapEditor;
 
 import Level.Map;
+import Maps.LevelOneMap;
 import Maps.MovementTestMap;
 import Maps.SprintOneTestMap;
 import Maps.TestMap;
@@ -15,6 +16,7 @@ public class EditorMaps {
             add("TitleScreen");
             add("SprintOneTestMap");
             add("MovementTestMap");
+            add("LevelOneMap");
         }};
     }
 
@@ -28,6 +30,8 @@ public class EditorMaps {
                 return new SprintOneTestMap();
             case "MovementTestMap":
                 return new MovementTestMap();
+            case "LevelOneMap":
+                return new LevelOneMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }

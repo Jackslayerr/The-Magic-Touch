@@ -1,0 +1,62 @@
+package Maps;
+
+import Enemies.BugEnemy;
+import Enemies.DinosaurEnemy;
+import Engine.ImageLoader;
+import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.HorizontalMovingPlatform;
+import GameObject.Rectangle;
+import Level.*;
+import NPCs.Torch;
+import NPCs.Walrus;
+import Tilesets.CastleTileset;
+import Utils.Direction;
+
+import java.util.ArrayList;
+
+// Represents a test map to be used in a level
+public class LevelOneMap extends Map {
+
+    public LevelOneMap() {
+        super("level_one_map.txt", new CastleTileset());
+        this.playerStartPosition = getMapTile(3, 8).getLocation();
+    }
+
+    @Override
+    public ArrayList<Enemy> loadEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>();
+
+        // BugEnemy bugEnemy = new BugEnemy(getMapTile(22, 11).getLocation().subtractY(25), Direction.LEFT);
+        // enemies.add(bugEnemy);
+        // BugEnemy bugEnemy2 = new BugEnemy(getMapTile(30, 11).getLocation().subtractY(25), Direction.LEFT);
+        // enemies.add(bugEnemy2);
+        // BugEnemy bugEnemy3 = new BugEnemy(getMapTile(31, 11).getLocation().subtractY(25), Direction.LEFT);
+        // enemies.add(bugEnemy3);
+
+
+        // DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
+        // enemies.add(dinosaurEnemy);
+
+        return enemies;
+    }
+
+    @Override
+    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        // EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
+        // enhancedMapTiles.add(endLevelBox);
+
+        return enhancedMapTiles;
+    }
+
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        // Torch torch = new Torch(getMapTile(4, 11).getLocation().subtractY(13), 1);
+        // npcs.add(torch);
+
+        return npcs;
+    }
+}
