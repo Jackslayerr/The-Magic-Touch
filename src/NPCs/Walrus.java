@@ -15,11 +15,11 @@ import java.util.HashMap;
 // This class is for the walrus NPC
 public class Walrus extends NPC {
 
-    public Walrus(Point location) {
+    public Walrus(Point location, String text) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN");
         isInteractable = true;
         talkedToTime = 200;
-        textbox.setText("Hello!");
+        textbox.setText(text);
         textboxOffsetX = -4;
         textboxOffsetY = -34;
     }

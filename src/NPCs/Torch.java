@@ -21,6 +21,7 @@ public class Torch extends NPC {
     int id;
     MapTile changeToTile;
     boolean puzzleDone = false;
+    MapTile tileBuilt;
     public Torch(Point location, int id) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("torch-sprites-pixilart (4).png"), 24, 24), "Unlit");
         isInteractable = true;
@@ -35,13 +36,8 @@ public class Torch extends NPC {
         // while npc is being talked to, it raises its tail up (in excitement?)
         if (talkedTo) {
             currentAnimationName = "Lit";
-            if (id == 1 && puzzleDone == false) {
-                changeToTile = map.getMapTile(14, 7);
-                for (int i=7;i<11;i++) {
-                    map.setMapTile(15, i, changeToTile);
-                    puzzleDone = true;
-                }
-            }
+            idPuzzle();
+            
         } else {
             currentAnimationName = "Unlit";
         }
@@ -75,6 +71,27 @@ public class Torch extends NPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+    }
+
+    public void idPuzzle() {
+        if (puzzleDone == false) {
+            // Level One Puzzles, 1-2
+            if (id == 1) {
+                changeToTile = map.getMapTile(0, 0);
+                for (int i=14;i<17;i++) {
+                    map.setMapTile(15, i, changeToTile);
+                }
+                puzzleDone = true;
+            } else if (id == 2) {
+                for (int i=39;i<43;i++) {
+                    changeToTile = map.getMapTile(i, 15);
+                    tileBuilt = map.getTileset().getTile(0).build(changeToTile.getX(), changeToTile.getY());
+                    tileBuilt.setMap(map);
+                    map.setMapTile(i, 15, tileBuilt);
+                }
+                puzzleDone = true;
+            }
+        }
     }
 }
 

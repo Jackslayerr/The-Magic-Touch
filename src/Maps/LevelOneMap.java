@@ -19,23 +19,15 @@ public class LevelOneMap extends Map {
 
     public LevelOneMap() {
         super("level_one_map.txt", new CastleTileset());
-        this.playerStartPosition = getMapTile(3, 8).getLocation();
+        this.playerStartPosition = getMapTile(3, 16).getLocation();
     }
 
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        // BugEnemy bugEnemy = new BugEnemy(getMapTile(22, 11).getLocation().subtractY(25), Direction.LEFT);
-        // enemies.add(bugEnemy);
-        // BugEnemy bugEnemy2 = new BugEnemy(getMapTile(30, 11).getLocation().subtractY(25), Direction.LEFT);
-        // enemies.add(bugEnemy2);
-        // BugEnemy bugEnemy3 = new BugEnemy(getMapTile(31, 11).getLocation().subtractY(25), Direction.LEFT);
-        // enemies.add(bugEnemy3);
-
-
-        // DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
-        // enemies.add(dinosaurEnemy);
+        BugEnemy Goblin1 = new BugEnemy(getMapTile(31, 16).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(Goblin1);;
 
         return enemies;
     }
@@ -54,8 +46,14 @@ public class LevelOneMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        // Torch torch = new Torch(getMapTile(4, 11).getLocation().subtractY(13), 1);
-        // npcs.add(torch);
+        Torch torch1 = new Torch(getMapTile(12, 16).getLocation().subtractY(13), 1);
+        npcs.add(torch1);
+        Torch torch2 = new Torch(getMapTile(43, 13).getLocation().subtractY(13), 2);
+        npcs.add(torch2);
+        Walrus sign1 = new Walrus(getMapTile(7, 15).getLocation().subtractY(13), "You have the magic touch!" + "\n" + "Use the arrow keys to move, and press Z to shoot a fireball");
+        npcs.add(sign1);
+        Walrus sign2 = new Walrus(getMapTile(27, 14).getLocation().subtractY(13), "Watch out for the goblin! Use your fireball to defeat him");
+        npcs.add(sign2);
 
         return npcs;
     }
