@@ -93,7 +93,7 @@ public abstract class Player extends GameObject {
             fireCoolDown--;
         }
 
-        // if player is currently playing through level (has not won or lost)
+        // if player is currently playing through level
         if (levelState == LevelState.RUNNING) {
             applyGravity();
 
@@ -108,6 +108,13 @@ public abstract class Player extends GameObject {
             // move player with respect to map collisions
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
+            // Check if player has fallen below the map
+            if (getY() > map.getHeightPixels()) {
+            health = 0;
+             levelState = LevelState.PLAYER_DEAD;
+            }
+
+            
 
             handlePlayerAnimation();
 
@@ -477,7 +484,7 @@ public abstract class Player extends GameObject {
     /*
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+        drawBounds(new Color(255, 0, 0, 100));
     }
     */
 
