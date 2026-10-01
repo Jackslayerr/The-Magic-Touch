@@ -62,14 +62,14 @@ public class CastleTileset extends Tileset {
         mapTiles.add(invertedBrickTile);
 
 
-        Frame placeholderFrame = new FrameBuilder(getSubImage(0, 4))
+        Frame topBrickFrame = new FrameBuilder(getSubImage(0, 4))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder placeholderTile = new MapTileBuilder(placeholderFrame)
-                .withTileType(TileType.PASSABLE);
+        MapTileBuilder topBrickTile = new MapTileBuilder(topBrickFrame)
+                .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(placeholderTile);
+        mapTiles.add(topBrickTile);
 
         Frame magentaFrame = new FrameBuilder(getSubImage(0, 5))
                 .withScale(tileScale)
@@ -226,6 +226,15 @@ public class CastleTileset extends Tileset {
                 .withTileLayout(SlopeTileLayoutUtils.createTopRight30SlopeLayout(spriteWidth, (int) tileScale));
 
         mapTiles.add(rightStairsTopTile);
+
+        Frame gateFrame = new FrameBuilder(getSubImage(3,3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder gateTile = new MapTileBuilder(gateFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(gateTile);
 
         return mapTiles;
     }

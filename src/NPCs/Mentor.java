@@ -13,13 +13,13 @@ import Utils.Point;
 import java.util.HashMap;
 
 // This class is for the walrus NPC
-public class Walrus extends NPC {
+public class Mentor extends NPC {
 
-    public Walrus(Point location, String text) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN");
+    public Mentor(Point location) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("mentor.png"), 24, 24), "TAIL_DOWN");
         isInteractable = true;
         talkedToTime = 200;
-        textbox.setText(text);
+        textbox.setText("Hello!");
         textboxOffsetX = -4;
         textboxOffsetY = -34;
     }

@@ -8,6 +8,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Maps.LevelOneMap;
 import Maps.SprintOneTestMap;
 import Players.Cat;
 
@@ -33,7 +34,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
 
         // Define/setup map
-        this.map = new SprintOneTestMap();
+        this.map = new LevelOneMap();
         this.backgroundImage = ImageLoader.load("game-background-level1.png");
 
         // Setup player

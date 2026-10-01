@@ -1,0 +1,16 @@
+LEVEL 1 -----------------------------------------
+
+Signs (NPC):
+(7,15) Intro Text [sign1]
+(27,14) Goblin Text [sign2]
+
+Torches (NPC):
+(12,16) ID 1 [torch1]
+(43,13) ID 2 [torch2]
+
+Gates/Bridges:
+(15,14)-(15,16) Gate 1 {Activated by torch1}
+(39,15)-(42-15) Bridge 1 {activated by torch2}
+
+Enemies:
+(31-16) Goblin
