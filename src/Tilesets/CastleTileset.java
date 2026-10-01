@@ -161,28 +161,6 @@ public class CastleTileset extends Tileset {
 
         mapTiles.add(castleFloatingPlatformTile);
 
-        // left 45 degree slope
-        Frame leftSlopeFrame = new FrameBuilder(getSubImage(3, 1))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder leftSlopeTile = new MapTileBuilder(leftSlopeFrame)
-                .withTileType(TileType.SLOPE)
-                .withTileLayout(SlopeTileLayoutUtils.createLeft45SlopeLayout(spriteWidth, (int) tileScale));
-
-        mapTiles.add(leftSlopeTile);
-
-        // right 45 degree slope
-        Frame rightSlopeFrame = new FrameBuilder(getSubImage(3, 2))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder rightSlopeTile = new MapTileBuilder(rightSlopeFrame)
-                .withTileType(TileType.SLOPE)
-                .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
-
-        mapTiles.add(rightSlopeTile);
-
         // left 30 degree slope bottom
         Frame leftStairsBottomFrame = new FrameBuilder(getSubImage(2, 3))
                 .withScale(tileScale)
@@ -205,17 +183,6 @@ public class CastleTileset extends Tileset {
 
         mapTiles.add(leftStairsTopTile);
 
-        // right 30 degree slope bottom
-        Frame rightStairsBottomFrame = new FrameBuilder(getSubImage(3, 0))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder rightStairsBottomTile = new MapTileBuilder(rightStairsBottomFrame)
-                .withTileType(TileType.SLOPE)
-                .withTileLayout(SlopeTileLayoutUtils.createBottomRight30SlopeLayout(spriteWidth, (int) tileScale));
-
-        mapTiles.add(rightStairsBottomTile);
-
         // right 30 degree slope top
         Frame rightStairsTopFrame = new FrameBuilder(getSubImage(2, 5))
                 .withScale(tileScale)
@@ -227,6 +194,39 @@ public class CastleTileset extends Tileset {
 
         mapTiles.add(rightStairsTopTile);
 
+        // right 30 degree slope bottom
+        Frame rightStairsBottomFrame = new FrameBuilder(getSubImage(3, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder rightStairsBottomTile = new MapTileBuilder(rightStairsBottomFrame)
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createBottomRight30SlopeLayout(spriteWidth, (int) tileScale));
+
+        mapTiles.add(rightStairsBottomTile);
+
+        // left 45 degree slope
+        Frame leftSlopeFrame = new FrameBuilder(getSubImage(3, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder leftSlopeTile = new MapTileBuilder(leftSlopeFrame)
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createLeft45SlopeLayout(spriteWidth, (int) tileScale));
+
+        mapTiles.add(leftSlopeTile);
+
+        // right 45 degree slope
+        Frame rightSlopeFrame = new FrameBuilder(getSubImage(3, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder rightSlopeTile = new MapTileBuilder(rightSlopeFrame)
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
+
+        mapTiles.add(rightSlopeTile);
+
         Frame gateFrame = new FrameBuilder(getSubImage(3,3))
                 .withScale(tileScale)
                 .build();
@@ -235,6 +235,15 @@ public class CastleTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(gateTile);
+
+        Frame bridgeFrame = new FrameBuilder(getSubImage(3, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder bridgeTile = new MapTileBuilder(bridgeFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(bridgeTile);
 
         return mapTiles;
     }

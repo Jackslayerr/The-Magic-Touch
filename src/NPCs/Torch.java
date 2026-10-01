@@ -85,7 +85,7 @@ public class Torch extends NPC {
             } else if (id == 2) {
                 for (int i=39;i<43;i++) {
                     changeToTile = map.getMapTile(i, 15);
-                    tileBuilt = map.getTileset().getTile(0).build(changeToTile.getX(), changeToTile.getY());
+                    tileBuilt = map.getTileset().getTile(22).build(changeToTile.getX(), changeToTile.getY());
                     tileBuilt.setMap(map);
                     map.setMapTile(i, 15, tileBuilt);
                 }
