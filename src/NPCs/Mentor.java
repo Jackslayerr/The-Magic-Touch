@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class Mentor extends NPC {
 
     public Mentor(Point location, String text) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("mentor.png"), 24, 24), "TAIL_DOWN");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("sign.png"), 24, 24), "TAIL_DOWN");
         isInteractable = true;
         talkedToTime = 200;
         textbox.setText(text);
