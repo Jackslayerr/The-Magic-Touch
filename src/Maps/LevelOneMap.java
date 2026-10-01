@@ -1,11 +1,6 @@
 package Maps;
 
 import Enemies.BugEnemy;
-import Enemies.DinosaurEnemy;
-import Engine.ImageLoader;
-import EnhancedMapTiles.EndLevelBox;
-import EnhancedMapTiles.HorizontalMovingPlatform;
-import GameObject.Rectangle;
 import Level.*;
 import NPCs.Mentor;
 import NPCs.Torch;
@@ -51,13 +46,13 @@ public class LevelOneMap extends Map {
         npcs.add(torch1);
         Torch torch2 = new Torch(getMapTile(43, 13).getLocation().subtractY(13), 2);
         npcs.add(torch2);
-        Walrus sign1 = new Walrus(getMapTile(7, 15).getLocation().subtractY(13), "You have the magic touch!" + "\n" + "Use the arrow keys to move, and press Z to shoot a fireball");
-        npcs.add(sign1);
+
         Walrus sign2 = new Walrus(getMapTile(27, 14).getLocation().subtractY(13), "Watch out for the goblin! Use your fireball to defeat him");
         npcs.add(sign2);
 
-        Mentor mentor = new Mentor(getMapTile(4, 11).getLocation().subtractY(13));
+        Mentor mentor = new Mentor(getMapTile(7, 15).getLocation().subtractY(13), "Your first task for me is to clear this level." + "\n" + "Use the arrow keys to move." + "\n" + "Here is the fire hand rune, use it by pressing Z to" + "\n" + "shoot a fireball at that torch.");
         npcs.add(mentor);
+
 
         return npcs;
     }

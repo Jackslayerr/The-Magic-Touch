@@ -1,15 +1,9 @@
 package Maps;
 
 import Enemies.BugEnemy;
-import Enemies.DinosaurEnemy;
-import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
-import EnhancedMapTiles.HorizontalMovingPlatform;
-import GameObject.Rectangle;
 import Level.*;
-import NPCs.Mentor;
 import NPCs.Torch;
-import NPCs.Walrus;
 import Tilesets.CastleTileset;
 import Utils.Direction;
 
@@ -58,8 +52,7 @@ public class SprintOneTestMap extends Map {
         Torch torch = new Torch(getMapTile(4, 11).getLocation().subtractY(13), 1);
         npcs.add(torch);
 
-        Mentor mentor = new Mentor(getMapTile(2, 11).getLocation().subtractY(13));
-        npcs.add(mentor);
+
 
         return npcs;
     }
