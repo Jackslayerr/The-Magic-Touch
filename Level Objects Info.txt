@@ -6,7 +6,7 @@ Signs (NPC):
 
 Torches (NPC):
 (12,16) ID 1 [torch1]
-(43,13) ID 2 [torch2]
+(43,14) ID 2 [torch2]
 
 Gates/Bridges:
 (15,14)-(15,16) Gate 1 {Activated by torch1}

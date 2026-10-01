@@ -44,7 +44,7 @@ public class LevelOneMap extends Map {
 
         Torch torch1 = new Torch(getMapTile(12, 16).getLocation().subtractY(13), 1);
         npcs.add(torch1);
-        Torch torch2 = new Torch(getMapTile(43, 13).getLocation().subtractY(13), 2);
+        Torch torch2 = new Torch(getMapTile(43, 14).getLocation().subtractY(13), 2);
         npcs.add(torch2);
 
         Walrus sign2 = new Walrus(getMapTile(27, 14).getLocation().subtractY(13), "Watch out for the goblin! Use your fireball to defeat him");
