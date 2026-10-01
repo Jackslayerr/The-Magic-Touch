@@ -109,9 +109,9 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
             // Check if player has fallen below the map
-            if (getY() > map.getHeightPixels()) {
-            health = 0;
-             levelState = LevelState.PLAYER_DEAD;
+            if (levelState == LevelState.RUNNING && getY() > map.getHeightPixels()) {
+                health = 0;
+                levelState = LevelState.PLAYER_DEAD;
             }
 
             

@@ -44,7 +44,7 @@ public class SprintOneTestMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(33, 9).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;
