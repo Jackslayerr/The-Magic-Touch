@@ -12,6 +12,7 @@ import Level.MapTile;
 import Level.NPC;
 import Level.Player;
 import Utils.Point;
+import Utils.Puzzle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +22,6 @@ public class Torch extends NPC {
     int id;
     MapTile changeToTile;
     boolean puzzleDone = false;
-    MapTile tileBuilt;
     public Torch(Point location, int id) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("torch-sprites-pixilart (4).png"), 24, 24), "Unlit");
         isInteractable = true;
@@ -77,18 +77,10 @@ public class Torch extends NPC {
         if (puzzleDone == false) {
             // Level One Puzzles, 1-2
             if (id == 1) {
-                changeToTile = map.getMapTile(0, 0);
-                for (int i=14;i<17;i++) {
-                    map.setMapTile(15, i, changeToTile);
-                }
+                Puzzle.getRidOfTiles(15, 15, 14, 16, map);
                 puzzleDone = true;
             } else if (id == 2) {
-                for (int i=39;i<43;i++) {
-                    changeToTile = map.getMapTile(i, 15);
-                    tileBuilt = map.getTileset().getTile(22).build(changeToTile.getX(), changeToTile.getY());
-                    tileBuilt.setMap(map);
-                    map.setMapTile(i, 15, tileBuilt);
-                }
+                Puzzle.addTiles(39, 42, 15, 15, 22, map);
                 puzzleDone = true;
             }
         }
