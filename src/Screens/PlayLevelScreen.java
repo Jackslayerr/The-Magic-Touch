@@ -16,6 +16,8 @@ import Players.Cat;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Shape;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
@@ -28,6 +30,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
 
+    // Damage flash variables
+    protected int damageFlashTimer = 0;
+    protected int previousHealth = 12;
+
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
@@ -35,7 +41,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
 
         // Define/setup map
-        this.map = new LevelTwoMap();
+        this.map = new LevelOneMap();
         this.backgroundImage = ImageLoader.load("game-background-level1.png");
 
         // Setup player
@@ -47,6 +53,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.setMap(map);
         this.player.addListener(this);
 
+        // Reset damage flash
+        damageFlashTimer = 0;
+        previousHealth = player.getHealth();
+
         levelClearedScreen = new LevelClearedScreen();
         levelLoseScreen = new LevelLoseScreen(this);
 
@@ -55,12 +65,26 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public void update() {
 
-        // Based on screen state, perform specific actions
         switch (playLevelScreenState) {
 
             case RUNNING:
+
                 player.update();
                 map.update(player);
+
+                // Count down the red flash timer
+                if (damageFlashTimer > 0) {
+                    damageFlashTimer--;
+                }
+
+                // Detect when the player loses health
+                if (player.getHealth() < previousHealth) {
+                    damageFlashTimer = 20;
+                }
+
+                // Remember current health
+                previousHealth = player.getHealth();
+
                 break;
 
             case LEVEL_COMPLETED:
@@ -75,7 +99,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public void draw(GraphicsHandler graphicsHandler) {
 
-        // Based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
 
             case RUNNING:
@@ -95,6 +118,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 // Draw health hearts
                 drawHealth(graphicsHandler);
 
+                // Quick red flash when damaged
+                if (damageFlashTimer > 0) {
+
+                    graphicsHandler.drawRectangle(
+                            4, 4, 792, 597,
+                            new Color(255, 0, 0, 200),
+                            8
+                    );
+                }
+
                 break;
 
             case LEVEL_COMPLETED:
@@ -107,23 +140,52 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
-    // Draw the player's health as red hearts
+    // Draw the player's health using quarter hearts
     private void drawHealth(GraphicsHandler graphicsHandler) {
+
+        Graphics2D g = graphicsHandler.getGraphics();
 
         int health = player.getHealth();
 
-        for (int i = 0; i < health; i++) {
+        Font heartFont = new Font("Arial", Font.PLAIN, 56);
+
+        for (int i = 0; i < 5; i++) {
 
             int x = 20 + (i * 35);
             int y = 20;
 
-            graphicsHandler.drawString(
-                    "♥",
-                    x,
-                    y + 25,
-                    new Font("Arial", Font.PLAIN, 56),
-                    Color.RED
-            );
+            // Health remaining in this heart: 0 to 4
+            int heartHealth = Math.max(0, Math.min(4, health));
+
+            if (heartHealth == 0) {
+
+                
+
+            } else {
+
+                // Save original drawing boundary
+                Shape oldClip = g.getClip();
+
+                // Calculate the filled portion
+                int fillWidth = (int) (35 * (heartHealth / 4.0));
+
+                // Restrict drawing to the filled portion
+                g.setClip(x, y - 20, fillWidth, 60);
+
+                // Draw colored heart
+                graphicsHandler.drawString(
+                        "♥",
+                        x,
+                        y + 25,
+                        heartFont,
+                        Color.RED
+                );
+
+                // Restore original drawing boundary
+                g.setClip(oldClip);
+            }
+
+            health -= 4;
         }
     }
 

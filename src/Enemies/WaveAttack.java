@@ -47,10 +47,12 @@ public class WaveAttack extends Enemy {
             enemies = map.getEnemies();
             npcs = map.getNPCs();
             for (Enemy enemy : enemies) {
-                if (this.intersects(enemy) && this != enemy) {
+                if (fromPlayer && this.intersects(enemy) && this != enemy) {
                     enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    player.healPlayer();
+                    System.out.println("PLAYER FIREBALL DEFEATED ENEMY!");
                     this.setMapEntityStatus(MapEntityStatus.REMOVED);
-                }
+                 }
             }
             for (NPC npc : npcs) {
                 if (npc instanceof Torch && this.intersects(npc)) {

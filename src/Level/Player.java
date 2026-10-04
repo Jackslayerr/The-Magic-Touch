@@ -68,8 +68,8 @@ public abstract class Player extends GameObject {
     // PLAYER HEALTH SYSTEM
     // =====================================
 
-    protected int health = 3;
-    protected final int maxHealth = 3;
+    protected int health = 12;
+    protected final int maxHealth = 20;
 
     // Damage cooldown prevents rapid repeated damage
     protected int damageCooldown = 0;
@@ -396,7 +396,7 @@ public abstract class Player extends GameObject {
 
         if (mapEntity instanceof Enemy) {
 
-            health--;
+            health-= 4;
 
             System.out.println("Player Health: " + health);
 
@@ -408,7 +408,17 @@ public abstract class Player extends GameObject {
             }
         }
     }
+public void healPlayer() {
+    if (health < maxHealth) {
+        health += 1;
+    }
 
+    if (health > maxHealth) {
+        health = maxHealth;
+    }
+
+    System.out.println("Player Health: " + health);
+}
     // Get current player health
     public int getHealth() {
         return health;

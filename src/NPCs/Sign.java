@@ -16,29 +16,27 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 
-// This class represents the Mentor NPC
-public class Mentor extends NPC {
+// This class represents the sign NPC
+public class Sign extends NPC {
 
     private boolean wasEPressed = false;
     private boolean playerNearby = false;
 
-    public Mentor(Point location, String text) {
+    public Sign(Point location, String text) {
         super(
                 location.x,
                 location.y,
-                new SpriteSheet(ImageLoader.load("mentor.png"), 24, 24),
+                new SpriteSheet(ImageLoader.load("sign.png"), 24, 24),
                 "TAIL_DOWN"
         );
 
         isInteractable = true;
-
-        // Keep dialogue open until E is pressed again
         talkedToTime = -1;
 
         textbox.setText(text);
 
-        textboxOffsetX = -6;
-        textboxOffsetY = -60;
+        textboxOffsetX = -4;
+        textboxOffsetY = -120;
     }
 
     @Override
@@ -52,7 +50,6 @@ public class Mentor extends NPC {
         }
     }
 
-    // Use E instead of the original SPACE interaction
     @Override
     public void checkTalkedTo(Player player) {
 
@@ -60,12 +57,10 @@ public class Mentor extends NPC {
 
         boolean ePressed = Keyboard.isKeyDown(Key.E);
 
-        // Only react once per key press
         if (playerNearby && ePressed && !wasEPressed) {
             talkedTo = !talkedTo;
         }
 
-        // Close dialogue when the player walks away
         if (!playerNearby) {
             talkedTo = false;
         }
@@ -96,12 +91,10 @@ public class Mentor extends NPC {
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
 
-        // Show dialogue while interacting
         if (talkedTo) {
             textbox.draw(graphicsHandler);
         }
 
-        // Show E prompt when nearby and not talking
         if (playerNearby && !talkedTo) {
             graphicsHandler.drawString(
                     "(E)",
