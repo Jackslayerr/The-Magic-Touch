@@ -1,3 +1,4 @@
+
 package Level;
 
 import java.awt.*;
@@ -12,14 +13,14 @@ public class Textbox {
     protected Color fillColor = Color.white;
     protected Color borderColor = Color.black;
     protected int borderThickness = 1;
-    protected int vPadding = 10; // spacing above and below text
-    protected int hPadding = 10; // spacing to right and left of text
-    protected int gap = 0; // horizontal space between lines of text -- only matters with multiline text
+    protected int vPadding = 12;
+    protected int hPadding = 15;
+    protected int gap = 5;
 
     public Textbox(String text) {
-        Font font = new Font("Arial", Font.PLAIN, 12);
+        Font font = new Font("Arial", Font.PLAIN, 13);
         Point textLocation = new Point(x + hPadding + borderThickness, y + vPadding + borderThickness);
-        spriteFont = new SpriteFont(text, textLocation.x, textLocation.y,  font, Color.black);
+        spriteFont = new SpriteFont(text, textLocation.x, textLocation.y, font, Color.black);
     }
 
     public void setX(int x) {
@@ -95,30 +96,68 @@ public class Textbox {
 
     private Dimension getCalculatedBoxSize(Graphics2D graphics) {
         String[] lines = spriteFont.getText().split("\n");
+
+        FontMetrics metrics = graphics.getFontMetrics(spriteFont.getFont());
+
         int textWidth = getLongestTextWidth(lines, graphics);
-        int textHeight = spriteFont.getFont().getSize() * lines.length;
+
+        int textHeight = metrics.getHeight() * lines.length;
+
         int boxWidth = textWidth + (hPadding * 2) + (borderThickness * 2);
-        int boxHeight = textHeight + (vPadding * 2) + (borderThickness * 2) + ((lines.length - 1) * gap);
+
+        int boxHeight = textHeight
+                + (vPadding * 2)
+                + (borderThickness * 2)
+                + ((lines.length - 1) * gap);
+
         return new Dimension(boxWidth, boxHeight);
     }
 
     private int getLongestTextWidth(String[] lines, Graphics2D graphics) {
         int longestTextWidth = 0;
+
         for (String line : lines) {
-            int textWidth = graphics.getFontMetrics().stringWidth(line);
+            int textWidth = graphics.getFontMetrics(spriteFont.getFont()).stringWidth(line);
+
             if (textWidth > longestTextWidth) {
                 longestTextWidth = textWidth;
             }
         }
+
         return longestTextWidth;
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        Dimension boxSize = getCalculatedBoxSize(graphicsHandler.getGraphics());
+        Graphics2D graphics = graphicsHandler.getGraphics();
+
+        Dimension boxSize = getCalculatedBoxSize(graphics);
+
         graphicsHandler.drawFilledRectangle(x, y, boxSize.width, boxSize.height, fillColor);
+
         if (borderColor != null && borderThickness > 0) {
             graphicsHandler.drawRectangle(x, y, boxSize.width, boxSize.height, borderColor, borderThickness);
         }
-        spriteFont.drawWithParsedNewLines(graphicsHandler, gap);
+
+        String[] lines = spriteFont.getText().split("\n");
+
+        FontMetrics metrics = graphics.getFontMetrics(spriteFont.getFont());
+
+        int lineY = y + vPadding + metrics.getAscent() + borderThickness;
+
+        for (String line : lines) {
+            int textWidth = metrics.stringWidth(line);
+
+            int lineX = x + (boxSize.width - textWidth) / 2;
+
+            graphicsHandler.drawString(
+                    line,
+                    lineX,
+                    lineY,
+                    spriteFont.getFont(),
+                    Color.black
+            );
+
+            lineY += metrics.getHeight() + gap;
+        }
     }
 }

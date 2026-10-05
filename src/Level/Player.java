@@ -2,6 +2,7 @@
 package Level;
 
 import Builders.FrameBuilder;
+import Enemies.WaveAttack;
 import Engine.ImageLoader;
 import Engine.Key;
 import Engine.KeyLocker;
@@ -28,6 +29,7 @@ public abstract class Player extends GameObject {
     protected float terminalVelocityY = 0;
     protected float momentumYIncrease = 0;
     protected int fireAnimationTimer = 0;
+    protected int waveAnimationTimer = 0;
 
     // values used to handle player movement
     protected float jumpForce = 0;
@@ -37,6 +39,7 @@ public abstract class Player extends GameObject {
 
     // Element Powers
     protected float fireCoolDown = 0;
+    protected float waveCoolDown;
 
     // values used to keep track of player's current state
     protected PlayerState playerState;
@@ -56,6 +59,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
     protected Key FIRE_KEY = Key.Z;
+    protected Key WAVE_KEY = Key.X;
 
     // flags
     protected boolean isInvincible = false;
@@ -64,8 +68,8 @@ public abstract class Player extends GameObject {
     // PLAYER HEALTH SYSTEM
     // =====================================
 
-    protected int health = 3;
-    protected final int maxHealth = 3;
+    protected int health = 12;
+    protected final int maxHealth = 20;
 
     // Damage cooldown prevents rapid repeated damage
     protected int damageCooldown = 0;
@@ -91,6 +95,10 @@ public abstract class Player extends GameObject {
 
         if (fireCoolDown != 0) {
             fireCoolDown--;
+        }
+
+        if (waveCoolDown != 0) {
+            waveCoolDown--;
         }
 
         // if player is currently playing through level
@@ -146,21 +154,25 @@ public abstract class Player extends GameObject {
             case STANDING:
                 playerStanding();
                 playerShootFire();
+                playerShootWave();
                 break;
 
             case WALKING:
                 playerWalking();
                 playerShootFire();
+                playerShootWave();
                 break;
 
             case CROUCHING:
                 playerCrouching();
                 playerShootFire();
+                playerShootWave();
                 break;
 
             case JUMPING:
                 playerJumping();
                 playerShootFire();
+                playerShootWave();
                 break;
         }
     }
@@ -293,12 +305,22 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyUp(FIRE_KEY)) {
             keyLocker.unlockKey(FIRE_KEY);
         }
+
+        if (Keyboard.isKeyUp(WAVE_KEY)) {
+            keyLocker.unlockKey(WAVE_KEY);
+        }
     }
 
     protected void handlePlayerAnimation() {
         if (fireAnimationTimer > 0) {
             fireAnimationTimer--;
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+            return;
+        }
+
+        if (waveAnimationTimer > 0) {
+            waveAnimationTimer--;
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "WAVE_RIGHT" : "WAVE_LEFT";
             return;
         }
 
@@ -374,7 +396,7 @@ public abstract class Player extends GameObject {
 
         if (mapEntity instanceof Enemy) {
 
-            health--;
+            health-= 4;
 
             System.out.println("Player Health: " + health);
 
@@ -386,7 +408,17 @@ public abstract class Player extends GameObject {
             }
         }
     }
+public void healPlayer() {
+    if (health < maxHealth) {
+        health += 1;
+    }
 
+    if (health > maxHealth) {
+        health = maxHealth;
+    }
+
+    System.out.println("Player Health: " + health);
+}
     // Get current player health
     public int getHealth() {
         return health;
@@ -509,5 +541,36 @@ public abstract class Player extends GameObject {
 
         // Modify to change cooldown
         fireCoolDown = 20;
+    }
+
+    protected void playerShootWave() {
+        if (Keyboard.isKeyDown(WAVE_KEY) && !keyLocker.isKeyLocked(WAVE_KEY) && waveCoolDown == 0) {
+            keyLocker.lockKey(WAVE_KEY);
+            shootWave();
+            waveAnimationTimer = 15;
+        }
+    }
+
+    public void shootWave() {
+        int waveX;
+        float movementSpeed;
+
+        if (facingDirection == Direction.RIGHT) {
+            waveX = Math.round(getX()) + getWidth();
+            movementSpeed = 3.0f;
+        } else {
+            waveX = Math.round(getX() - 21);
+            movementSpeed = -3.0f;
+        }
+
+        int waveY = Math.round(getY()) + 15;
+
+
+        WaveAttack wave = new WaveAttack(new Point(waveX, waveY), movementSpeed, 60, true);
+
+        map.addEnemy(wave);
+
+
+        waveCoolDown = 20;
     }
 }

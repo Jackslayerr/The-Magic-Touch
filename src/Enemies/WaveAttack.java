@@ -4,28 +4,25 @@ import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
-import Level.Enemy;
-import Level.MapEntity;
-import Level.MapEntityStatus;
-import Level.NPC;
-import Level.Player;
+import Level.*;
+import NPCs.Torch;
 import Utils.Direction;
 import Utils.Point;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import NPCs.Torch;
 
 // This class is for the fireball enemy that the DinosaurEnemy class shoots out
 // it will travel in a straight line (x axis) for a set time before disappearing
 // it will disappear early if it collides with a solid map tile
-public class Fireball extends Enemy {
+public class WaveAttack extends Enemy {
     private float movementSpeed;
     private int existenceFrames;
     private boolean fromPlayer;
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
-    public Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("fireball.png"), 7, 7), "DEFAULT");
+    public WaveAttack(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("wave3.png"), 9, 9), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
         // how long the fireball will exist for before disappearing
@@ -50,9 +47,9 @@ public class Fireball extends Enemy {
             enemies = map.getEnemies();
             npcs = map.getNPCs();
             for (Enemy enemy : enemies) {
-                 if (fromPlayer && this.intersects(enemy) && this != enemy) {
-                     enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
-                     player.healPlayer();
+                if (fromPlayer && this.intersects(enemy) && this != enemy) {
+                    enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    player.healPlayer();
                     System.out.println("PLAYER FIREBALL DEFEATED ENEMY!");
                     this.setMapEntityStatus(MapEntityStatus.REMOVED);
                  }
