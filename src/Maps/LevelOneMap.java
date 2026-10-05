@@ -1,5 +1,6 @@
 package Maps;
 
+import Enemies.BatEnemy;
 import Enemies.BugEnemy;
 import Level.*;
 import NPCs.Mentor;
@@ -27,7 +28,10 @@ public class LevelOneMap extends Map {
                 Direction.LEFT
         );
 
+        BatEnemy Bat1 = new BatEnemy(getMapTile(31, 16).getLocation().subtractY(20), Direction.LEFT);
+
         enemies.add(Goblin1);
+        enemies.add(Bat1);
 
         return enemies;
     }
