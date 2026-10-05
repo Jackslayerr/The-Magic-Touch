@@ -35,7 +35,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
 
         // Define/setup map
-        this.map = new LevelTwoMap();
+        this.map = new LevelOneMap();
         this.backgroundImage = ImageLoader.load("game-background-level1.png");
 
         // Setup player
