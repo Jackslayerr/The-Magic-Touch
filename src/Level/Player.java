@@ -435,17 +435,16 @@ public abstract class Player extends GameObject {
             }
         }
     }
-public void healPlayer() {
-    if (health < maxHealth) {
-        health += 1;
-    }
-
-    if (health > maxHealth) {
-        health = maxHealth;
-    }
-
-    System.out.println("Player Health: " + health);
-}
+//public void healPlayer() {
+   // if (health < maxHealth) {
+     //   health += 1;
+//    }
+//
+    //if (health > maxHealth) {
+     //   health = maxHealth;
+   // }
+//System.out.println("Player Health: " + health);
+//}
     // Get current player health
     public int getHealth() {
         return health;

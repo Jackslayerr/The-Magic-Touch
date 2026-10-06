@@ -52,7 +52,7 @@ public class Fireball extends Enemy {
             for (Enemy enemy : enemies) {
                  if (fromPlayer && this.intersects(enemy) && this != enemy) {
                      enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
-                     player.healPlayer();
+                    // player.healPlayer();
                     System.out.println("PLAYER FIREBALL DEFEATED ENEMY!");
                     this.setMapEntityStatus(MapEntityStatus.REMOVED);
                  }
