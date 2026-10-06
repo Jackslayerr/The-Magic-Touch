@@ -95,7 +95,7 @@ public class LevelOneMap extends Map {
         npcs.add(torch6);
 
         Torch torch7 = new Torch(
-                getMapTile(90, 6).getLocation().subtractY(-3),
+                getMapTile(90, 7).getLocation().subtractY(13),
                 7
         );
 

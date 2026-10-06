@@ -13,7 +13,7 @@ Torches (NPC):
 Final Puzzle
 (93,15) ID 5 [torch5]
 (79,18) ID 6 [torch6]
-(90,6) ID 7 [torch7]
+(90,7) ID 7 [torch7]
 (78,4) ID 8 [torch8]
 (52,14) ID 9 [torch9]
 
