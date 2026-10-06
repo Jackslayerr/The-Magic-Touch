@@ -68,6 +68,10 @@ public class LevelTwoMap extends Map {
         Icicle Icicle14 = new Icicle(getMapTile(38, 17).getLocation().subtractY(0));
         enemies.add(Icicle14);
 
+        /* Enemies
+         */
+
+
         return enemies;
     }
 
