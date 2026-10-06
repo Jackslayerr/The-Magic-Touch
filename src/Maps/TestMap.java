@@ -57,6 +57,4 @@ public class TestMap extends Map {
     }
 
 
-        return npcs;
     }
-}
