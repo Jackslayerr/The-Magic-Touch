@@ -3,7 +3,7 @@ package Maps;
 import Level.*;
 import NPCs.Mentor;
 import NPCs.Torch;
-import NPCs.Walrus;
+import NPCs.Sign;
 import Enemies.*;
 import Tilesets.IceCaveTileset;
 import Utils.Direction;

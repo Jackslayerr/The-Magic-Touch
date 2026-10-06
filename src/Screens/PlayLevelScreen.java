@@ -41,9 +41,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
 
         // Define/setup map
-        this.map = new LevelOneMap();
-        this.backgroundImage = ImageLoader.load("game-background-level1.png");
-
+        this.map = new LevelTwoMap();
+        this.backgroundImage = ImageLoader.load("game-background-level2.png");
         // Setup player
         this.player = new Cat(
                 map.getPlayerStartPosition().x,

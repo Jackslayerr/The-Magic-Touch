@@ -8,7 +8,7 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.Torch;
-import NPCs.Walrus;
+import NPCs.Sign;
 import Tilesets.CastleTileset;
 import Utils.Direction;
 

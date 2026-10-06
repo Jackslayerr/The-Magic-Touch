@@ -71,7 +71,7 @@ public abstract class Player extends GameObject {
     // =====================================
 
     protected int health = 12;
-    protected final int maxHealth = 20;
+    protected final int maxHealth = 12;
 
     // Damage cooldown prevents rapid repeated damage
     protected int damageCooldown = 0;
