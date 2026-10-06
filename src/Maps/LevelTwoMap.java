@@ -90,6 +90,17 @@ public class LevelTwoMap extends Map {
         ArrayList<NPC> npcs = new ArrayList<>();
 
 
+        // sign1
+        Sign sign1 = new Sign(
+                getMapTile(4, 17).getLocation().subtractY(13),
+                "Welcome to the Frostbite Caverns!"
+                + "\n" + "You've gained the power of Ice Blast (X)."
+                + "\n" + "Defeat the Yetis, overcome the icy passages,"
+                + "\n" + "and retrieve the second artifact! "
+
+        );
+
+        npcs.add(sign1);
 
         return npcs;
     }
