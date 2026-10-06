@@ -7,6 +7,8 @@ import NPCs.Mentor;
 import NPCs.Torch;
 import NPCs.Sign;
 import Tilesets.CastleTileset;
+import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.HorizontalMovingPlatform;
 import Utils.Direction;
 
 import java.util.ArrayList;
@@ -40,8 +42,8 @@ public class LevelOneMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        // EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
-        // enhancedMapTiles.add(endLevelBox);
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(93, 15).getLocation(), "WaterChest.png");
+        enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;
     }

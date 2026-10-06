@@ -61,6 +61,8 @@ public abstract class Player extends GameObject {
     protected Key FIRE_KEY = Key.Z;
     protected Key WAVE_KEY = Key.X;
 
+    private boolean frozen = false;
+
     // flags
     protected boolean isInvincible = false;
 
@@ -82,6 +84,10 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
+    }
+
+    public void setFrozen(boolean frozen) {
+        this.frozen = frozen;
     }
 
     public void update() {
@@ -179,6 +185,11 @@ public abstract class Player extends GameObject {
 
     // player STANDING state logic
     protected void playerStanding() {
+
+        if (frozen) {
+            return;
+        }
+
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.WALKING;
         }
@@ -195,6 +206,11 @@ public abstract class Player extends GameObject {
 
     // player WALKING state logic
     protected void playerWalking() {
+
+        if (frozen) {
+            return;
+        }
+
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
             moveAmountX -= walkSpeed;
             facingDirection = Direction.LEFT;
@@ -221,6 +237,9 @@ public abstract class Player extends GameObject {
 
     // player CROUCHING state logic
     protected void playerCrouching() {
+        if (frozen) {
+            return;
+        }
         if (Keyboard.isKeyUp(CROUCH_KEY)) {
             playerState = PlayerState.STANDING;
         }
@@ -233,6 +252,11 @@ public abstract class Player extends GameObject {
 
     // player JUMPING state logic
     protected void playerJumping() {
+
+        if (frozen) {
+            return;
+        }
+
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
@@ -281,6 +305,9 @@ public abstract class Player extends GameObject {
 
     // Shoots fire when FIRE_KEY is pressed and cooldown is up
     protected void playerShootFire() {
+        if (frozen) {
+            return;
+        }
         if (Keyboard.isKeyDown(FIRE_KEY) && !keyLocker.isKeyLocked(FIRE_KEY) && fireCoolDown == 0) {
             keyLocker.lockKey(FIRE_KEY);
             shootFire();
@@ -544,6 +571,9 @@ public void healPlayer() {
     }
 
     protected void playerShootWave() {
+        if (frozen) {
+            return;
+        }
         if (Keyboard.isKeyDown(WAVE_KEY) && !keyLocker.isKeyLocked(WAVE_KEY) && waveCoolDown == 0) {
             keyLocker.lockKey(WAVE_KEY);
             shootWave();
