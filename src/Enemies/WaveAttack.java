@@ -22,7 +22,7 @@ public class WaveAttack extends Enemy {
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
     public WaveAttack(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("wave3.png"), 9, 9), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("wave3.png"), 12, 12), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
         // how long the fireball will exist for before disappearing
