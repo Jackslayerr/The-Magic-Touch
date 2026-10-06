@@ -36,7 +36,7 @@ public class Sign extends NPC {
         textbox.setText(text);
 
         textboxOffsetX = -4;
-        textboxOffsetY = -120;
+        textboxOffsetY = -90;
     }
 
     @Override
