@@ -10,7 +10,6 @@ import Level.Player;
 import Level.PlayerListener;
 import Maps.LevelOneMap;
 import Maps.LevelTwoMap;
-import Maps.SprintOneTestMap;
 import Players.Cat;
 
 import java.awt.image.BufferedImage;
@@ -41,7 +40,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
 
         // Define/setup map
-        this.map = new LevelTwoMap();
+        this.map = new LevelOneMap();
         this.backgroundImage = ImageLoader.load("game-background-level2.png");
         // Setup player
         this.player = new Cat(
