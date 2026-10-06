@@ -50,7 +50,7 @@ public class TestMap extends Map {
         );
         enhancedMapTiles.add(hmp);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation(), "WaterChest.png");
         enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;
