@@ -88,6 +88,11 @@ public abstract class Player extends GameObject {
 
     public void setFrozen(boolean frozen) {
         this.frozen = frozen;
+        if (frozen) {
+            playerState = PlayerState.STANDING;
+            currentAnimationName = "STANDING_RIGHT";
+            currentFrameIndex = 0;
+        }
     }
 
     public void update() {
