@@ -2,6 +2,8 @@ package Maps;
 
 import Enemies.BatEnemy;
 import Enemies.BugEnemy;
+import Enemies.Icicle;
+import Enemies.Spike;
 import Level.*;
 import NPCs.Mentor;
 import NPCs.Torch;
@@ -32,6 +34,12 @@ public class LevelOneMap extends Map {
        BatEnemy Bat1 = new BatEnemy(getMapTile(41, 13).getLocation().subtractY(20), Direction.LEFT);
         enemies.add(Goblin1);
         enemies.add(Bat1);
+
+        Spike Spike1 = new Spike(getMapTile(54, 11).getLocation().subtractY(0));
+        enemies.add(Spike1);;
+
+        Spike Spike2 = new Spike(getMapTile(66, 18).getLocation().subtractY(0));
+        enemies.add(Spike2);;
 
         return enemies;
     }
