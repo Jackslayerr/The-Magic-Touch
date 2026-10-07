@@ -4,6 +4,7 @@ import Enemies.BatEnemy;
 import Enemies.BugEnemy;
 import Enemies.Icicle;
 import Enemies.Spike;
+import Engine.ImageLoader;
 import Level.*;
 import NPCs.Mentor;
 import NPCs.Torch;
@@ -11,6 +12,8 @@ import NPCs.Sign;
 import Tilesets.CastleTileset;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.VerticalMovingPlatform;
+import GameObject.Rectangle;
 import Utils.Direction;
 
 import java.util.ArrayList;
