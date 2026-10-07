@@ -1,5 +1,5 @@
 package Engine;
-
+import Level.Map;
 /*
  * Default Screen that does nothing
  * Its existence is really just to prevent null pointers from occurring if no Screen is set somewhere
@@ -9,7 +9,7 @@ public class DefaultScreen extends Screen {
     public DefaultScreen() { }
 
     @Override
-    public void initialize() { }
+    public void initialize(Map level, String backgroundImageFile) { }
 
     @Override
     public void update() { }

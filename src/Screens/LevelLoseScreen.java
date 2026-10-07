@@ -1,6 +1,7 @@
 package Screens;
 
 import Engine.*;
+import Level.Map;
 import SpriteFont.SpriteFont;
 
 import java.awt.*;
@@ -14,12 +15,12 @@ public class LevelLoseScreen extends Screen {
 
     public LevelLoseScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
-        initialize();
+        initialize(null, "you-lost.png");
     }
 
     @Override
-    public void initialize() {
-        backgroundImage = ImageLoader.load("you-lost.png");
+    public void initialize(Map level, String backgroundImageFile) {
+        backgroundImage = ImageLoader.load(backgroundImageFile);
 
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);

@@ -1,6 +1,7 @@
 package Screens;
 
 import Engine.*;
+import Level.Map;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import SpriteFont.SpriteFont;
@@ -25,7 +26,7 @@ public class MenuScreen extends Screen {
     }
 
     @Override
-    public void initialize() {
+    public void initialize(Map level, String backgroundImageFile) {
         playGame = new SpriteFont("PLAY GAME", 345, 295, "Arial", 20, Color.white);
         //playGame = new SpriteFont("PLAY GAME", 200, 123, "Arial", 30, new Color(49, 207, 240));
         playGame.setOutlineColor(Color.black);
@@ -36,7 +37,7 @@ public class MenuScreen extends Screen {
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
 
-        backgroundImage = ImageLoader.load("menu-screen.png");
+        backgroundImage = ImageLoader.load(backgroundImageFile);
 
         keyPressTimer = 0;
         menuItemSelected = -1;

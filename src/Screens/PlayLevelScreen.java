@@ -12,6 +12,8 @@ import Maps.LevelOneMap;
 import Maps.LevelTwoMap;
 import Maps.SprintOneTestMap;
 import Players.Cat;
+import Engine.Key;
+import Engine.Keyboard;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
@@ -22,6 +24,7 @@ import java.awt.Shape;
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
 
+
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
     protected BufferedImage backgroundImage;
@@ -29,6 +32,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected PlayLevelScreenState playLevelScreenState;
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
+
+    protected int currentLevel = 1;
+    protected static int totalLevels = 2;
 
     // Damage flash variables
     protected int damageFlashTimer = 0;
@@ -38,11 +44,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.screenCoordinator = screenCoordinator;
     }
 
-    public void initialize() {
+    public void initialize(Map level, String backgroundImageFile) {
 
         // Define/setup map
-        this.map = new LevelTwoMap();
-        this.backgroundImage = ImageLoader.load("game-background-level2.png");
+        this.map = level;
+        this.backgroundImage = ImageLoader.load(backgroundImageFile);
         // Setup player
         this.player = new Cat(
                 map.getPlayerStartPosition().x,
@@ -131,6 +137,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
+                if (Keyboard.isKeyDown(Key.SPACE)) {
+                    loadLevel(currentLevel +1);
+                }
                 break;
 
             case LEVEL_LOSE:
@@ -209,7 +218,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void resetLevel() {
-        initialize();
+        loadLevel(currentLevel);
     }
 
     public void goBackToMenu() {
@@ -221,5 +230,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         RUNNING,
         LEVEL_COMPLETED,
         LEVEL_LOSE
+    }
+
+    private Map chooseLevel(int levelNumber){
+        switch (levelNumber) {
+            case 2: return new LevelTwoMap();
+            default: return new LevelOneMap();
+        }
+    }
+
+    private String chooseBackground(int levelNumber){
+        switch (levelNumber) {
+            case 2: return "game-background-level2.png";
+            default: return "game-background-level1.png";
+        }
+    }
+
+    public void loadLevel(int levelNumber) {
+        currentLevel = levelNumber;
+        initialize(chooseLevel(levelNumber), chooseBackground(levelNumber));
     }
 }
