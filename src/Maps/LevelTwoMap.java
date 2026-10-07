@@ -5,6 +5,9 @@ import NPCs.Mentor;
 import NPCs.Torch;
 import NPCs.Sign;
 import Enemies.*;
+import Engine.ImageLoader;
+import EnhancedMapTiles.VerticalMovingPlatform;
+import GameObject.Rectangle;
 import Tilesets.IceCaveTileset;
 import Utils.Direction;
 
@@ -79,6 +82,18 @@ public class LevelTwoMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
+
+        VerticalMovingPlatform vmp = new VerticalMovingPlatform(
+                ImageLoader.load("IceCaveMovingPlatform.png"),
+                getMapTile(45, 9).getLocation(),
+                getMapTile(45, 14).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6, 48,4),
+                Direction.DOWN
+        );
+        enhancedMapTiles.add(vmp);
+        
         // EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
         // enhancedMapTiles.add(endLevelBox);
 
