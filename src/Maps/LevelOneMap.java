@@ -123,7 +123,7 @@ public class LevelOneMap extends Map {
 
         npcs.add(sign);
 
-        // Mentor tutorial
+        // sign tutorial
         Sign sign2 = new Sign(
                 getMapTile(7, 15).getLocation().subtractY(13),
                 "Your treasure-hunting dreams have come true!"
