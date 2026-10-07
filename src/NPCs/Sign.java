@@ -19,7 +19,7 @@ import java.util.HashMap;
 // This class represents the sign NPC
 public class Sign extends NPC {
 
-    private boolean wasEPressed = false;
+    private boolean wasSpacePressed = false;
     private boolean playerNearby = false;
 
     public Sign(Point location, String text) {
@@ -36,7 +36,7 @@ public class Sign extends NPC {
         textbox.setText(text);
 
         textboxOffsetX = -4;
-        textboxOffsetY = -120;
+        textboxOffsetY = -90;
     }
 
     @Override
@@ -55,9 +55,9 @@ public class Sign extends NPC {
 
         playerNearby = intersects(player);
 
-        boolean ePressed = Keyboard.isKeyDown(Key.E);
+        boolean spacePressed = Keyboard.isKeyDown(Key.SPACE);
 
-        if (playerNearby && ePressed && !wasEPressed) {
+        if (playerNearby && spacePressed && !wasSpacePressed) {
             talkedTo = !talkedTo;
         }
 
@@ -65,7 +65,7 @@ public class Sign extends NPC {
             talkedTo = false;
         }
 
-        wasEPressed = ePressed;
+        wasSpacePressed = spacePressed;
     }
 
     @Override
@@ -97,7 +97,7 @@ public class Sign extends NPC {
 
         if (playerNearby && !talkedTo) {
             graphicsHandler.drawString(
-                    "(E)",
+                    "(Space)",
                     (int) getCalibratedXLocation() + 12,
                     (int) getCalibratedYLocation() - 8,
                     new Font("Arial", Font.PLAIN, 12),

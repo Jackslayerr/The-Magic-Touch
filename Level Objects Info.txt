@@ -1,16 +1,34 @@
 LEVEL 1 -----------------------------------------
 
 Signs (NPC):
-(7,15) Intro Text [sign1]
-(27,14) Goblin Text [sign2]
+(7,15) Intro Text [sign2]
+(27,14) Goblin Text [sign]
+(56,2) Secret Text [sign3]
 
 Torches (NPC):
 (12,16) ID 1 [torch1]
 (43,14) ID 2 [torch2]
+(46,16) ID 3 [torch3]
+(52,14) ID 4 [torch4]
+Final Puzzle
+(93,15) ID 5 [torch5]
+(79,18) ID 6 [torch6]
+(90,7) ID 7 [torch7]
+(78,4) ID 8 [torch8]
+(52,14) ID 9 [torch9]
 
 Gates/Bridges:
 (15,14)-(15,16) Gate 1 {Activated by torch1}
-(39,15)-(42-15) Bridge 1 {activated by torch2}
+(39,15)-(42-15) Bridge 1 {Activated by torch2}
+(51,9)-(59-11) Gate 2 {Activated by torch3}
+(58,19)-(62-19) Bridge 2 {Activated by torch4}
+Final Puzzle
+(86,9)-(86,11) Gate 3 {Activated by torch5}
+(87,9)-(87,11) Gate 4 {Activated by torch6}
+(88,9)-(88,11) Gate 5 {Activated by torch7}
+(89,9)-(89,11) Gate 6 {Activated by torch8}
+(90,9)-(90,11) Gate 7 {Activated by torch9}
 
 Enemies:
 (31-16) Goblin
+(41,13) Bat
