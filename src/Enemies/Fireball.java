@@ -58,6 +58,11 @@ public class Fireball extends Enemy {
                          break;
                      }
 
+                     // Fireball has no effect on Spike
+                     if (enemy instanceof Spike) {
+                         break;
+                     }
+
                      // CHECK IF IT'S A SNOW GOBLIN!!!!!
                      if (enemy instanceof SnowGoblinEnemy) {
                          // Remove le snow goblin
