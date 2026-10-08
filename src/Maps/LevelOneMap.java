@@ -27,7 +27,7 @@ public class LevelOneMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy Goblin1 = new BugEnemy(
+        GoblinEnemy Goblin1 = new GoblinEnemy(
                 getMapTile(31, 16).getLocation().subtractY(25),
                 Direction.LEFT
         );

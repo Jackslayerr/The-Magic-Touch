@@ -58,7 +58,7 @@ public class Fireball extends Enemy {
                          enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
 
                          // Instantiate a normal goblin in the same spot
-                         BugEnemy goblin = new BugEnemy(enemy.getLocation(), Direction.LEFT);
+                         GoblinEnemy goblin = new GoblinEnemy(enemy.getLocation(), Direction.LEFT);
 
                          // Add the goblin into the map
                          map.addEnemy(goblin);
