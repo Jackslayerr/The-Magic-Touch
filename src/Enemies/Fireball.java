@@ -52,6 +52,12 @@ public class Fireball extends Enemy {
             for (Enemy enemy : enemies) {
                  if (fromPlayer && this.intersects(enemy) && this != enemy) {
 
+                     // CHECK IF IT'S A LAVA MONSTER
+                     if (enemy instanceof LavaMonster) {
+                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                         break;
+                     }
+
                      // CHECK IF IT'S A SNOW GOBLIN!!!!!
                      if (enemy instanceof SnowGoblinEnemy) {
                          // Remove le snow goblin
