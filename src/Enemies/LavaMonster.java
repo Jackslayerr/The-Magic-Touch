@@ -37,7 +37,7 @@ public class LavaMonster extends Enemy {
     protected LavaMonsterState previousLavaMonsterState;
 
     public LavaMonster(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("LavaMonster.png"), 20, 22), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("LavaMonster.png"), 24, 22), "WALK_LEFT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -169,7 +169,7 @@ public class LavaMonster extends Enemy {
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(4, 3, 5, 13)
                             .build()
             });
 
@@ -182,7 +182,7 @@ public class LavaMonster extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(4, 3, 5, 13)
                             .build()
             });
 

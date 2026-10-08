@@ -169,7 +169,7 @@ public class DinosaurEnemy extends Enemy {
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(4, 3, 5, 13)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
@@ -181,7 +181,7 @@ public class DinosaurEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(4, 3, 5, 13)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
