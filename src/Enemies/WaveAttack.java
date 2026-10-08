@@ -25,10 +25,10 @@ public class WaveAttack extends Enemy {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("wave3.png"), 12, 12), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
-        // how long the fireball will exist for before disappearing
+        // how long the wave will exist for before disappearing
         this.existenceFrames = existenceFrames;
         
-        // if the fireball was shot by the player
+        // if the wave was shot by the player
         this.fromPlayer = fromPlayer;
         // Grabs map npcs
         
