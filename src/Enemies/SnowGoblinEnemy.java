@@ -5,9 +5,7 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.Enemy;
-import Level.MapEntity;
-import Level.Player;
+import Level.*;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -39,6 +37,8 @@ public class SnowGoblinEnemy extends Enemy {
         airGroundState = AirGroundState.GROUND;
     }
 
+    private int flipCoolDown = 0;
+
     @Override
     public void update(Player player) {
         float moveAmountX = 0;
@@ -46,7 +46,23 @@ public class SnowGoblinEnemy extends Enemy {
 
         moveAmountY += gravity;
 
+        if (flipCoolDown > 0) {
+            flipCoolDown--;
+        }
+
         if (airGroundState == AirGroundState.GROUND) {
+            // Checks for a ledge
+            if (flipCoolDown == 0 && isAboutToFall()) {
+                // Switch direction if a ledge is found
+                if (facingDirection == Direction.RIGHT) {
+                    facingDirection = Direction.LEFT;
+                    currentAnimationName = "WALK_LEFT";
+                } else {
+                    facingDirection = Direction.RIGHT;
+                    currentAnimationName = "WALK_RIGHT";
+                }
+                flipCoolDown = 15;
+            }
             if (facingDirection == Direction.RIGHT) {
                 moveAmountX += movementSpeed;
             } else {
@@ -58,6 +74,17 @@ public class SnowGoblinEnemy extends Enemy {
         moveXHandleCollision(moveAmountX);
 
         super.update(player);
+    }
+
+    private boolean isAboutToFall() {
+        float xCheck = facingDirection == Direction.RIGHT
+                ? getBounds().getX2() + 6  // just past right foot
+                : getBounds().getX1() - 6; //just past left foot
+        float yCheck = getBounds().getY2() + 8; // just below the bottom bound/feet
+
+        // Check if there is a tile at that position
+        return map.getTileByPosition(xCheck, yCheck) == null ||
+                map.getTileByPosition(xCheck, yCheck).getTileType() != TileType.NOT_PASSABLE;
     }
 
     @Override
@@ -100,10 +127,12 @@ public class SnowGoblinEnemy extends Enemy {
             put("WALK_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                         .withScale(3)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withBounds(6, 14, 12, 7)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(3)
+                        .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                         .withBounds(6, 13, 12, 7)
                         .build()
             });

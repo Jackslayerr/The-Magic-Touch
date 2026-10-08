@@ -8,6 +8,7 @@ import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.Player;
+import Level.TileType;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -42,6 +43,8 @@ public class BugEnemy extends Enemy {
         airGroundState = AirGroundState.GROUND;
     }
 
+    private int flipCoolDown = 0; // prevents a lot of back and forth flipping
+
     @Override
     public void update(Player player) {
         float moveAmountX = 0;
@@ -50,8 +53,24 @@ public class BugEnemy extends Enemy {
         // add gravity (if in air, this will cause bug to fall)
         moveAmountY += gravity;
 
+        if (flipCoolDown > 0) {
+            flipCoolDown--;
+        }
+
         // if on ground, walk forward based on facing direction
         if (airGroundState == AirGroundState.GROUND) {
+            // Checks for a ledge
+            if (flipCoolDown == 0 && isAboutToFall()) {
+                // Switch direction if a ledge is found
+                if (facingDirection == Direction.RIGHT) {
+                    facingDirection = Direction.LEFT;
+                    currentAnimationName = "WALK_LEFT";
+                } else {
+                    facingDirection = Direction.RIGHT;
+                    currentAnimationName = "WALK_RIGHT";
+                }
+                flipCoolDown = 15; // wait 15 frames
+            }
             if (facingDirection == Direction.RIGHT) {
                 moveAmountX += movementSpeed;
             } else {
@@ -64,6 +83,17 @@ public class BugEnemy extends Enemy {
         moveXHandleCollision(moveAmountX);
 
         super.update(player);
+    }
+
+    private boolean isAboutToFall() {
+        float xCheck = facingDirection == Direction.RIGHT
+                ? getBounds().getX2() + 6 // just past right foot
+                : getBounds().getX1() - 6; // just past left foot
+        float yCheck = getBounds().getY2() + 8; // just below the bottom bound/feet
+
+        // Check if there is a tile at that position
+        return map.getTileByPosition(xCheck, yCheck) == null ||
+                map.getTileByPosition(xCheck, yCheck).getTileType() != TileType.NOT_PASSABLE;
     }
 
     @Override
