@@ -181,7 +181,7 @@ public class LevelOneMap extends Map {
 
         Sign sign3 = new Sign(
                 getMapTile(56, 2).getLocation().subtractY(13),
-                "Secret"
+                "Somethings should stay secret-B"
         );
 
         npcs.add(sign3);
