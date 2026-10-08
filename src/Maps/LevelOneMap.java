@@ -1,7 +1,7 @@
 package Maps;
 
-import Enemies.BatEnemy;
-import Enemies.BugEnemy;
+import Enemies.*;
+import Engine.ImageLoader;
 import Level.*;
 import NPCs.Mentor;
 import NPCs.Torch;
@@ -9,6 +9,8 @@ import NPCs.Sign;
 import Tilesets.CastleTileset;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.VerticalMovingPlatform;
+import GameObject.Rectangle;
 import Utils.Direction;
 
 import java.util.ArrayList;
@@ -32,6 +34,12 @@ public class LevelOneMap extends Map {
        BatEnemy Bat1 = new BatEnemy(getMapTile(41, 13).getLocation().subtractY(20), Direction.LEFT);
         enemies.add(Goblin1);
         enemies.add(Bat1);
+
+        Spike Spike1 = new Spike(getMapTile(54, 11).getLocation().subtractY(0));
+        enemies.add(Spike1);;
+
+        Spike Spike2 = new Spike(getMapTile(66, 18).getLocation().subtractY(0));
+        enemies.add(Spike2);;
 
         return enemies;
     }
@@ -95,7 +103,7 @@ public class LevelOneMap extends Map {
         npcs.add(torch6);
 
         Torch torch7 = new Torch(
-                getMapTile(90, 6).getLocation().subtractY(-3),
+                getMapTile(90, 7).getLocation().subtractY(13),
                 7
         );
 
@@ -123,7 +131,7 @@ public class LevelOneMap extends Map {
 
         npcs.add(sign);
 
-        // Mentor tutorial
+        // sign tutorial
         Sign sign2 = new Sign(
                 getMapTile(7, 15).getLocation().subtractY(13),
                 "Your treasure-hunting dreams have come true!"

@@ -19,7 +19,7 @@ public class ScreenManager {
 
     // attach an external Screen class here for the ScreenManager to start calling its update/draw cycles
     public void setCurrentScreen(Screen screen) {
-        screen.initialize();
+        screen.initialize(null, "menu-screen.png");
         this.currentScreen = screen;
     }
 

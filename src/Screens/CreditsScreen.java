@@ -3,8 +3,8 @@ package Screens;
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
-//import Level.Map;
-//import Maps.TitleScreenMap;
+import Level.Map;
+import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
 
 import java.awt.*;
@@ -22,11 +22,12 @@ public class CreditsScreen extends Screen {
 
     public CreditsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
+        initialize(null, "credits-screen.png");
     }
 
     @Override
-    public void initialize() {
-        backgroundImage = ImageLoader.load("credits-screen.png");
+    public void initialize(Map level, String backgroundImageFile) {
+        backgroundImage = ImageLoader.load(backgroundImageFile);
         // setup graphics on screen (background map, spritefont text)
         //background = new TitleScreenMap();
         //background.setAdjustCamera(false);

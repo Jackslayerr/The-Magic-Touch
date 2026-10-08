@@ -51,10 +51,28 @@ public class Fireball extends Enemy {
             npcs = map.getNPCs();
             for (Enemy enemy : enemies) {
                  if (fromPlayer && this.intersects(enemy) && this != enemy) {
-                     enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
-                    // player.healPlayer();
-                    System.out.println("PLAYER FIREBALL DEFEATED ENEMY!");
-                    this.setMapEntityStatus(MapEntityStatus.REMOVED);
+
+                     // CHECK IF IT'S A SNOW GOBLIN!!!!!
+                     if (enemy instanceof SnowGoblinEnemy) {
+                         // Remove le snow goblin
+                         enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+
+                         // Instantiate a normal goblin in the same spot
+                         BugEnemy goblin = new BugEnemy(enemy.getLocation(), Direction.LEFT);
+
+                         // Add the goblin into the map
+                         map.addEnemy(goblin);
+
+                         // destroy fireball
+                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                         break; // Stop checking enemies with this fireball
+                     } else {
+                         // Default Behavior for all Enemies
+                         enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                         System.out.println("PLAYER FIREBALL DEFEATED ENEMY!");
+                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                         break;
+                     }
                  }
             }
             for (NPC npc : npcs) {

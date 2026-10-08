@@ -1,6 +1,7 @@
 package Screens;
 
 import Engine.*;
+import Level.Map;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -9,12 +10,12 @@ public class LevelClearedScreen extends Screen {
     protected BufferedImage backgroundImage;
 
     public LevelClearedScreen() {
-        initialize();
+        initialize(null, "level-cleared-level1.png");
     }
 
     @Override
-    public void initialize() {
-        backgroundImage = ImageLoader.load("level-cleared-level1.png");
+    public void initialize(Map level, String backgroundImageFile) {
+        backgroundImage = ImageLoader.load(backgroundImageFile);
     }
 
     @Override
