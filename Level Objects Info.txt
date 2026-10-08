@@ -30,5 +30,12 @@ Final Puzzle
 (90,9)-(90,11) Gate 7 {Activated by torch9}
 
 Enemies:
-(31-16) Goblin
+(31,16) Goblin
+(48,18) Goblin
+(55,11) Goblin
+(57,2) Goblin
+(67,18) Goblin
 (41,13) Bat
+(84,6) Bat
+(83,13) Bat
+(69,10) Bat

@@ -249,5 +249,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void loadLevel(int levelNumber) {
         currentLevel = levelNumber;
         initialize(chooseLevel(levelNumber), chooseBackground(levelNumber));
+        player.setCurrentLevel(levelNumber);
     }
 }

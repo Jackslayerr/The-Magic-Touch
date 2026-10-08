@@ -38,8 +38,8 @@ public abstract class Player extends GameObject {
     protected float lastAmountMovedX, lastAmountMovedY;
 
     // Element Powers
-    protected float fireCoolDown = 0;
-    protected float waveCoolDown;
+    protected float coolDown = 0;
+    private int currentLevel = 1;
 
     // values used to keep track of player's current state
     protected PlayerState playerState;
@@ -94,6 +94,9 @@ public abstract class Player extends GameObject {
             currentFrameIndex = 0;
         }
     }
+    public void setCurrentLevel(int level) {
+        currentLevel = level;
+    }
 
     public void setAirGroundState (AirGroundState airGroundState){
         this.airGroundState = airGroundState;
@@ -108,12 +111,8 @@ public abstract class Player extends GameObject {
             damageCooldown--;
         }
 
-        if (fireCoolDown != 0) {
-            fireCoolDown--;
-        }
-
-        if (waveCoolDown != 0) {
-            waveCoolDown--;
+        if (coolDown != 0) {
+            coolDown--;
         }
 
         // if player is currently playing through level
@@ -317,7 +316,7 @@ public abstract class Player extends GameObject {
         if (frozen) {
             return;
         }
-        if (Keyboard.isKeyDown(FIRE_KEY) && !keyLocker.isKeyLocked(FIRE_KEY) && fireCoolDown == 0) {
+        if (Keyboard.isKeyDown(FIRE_KEY) && !keyLocker.isKeyLocked(FIRE_KEY) && coolDown == 0 && currentLevel >= 1) {
             keyLocker.lockKey(FIRE_KEY);
             shootFire();
             fireAnimationTimer = 15;
@@ -575,14 +574,14 @@ public abstract class Player extends GameObject {
         map.addEnemy(fireball);
 
         // Modify to change cooldown
-        fireCoolDown = 20;
+        coolDown = 30;
     }
 
     protected void playerShootWave() {
         if (frozen) {
             return;
         }
-        if (Keyboard.isKeyDown(WAVE_KEY) && !keyLocker.isKeyLocked(WAVE_KEY) && waveCoolDown == 0) {
+        if (Keyboard.isKeyDown(WAVE_KEY) && !keyLocker.isKeyLocked(WAVE_KEY) && coolDown == 0 && currentLevel >= 2) {
             keyLocker.lockKey(WAVE_KEY);
             shootWave();
             waveAnimationTimer = 15;
@@ -609,6 +608,6 @@ public abstract class Player extends GameObject {
         map.addEnemy(wave);
 
 
-        waveCoolDown = 20;
+        coolDown = 30;
     }
 }
