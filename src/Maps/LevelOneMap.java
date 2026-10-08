@@ -28,12 +28,12 @@ public class LevelOneMap extends Map {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
         GoblinEnemy Goblin1 = new GoblinEnemy(
-                getMapTile(31, 16).getLocation().subtractY(25),
+                getMapTile(31, 17).getLocation().subtractY(25),
                 Direction.LEFT
         );
 
-        LavaMonster lavaMonster = new LavaMonster(getMapTile(30, 16).getLocation().subtractY(16),
-                getMapTile(34, 16).getLocation().subtractY(16), Direction.LEFT);
+        LavaMonster lavaMonster = new LavaMonster(getMapTile(73, 15).getLocation().subtractY(0),
+                getMapTile(76, 15).getLocation().subtractY(0), Direction.LEFT);
 
        BatEnemy Bat1 = new BatEnemy(getMapTile(41, 13).getLocation().subtractY(20), Direction.LEFT);
        BatEnemy Bat2 = new BatEnemy(getMapTile(84, 6).getLocation().subtractY(20), Direction.LEFT);
