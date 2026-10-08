@@ -165,11 +165,11 @@ public class LavaMonster extends Enemy {
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(4, 2, 5, 11)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
-                            .withBounds(4, 3, 5, 13)
+                            .withBounds(4, 3, 5, 11)
                             .build()
             });
 
@@ -177,19 +177,19 @@ public class LavaMonster extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(4, 2, 5, 11)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 3, 5, 13)
+                            .withBounds(4, 3, 5, 11)
                             .build()
             });
 
             put("SHOOT_LEFT", new Frame[]{
                      new FrameBuilder(spriteSheet.getSprite(0, 0))
                              .withScale(3)
-                             .withBounds(4, 2, 5, 13)
+                             .withBounds(4, 2, 5, 11)
                              .build(),
             });
 
@@ -197,7 +197,7 @@ public class LavaMonster extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(4, 2, 5, 11)
                             .build(),
             });
         }};
