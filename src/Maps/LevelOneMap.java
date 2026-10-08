@@ -1,9 +1,6 @@
 package Maps;
 
-import Enemies.BatEnemy;
-import Enemies.BugEnemy;
-import Enemies.Icicle;
-import Enemies.Spike;
+import Enemies.*;
 import Engine.ImageLoader;
 import Level.*;
 import NPCs.Mentor;

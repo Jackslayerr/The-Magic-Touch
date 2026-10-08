@@ -52,6 +52,8 @@ public class LevelTwoMap extends Map {
 
         /* parkour icicles
          */
+        SnowGoblinEnemy snowGoblinEnemy1 = new SnowGoblinEnemy(getMapTile(20, 20).getLocation().subtractY(0), Direction.LEFT);
+        enemies.add(snowGoblinEnemy1);
 
         Icicle Icicle9 = new Icicle(getMapTile(31, 17).getLocation().subtractY(0));
         enemies.add(Icicle9);;
