@@ -1,6 +1,6 @@
 package Maps;
 
-import Enemies.BugEnemy;
+import Enemies.GoblinEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
