@@ -94,9 +94,9 @@ public class LevelTwoMap extends Map {
         Sign sign1 = new Sign(
                 getMapTile(4, 17).getLocation().subtractY(13),
                 "Welcome to the Frostbite Caverns!"
-                + "\n" + "You've gained the power of Ice Blast (X)."
-                + "\n" + "Defeat the Yetis, overcome the icy passages,"
-                + "\n" + "and retrieve the second artifact! "
+                + "\n" + "You've gained the power of Wave Attack (X)."
+                + "\n" + "Defeat the Enemies, overcome the icy passages,"
+                + "\n" + "and retrieve the third artifact! "
 
         );
 
