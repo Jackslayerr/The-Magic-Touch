@@ -31,7 +31,16 @@ public class LevelOneMap extends Map {
                 getMapTile(31, 16).getLocation().subtractY(25),
                 Direction.LEFT
         );
-        GoblinEnemy Goblin2 = new GoblinEnemy(
+
+        LavaMonster lavaMonster = new LavaMonster(getMapTile(30, 16).getLocation().subtractY(16),
+                getMapTile(34, 16).getLocation().subtractY(16), Direction.LEFT);
+
+       BatEnemy Bat1 = new BatEnemy(getMapTile(41, 13).getLocation().subtractY(20), Direction.LEFT);
+       BatEnemy Bat2 = new BatEnemy(getMapTile(84, 6).getLocation().subtractY(20), Direction.LEFT);
+       BatEnemy Bat3 = new BatEnemy(getMapTile(83, 13).getLocation().subtractY(20), Direction.LEFT);
+       BatEnemy Bat4 = new BatEnemy(getMapTile(69, 10).getLocation().subtractY(20), Direction.LEFT);
+
+       GoblinEnemy Goblin2 = new GoblinEnemy(
                 getMapTile(48, 18).getLocation().subtractY(25),
                 Direction.LEFT
         );
@@ -47,16 +56,13 @@ public class LevelOneMap extends Map {
                 getMapTile(67, 18).getLocation().subtractY(25),
                 Direction.LEFT
         );
-       BatEnemy Bat1 = new BatEnemy(getMapTile(41, 13).getLocation().subtractY(20), Direction.LEFT);
-       BatEnemy Bat2 = new BatEnemy(getMapTile(84, 6).getLocation().subtractY(20), Direction.LEFT);
-       BatEnemy Bat3 = new BatEnemy(getMapTile(83, 13).getLocation().subtractY(20), Direction.LEFT);
-       BatEnemy Bat4 = new BatEnemy(getMapTile(69, 10).getLocation().subtractY(20), Direction.LEFT);
        
         enemies.add(Goblin1);
         enemies.add(Goblin2);
         enemies.add(Goblin3);
         enemies.add(Goblin4);
         enemies.add(Goblin5);
+        enemies.add(lavaMonster);
         enemies.add(Bat1);
         enemies.add(Bat2);
         enemies.add(Bat3);

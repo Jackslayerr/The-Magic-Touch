@@ -14,12 +14,10 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-// This class is for the green dinosaur enemy that shoots fireballs
-// It walks back and forth between two set points (startLocation and endLocation)
-// Every so often (based on shootTimer) it will shoot a Fireball enemy
-public class DinosaurEnemy extends Enemy {
+public class LavaMonster extends Enemy {
     // start and end location defines the two points that it walks between
     // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
+
     protected Point startLocation;
     protected Point endLocation;
 
@@ -28,18 +26,18 @@ public class DinosaurEnemy extends Enemy {
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
 
-    // timer is used to determine how long dinosaur freezes in place before shooting fireball
+    // timer is used to determine how long a lava monster freezes in place before shooting fireball
     protected int shootWaitTimer;
 
     // timer is used to determine when a fireball is to be shot out
     protected int shootTimer;
 
     // can be either WALK or SHOOT based on what the enemy is currently set to do
-    protected DinosaurState dinosaurState;
-    protected DinosaurState previousDinosaurState;
+    protected LavaMonsterState lavaMonsterState;
+    protected LavaMonsterState previousLavaMonsterState;
 
-    public DinosaurEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("DinosaurEnemy.png"), 14, 17), "WALK_RIGHT");
+    public LavaMonster(Point startLocation, Point endLocation, Direction facingDirection) {
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("LavaMonster.png"), 24, 22), "WALK_LEFT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -49,8 +47,8 @@ public class DinosaurEnemy extends Enemy {
     @Override
     public void initialize() {
         super.initialize();
-        dinosaurState = DinosaurState.WALK;
-        previousDinosaurState = dinosaurState;
+        lavaMonsterState = LavaMonsterState.WALK;
+        previousLavaMonsterState = lavaMonsterState;
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
             currentAnimationName = "WALK_RIGHT";
@@ -60,7 +58,7 @@ public class DinosaurEnemy extends Enemy {
         airGroundState = AirGroundState.GROUND;
 
         // every certain number of frames, the fireball will be shot out
-        shootWaitTimer = 65;
+        shootWaitTimer = 50;
     }
 
     @Override
@@ -68,16 +66,15 @@ public class DinosaurEnemy extends Enemy {
         float startBound = startLocation.x;
         float endBound = endLocation.x;
 
-        // if shoot timer is up and dinosaur is not currently shooting, set its state to SHOOT
-        if (shootWaitTimer == 0 && dinosaurState != DinosaurState.SHOOT_WAIT) {
-            dinosaurState = DinosaurState.SHOOT_WAIT;
-        }
-        else {
+        // if shoot timer is up and lava monster is not currently shooting, set its state to SHOOT
+        if (shootWaitTimer == 0 && lavaMonsterState != LavaMonsterState.SHOOT_WAIT) {
+            lavaMonsterState = LavaMonsterState.SHOOT_WAIT;
+        } else {
             shootWaitTimer--;
         }
 
-        // if dinosaur is walking, determine which direction to walk in based on facing direction
-        if (dinosaurState == DinosaurState.WALK) {
+        // if Lava Monster is walking, determine which direction to walk in based on facing direction
+        if (lavaMonsterState == LavaMonsterState.WALK) {
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "WALK_RIGHT";
                 moveXHandleCollision(movementSpeed);
@@ -86,8 +83,8 @@ public class DinosaurEnemy extends Enemy {
                 moveXHandleCollision(-movementSpeed);
             }
 
-            // if dinosaur reaches the start or end location, it turns around
-            // dinosaur may end up going a bit past the start or end location depending on movement speed
+            // if Lava Monster reaches the start or end location, it turns around
+            // Lava Monster may end up going a bit past the start or end location depending on movement speed
             // this calculates the difference and pushes the enemy back a bit so it ends up right on the start or end location
             if (getX1() + getWidth() >= endBound) {
                 float difference = endBound - (getX2());
@@ -100,36 +97,35 @@ public class DinosaurEnemy extends Enemy {
             }
         }
 
-        // if dinosaur is waiting to shoot, it first turns read for a set number of frames
+        // if Lava Monster is waiting to shoot, it first turns read for a set number of frames
         // after this waiting period is over, the fireball is actually shot out
-        if (dinosaurState == DinosaurState.SHOOT_WAIT) {
-            if (previousDinosaurState == DinosaurState.WALK) {
-                shootTimer = 65;
+        if (lavaMonsterState == LavaMonsterState.SHOOT_WAIT) {
+            if (previousLavaMonsterState == LavaMonsterState.WALK) {
+                shootTimer = 50;
                 currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
             } else if (shootTimer == 0) {
-                dinosaurState = DinosaurState.SHOOT;
-            }
-            else {
+                lavaMonsterState = LavaMonsterState.SHOOT;
+            } else {
                 shootTimer--;
             }
         }
 
         // this is for actually having the dinosaur spit out the fireball
-        if (dinosaurState == DinosaurState.SHOOT) {
-            // define where fireball will spawn on map (x location) relative to dinosaur enemy's location
+        if (lavaMonsterState == LavaMonsterState.SHOOT) {
+            // define where fireball will spawn on map (x location) relative to Lava Monster enemy's location
             // and define its movement speed
             int fireballX;
             float movementSpeed;
             if (facingDirection == Direction.RIGHT) {
                 fireballX = Math.round(getX()) + getWidth();
-                movementSpeed = 1.5f;
+                movementSpeed = 2.5f;
             } else {
                 fireballX = Math.round(getX() - 21);
-                movementSpeed = -1.5f;
+                movementSpeed = -2.5f;
             }
 
-            // define where fireball will spawn on the map (y location) relative to dinosaur enemy's location
-            int fireballY = Math.round(getY()) + 4;
+            // define where fireball will spawn on the map (y location) relative to Lava Monster's location
+            int fireballY = Math.round(getY() + 4);
 
             // create Fireball enemy
             Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, false);
@@ -137,21 +133,21 @@ public class DinosaurEnemy extends Enemy {
             // add fireball enemy to the map for it to spawn in the level
             map.addEnemy(fireball);
 
-            // change dinosaur back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
-            dinosaurState = DinosaurState.WALK;
+            // change Lava Monster back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
+            lavaMonsterState = LavaMonsterState.WALK;
 
-            // reset shoot wait timer so the process can happen again (dino walks around, then waits, then shoots)
+            // reset shoot wait timer so the process can happen again (monster walks around, then waits, then shoots)
             shootWaitTimer = 130;
         }
 
         super.update(player);
 
-        previousDinosaurState = dinosaurState;
+        previousLavaMonsterState = lavaMonsterState;
     }
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if dinosaur enemy collides with something on the x axis, it turns around and walks the other way
+        // if Lava Monster collides with something on the x-axis, it turns around and walks the other way
         if (hasCollided) {
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
@@ -169,11 +165,11 @@ public class DinosaurEnemy extends Enemy {
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
-                            .withBounds(4, 3, 5, 13)
+                            .withBounds(4, 2, 5, 13)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(4, 3, 5, 13)
                             .build()
             });
 
@@ -181,24 +177,24 @@ public class DinosaurEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 3, 5, 13)
+                            .withBounds(4, 2, 5, 13)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(4, 3, 5, 13)
                             .build()
             });
 
             put("SHOOT_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale(3)
-                            .withBounds(4, 2, 5, 13)
-                            .build(),
+                     new FrameBuilder(spriteSheet.getSprite(0, 0))
+                             .withScale(3)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
             });
 
-            put("SHOOT_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+            put("SHOOT_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
@@ -207,7 +203,7 @@ public class DinosaurEnemy extends Enemy {
         }};
     }
 
-    public enum DinosaurState {
+    public enum LavaMonsterState {
         WALK, SHOOT_WAIT, SHOOT
     }
 }
