@@ -99,11 +99,11 @@ public class BatEnemy extends Enemy{
             put("FLY_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
-                            .withBounds(6, 20, 12, 9)
+                            .withBounds(2, 2, 20, 12)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
-                            .withBounds(6, 20, 12, 9)
+                            .withBounds(2, 2, 20, 12)
                             .build()
             });
 
@@ -111,12 +111,12 @@ public class BatEnemy extends Enemy{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 20, 12, 9)
+                            .withBounds(2, 2, 20, 12)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 20, 12, 9)
+                            .withBounds(2, 2, 20, 12)
                             .build()
             });
         }};
