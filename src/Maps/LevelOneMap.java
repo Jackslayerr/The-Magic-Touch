@@ -10,6 +10,7 @@ import Tilesets.CastleTileset;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.CrumblingBlock;
 import GameObject.Rectangle;
 import Utils.Direction;
 
@@ -83,6 +84,18 @@ public class LevelOneMap extends Map {
 
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(93, 11).getLocation(), "WaterChest.png");
         enhancedMapTiles.add(endLevelBox);
+
+        CrumblingBlock crumblingBlock1 = new CrumblingBlock(getMapTile(1, 15).getLocation(), "CrumblingBlock.png");
+        enhancedMapTiles.add(crumblingBlock1);
+
+        CrumblingBlock crumblingBlock2 = new CrumblingBlock(getMapTile(2, 15).getLocation(), "CrumblingBlock.png");
+        enhancedMapTiles.add(crumblingBlock2);
+
+        CrumblingBlock crumblingBlock3 = new CrumblingBlock(getMapTile(3, 15).getLocation(), "CrumblingBlock.png");
+        enhancedMapTiles.add(crumblingBlock3);
+
+        CrumblingBlock crumblingBlock4 = new CrumblingBlock(getMapTile(4, 15).getLocation(), "CrumblingBlock.png");
+        enhancedMapTiles.add(crumblingBlock4);
 
         return enhancedMapTiles;
     }

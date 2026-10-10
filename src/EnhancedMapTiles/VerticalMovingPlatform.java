@@ -6,7 +6,6 @@ import GameObject.Rectangle;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
-import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
