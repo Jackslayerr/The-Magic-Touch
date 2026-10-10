@@ -85,10 +85,10 @@ public class LevelOneMap extends Map {
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(93, 11).getLocation(), "WaterChest.png");
         enhancedMapTiles.add(endLevelBox);
 
-        CrumblingBlock crumblingBlock1 = new CrumblingBlock(getMapTile(1, 15).getLocation(), "CrumblingBlock.png");
+        CrumblingBlock crumblingBlock1 = new CrumblingBlock(getMapTile(1, 15).getLocation(), "CrumblingIceBlock.png");
         enhancedMapTiles.add(crumblingBlock1);
 
-        CrumblingBlock crumblingBlock2 = new CrumblingBlock(getMapTile(2, 15).getLocation(), "CrumblingBlock.png");
+        CrumblingBlock crumblingBlock2 = new CrumblingBlock(getMapTile(2, 15).getLocation(), "CrumblingIceBlock.png");
         enhancedMapTiles.add(crumblingBlock2);
 
         CrumblingBlock crumblingBlock3 = new CrumblingBlock(getMapTile(3, 15).getLocation(), "CrumblingBlock.png");
