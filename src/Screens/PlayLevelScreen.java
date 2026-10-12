@@ -9,6 +9,7 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.LevelOneMap;
+import Maps.LevelThreeMap;
 import Maps.LevelTwoMap;
 import Maps.SprintOneTestMap;
 import Players.Cat;
@@ -235,6 +236,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     private Map chooseLevel(int levelNumber){
         switch (levelNumber) {
             case 2: return new LevelTwoMap();
+            case 3: return new LevelThreeMap();
             default: return new LevelOneMap();
         }
     }
@@ -242,6 +244,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     private String chooseBackground(int levelNumber){
         switch (levelNumber) {
             case 2: return "game-background-level2.png";
+            case 3: return "game-background-level1.png";
             default: return "game-background-level1.png";
         }
     }
