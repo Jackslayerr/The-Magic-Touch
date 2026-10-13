@@ -184,7 +184,7 @@ public abstract class Player extends GameObject {
                 break;
 
             case JUMPING:
-                playerJumping();
+                playerJumping(1.0f);
                 playerShootFire();
                 playerShootWave();
                 break;
@@ -259,7 +259,7 @@ public abstract class Player extends GameObject {
     }
 
     // player JUMPING state logic
-    protected void playerJumping() {
+    public void playerJumping(float multiplier) {
 
         if (frozen) {
             return;
@@ -270,7 +270,7 @@ public abstract class Player extends GameObject {
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
             airGroundState = AirGroundState.AIR;
-            jumpForce = jumpHeight;
+            jumpForce = jumpHeight * multiplier;
 
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;

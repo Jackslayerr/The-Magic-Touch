@@ -10,6 +10,7 @@ import Tilesets.CastleTileset;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.BouncyCloud;
 import EnhancedMapTiles.CrumblingBlock;
 import GameObject.Rectangle;
 import Utils.Direction;
@@ -96,6 +97,9 @@ public class LevelOneMap extends Map {
 
         CrumblingBlock crumblingBlock4 = new CrumblingBlock(getMapTile(4, 15).getLocation(), "CrumblingBlock.png");
         enhancedMapTiles.add(crumblingBlock4);
+
+        BouncyCloud bouncyCloud1 = new BouncyCloud(getMapTile(5, 13).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud1);
 
         return enhancedMapTiles;
     }
