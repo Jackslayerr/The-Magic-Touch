@@ -116,11 +116,11 @@ public class SnowGoblinEnemy extends Enemy {
             put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                         .withScale(3)
-                        .withBounds(6, 14, 12, 7)
+                        .withBounds(2, 4, 20, 17)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(3)
-                        .withBounds(6, 13, 12, 7)
+                        .withBounds(2, 4, 20, 17)
                         .build()
             });
 
@@ -128,12 +128,12 @@ public class SnowGoblinEnemy extends Enemy {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                         .withScale(3)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(6, 14, 12, 7)
+                        .withBounds(2, 4, 20, 17)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(3)
                         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                        .withBounds(6, 13, 12, 7)
+                        .withBounds(2, 4, 20, 17)
                         .build()
             });
         }};

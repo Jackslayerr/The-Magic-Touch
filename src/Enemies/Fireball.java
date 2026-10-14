@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
@@ -11,6 +12,8 @@ import Level.NPC;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
+
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import NPCs.Torch;
@@ -110,6 +113,7 @@ public class Fireball extends Enemy {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
     }
+    
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -117,7 +121,7 @@ public class Fireball extends Enemy {
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(4)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(0, 0, 7, 7)
                             .build()
             });
         }};

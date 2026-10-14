@@ -14,6 +14,7 @@ import Level.Player;
 import Utils.Point;
 import Utils.Puzzle;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -56,12 +57,14 @@ public class Torch extends NPC {
            put("Unlit", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(0, 0))
                            .withScale(3)
+                           .withBounds(8,8,8,14)
                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                            .build()
            });
             put("Lit", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale(3)
+                            .withBounds(8,8,8,14)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build()
             });

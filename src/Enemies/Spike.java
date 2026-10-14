@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
@@ -8,6 +9,7 @@ import Level.Enemy;
 import Level.Player;
 import Utils.Point;
 
+import java.awt.Color;
 import java.util.HashMap;
 
 // This class is for the icicle enemy

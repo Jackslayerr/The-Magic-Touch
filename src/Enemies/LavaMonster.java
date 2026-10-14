@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -12,6 +13,7 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import java.awt.Color;
 import java.util.HashMap;
 
 public class LavaMonster extends Enemy {
@@ -165,11 +167,11 @@ public class LavaMonster extends Enemy {
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
-                            .withBounds(4, 2, 5, 11)
+                            .withBounds(4, 2, 16, 19)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
-                            .withBounds(4, 3, 5, 11)
+                            .withBounds(4, 2, 16, 19)
                             .build()
             });
 
@@ -177,19 +179,19 @@ public class LavaMonster extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 11)
+                            .withBounds(4, 2, 16, 19)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 3, 5, 11)
+                            .withBounds(4, 2, 16, 19)
                             .build()
             });
 
             put("SHOOT_LEFT", new Frame[]{
                      new FrameBuilder(spriteSheet.getSprite(0, 0))
                              .withScale(3)
-                             .withBounds(4, 2, 5, 11)
+                             .withBounds(4, 2, 16, 19)
                              .build(),
             });
 
@@ -197,7 +199,7 @@ public class LavaMonster extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 11)
+                            .withBounds(4, 2, 16, 19)
                             .build(),
             });
         }};

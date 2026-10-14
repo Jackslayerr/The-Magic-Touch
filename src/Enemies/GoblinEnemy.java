@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -13,6 +14,7 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import java.awt.Color;
 import java.util.HashMap;
 
 public class GoblinEnemy extends Enemy {
@@ -120,6 +122,11 @@ public class GoblinEnemy extends Enemy {
             }
         }
     }
+    @Override
+    public void draw(GraphicsHandler graphicsHandler) {
+        super.draw(graphicsHandler);
+        drawBounds(graphicsHandler, new Color(0, 255, 0, 120));
+    }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -127,11 +134,11 @@ public class GoblinEnemy extends Enemy {
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(3)
-                            .withBounds(6, 14, 12, 7)
+                            .withBounds(2, 4, 20, 17)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(3)
-                            .withBounds(6, 13, 12, 7)
+                            .withBounds(2,4, 20, 17)
                             .build()
             });
 
@@ -139,12 +146,12 @@ public class GoblinEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 14, 12, 7)
+                            .withBounds(2, 4, 20, 17)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 13, 12, 7)
+                            .withBounds(2, 4, 20, 17)
                             .build()
               });
         }};
