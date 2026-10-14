@@ -603,7 +603,7 @@ public abstract class Player extends GameObject {
         int waveY = Math.round(getY()) + 15;
 
 
-        WaveAttack wave = new WaveAttack(new Point(waveX, waveY), movementSpeed, 60, true);
+        WaveAttack wave = new WaveAttack(new Point(waveX, waveY), movementSpeed, 60, true, this);
 
         map.addEnemy(wave);
 

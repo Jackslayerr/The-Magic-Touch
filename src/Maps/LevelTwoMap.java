@@ -7,6 +7,7 @@ import NPCs.Sign;
 import Enemies.*;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.IceBlock;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import GameObject.Rectangle;
 import Tilesets.IceCaveTileset;
@@ -105,6 +106,9 @@ public class LevelTwoMap extends Map {
         
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(46, 15).getLocation(), "WaterChest.png");
         enhancedMapTiles.add(endLevelBox);
+
+        IceBlock iceBlock = new IceBlock(getMapTile(43,15).getLocation());
+        enhancedMapTiles.add(iceBlock);
 
         return enhancedMapTiles;
     }
