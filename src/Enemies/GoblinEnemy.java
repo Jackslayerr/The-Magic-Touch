@@ -122,11 +122,6 @@ public class GoblinEnemy extends Enemy {
             }
         }
     }
-    @Override
-    public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler);
-        drawBounds(graphicsHandler, new Color(0, 255, 0, 120));
-    }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

@@ -554,10 +554,10 @@ public void hurtPlayer(MapEntity mapEntity) {
 
         if (facingDirection == Direction.RIGHT) {
             fireballX = Math.round(getX()) + getWidth();
-            movementSpeed = 3.0f;
+            movementSpeed = 5.0f;
         } else {
             fireballX = Math.round(getX() - 21);
-            movementSpeed = -3.0f;
+            movementSpeed = -5.0f;
         }
 
         int fireballY = Math.round(getY()) + 15;
@@ -587,10 +587,10 @@ public void hurtPlayer(MapEntity mapEntity) {
 
         if (facingDirection == Direction.RIGHT) {
             waveX = Math.round(getX()) + getWidth();
-            movementSpeed = 3.0f;
+            movementSpeed = 5.0f;
         } else {
             waveX = Math.round(getX() - 21);
-            movementSpeed = -3.0f;
+            movementSpeed = -5.0f;
         }
 
         int waveY = Math.round(getY()) + 15;
