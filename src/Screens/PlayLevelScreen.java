@@ -1,3 +1,4 @@
+
 package Screens;
 
 import Engine.GraphicsHandler;
@@ -9,22 +10,17 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.LevelOneMap;
-import Maps.LevelThreeMap;
 import Maps.LevelTwoMap;
-import Maps.SprintOneTestMap;
+import Maps.LevelThreeMap;
 import Players.Cat;
 import Engine.Key;
 import Engine.Keyboard;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 
-// This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
-
 
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
@@ -35,33 +31,26 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
 
     protected int currentLevel = 1;
-    protected static int totalLevels = 2;
-
-    // Damage flash variables
-    protected int damageFlashTimer = 0;
-    protected int previousHealth = 12;
+    protected static int totalLevels = 3;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
+    @Override
     public void initialize(Map level, String backgroundImageFile) {
-
-        // Define/setup map
         this.map = level;
+        this.currentLevel = screenCoordinator.getDestinationLevel();
         this.backgroundImage = ImageLoader.load(backgroundImageFile);
-        // Setup player
+
         this.player = new Cat(
-                map.getPlayerStartPosition().x,
-                map.getPlayerStartPosition().y
+            map.getPlayerStartPosition().x,
+            map.getPlayerStartPosition().y
         );
 
         this.player.setMap(map);
         this.player.addListener(this);
-
-        // Reset damage flash
-        damageFlashTimer = 0;
-        previousHealth = player.getHealth();
+        this.player.setCurrentLevel(currentLevel);
 
         levelClearedScreen = new LevelClearedScreen();
         levelLoseScreen = new LevelLoseScreen(this);
@@ -69,28 +58,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
 
+    @Override
     public void update() {
+
 
         switch (playLevelScreenState) {
 
             case RUNNING:
-
                 player.update();
                 map.update(player);
-
-                // Count down the red flash timer
-                if (damageFlashTimer > 0) {
-                    damageFlashTimer--;
-                }
-
-                // Detect when the player loses health
-                if (player.getHealth() < previousHealth) {
-                    damageFlashTimer = 20;
-                }
-
-                // Remember current health
-                previousHealth = player.getHealth();
-
                 break;
 
             case LEVEL_COMPLETED:
@@ -103,43 +79,36 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
+    private void jumpToLevel(int levelNumber) {
+        screenCoordinator.setDestinationLevel(levelNumber);
+        screenCoordinator.setGameState(GameState.LEVEL);
+    }
+
+    @Override
     public void draw(GraphicsHandler graphicsHandler) {
 
         switch (playLevelScreenState) {
 
             case RUNNING:
-
-                // Draw background first
                 graphicsHandler.drawImage(
-                        backgroundImage,
-                        0, 0, 800, 605
+                    backgroundImage, 0, 0, 800, 605
                 );
 
-                // Draw map
                 map.draw(graphicsHandler);
-
-                // Draw player
                 player.draw(graphicsHandler);
-
-                // Draw health hearts
-                drawHealth(graphicsHandler);
-
-                // Quick red flash when damaged
-                if (damageFlashTimer > 0) {
-
-                    graphicsHandler.drawRectangle(
-                            4, 4, 792, 597,
-                            new Color(255, 0, 0, 200),
-                            12 
-                    );
-                }
-
+                drawHealthBar(graphicsHandler);
                 break;
 
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
+
                 if (Keyboard.isKeyDown(Key.SPACE)) {
-                    loadLevel(currentLevel +1);
+                    if (currentLevel < totalLevels) {
+                        screenCoordinator.setDestinationLevel(currentLevel + 1);
+                        screenCoordinator.setGameState(GameState.CUTSCENE);
+                    } else {
+                        screenCoordinator.setGameState(GameState.CREDITS);
+                    }
                 }
                 break;
 
@@ -149,53 +118,37 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
-    // Draw the player's health using quarter hearts
-    private void drawHealth(GraphicsHandler graphicsHandler) {
-
+    private void drawHealthBar(GraphicsHandler graphicsHandler) {
         Graphics2D g = graphicsHandler.getGraphics();
 
-        int health = player.getHealth();
+        int x = 20;
+        int y = 20;
+        int barWidth = 220;
+        int barHeight = 18;
 
-        Font heartFont = new Font("Arial", Font.PLAIN, 56);
+        int health = Math.max(0, Math.min(
+            player.getMaxHealth(),
+            player.getHealth()
+        ));
 
-        for (int i = 0; i < 5; i++) {
+        float healthPercent =
+            (float) health / player.getMaxHealth();
 
-            int x = 20 + (i * 35);
-            int y = 20;
+        int filledWidth = Math.round(barWidth * healthPercent);
 
-            // Health remaining in this heart: 0 to 4
-            int heartHealth = Math.max(0, Math.min(4, health));
+        g.setColor(Color.DARK_GRAY);
+        g.fillRect(x, y, barWidth, barHeight);
 
-            if (heartHealth == 0) {
-
-                
-
-            } else {
-
-                // Save original drawing boundary
-                Shape oldClip = g.getClip();
-
-                // Calculate the filled portion
-                int fillWidth = (int) (35 * (heartHealth / 4.0));
-
-                // Restrict drawing to the filled portion
-                g.setClip(x, y - 20, fillWidth, 60);
-
-                // Draw colored heart
-                graphicsHandler.drawString(
-                        "♥",
-                        x,
-                        y + 25,
-                        heartFont,
-                        Color.RED
-                );
-
-                // Restore original drawing boundary
-                g.setClip(oldClip);
-            }
-
-            health -= 4;
+        if (health <= 10) {
+            g.setColor(Color.RED);
+        } else {
+            g.setColor(Color.GREEN);
         }
+
+        g.fillRect(x, y, filledWidth, barHeight);
+
+        g.setColor(Color.WHITE);
+        g.drawRect(x, y, barWidth, barHeight);
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
@@ -204,7 +157,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     @Override
     public void onLevelCompleted() {
-
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
         }
@@ -212,7 +164,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     @Override
     public void onDeath() {
-
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
         }
@@ -226,32 +177,37 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
-    // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
         RUNNING,
         LEVEL_COMPLETED,
         LEVEL_LOSE
     }
 
-    private Map chooseLevel(int levelNumber){
+    private Map chooseLevel(int levelNumber) {
         switch (levelNumber) {
-            case 2: return new LevelTwoMap();
-            case 3: return new LevelThreeMap();
-            default: return new LevelOneMap();
+            case 2:
+                return new LevelTwoMap();
+            case 3:
+                return new LevelThreeMap();
+            default:
+                return new LevelOneMap();
         }
     }
 
-    private String chooseBackground(int levelNumber){
+    private String chooseBackground(int levelNumber) {
         switch (levelNumber) {
-            case 2: return "game-background-level2.png";
-            case 3: return "game-background-level1.png";
-            default: return "game-background-level1.png";
+            case 2:
+                return "game-background-level2.png";
+            case 3:
+                return "game-background-level3.png";
+            default:
+                return "game-background-level1.png";
         }
     }
 
     public void loadLevel(int levelNumber) {
         currentLevel = levelNumber;
+        screenCoordinator.setDestinationLevel(levelNumber);
         initialize(chooseLevel(levelNumber), chooseBackground(levelNumber));
-        player.setCurrentLevel(levelNumber);
     }
 }

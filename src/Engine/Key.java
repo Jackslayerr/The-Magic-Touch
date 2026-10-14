@@ -45,5 +45,8 @@ public enum Key {
     NINE,
     ZERO,
     SPACE,
-    ESC
+    ESC,
+    F1,
+    F2,
+    F3
 }

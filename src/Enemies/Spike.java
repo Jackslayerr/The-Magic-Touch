@@ -47,7 +47,12 @@ public class Spike extends Enemy {
                 .withBounds(4,4,8,12)
                 .build()
             });
-        
         }};
+    }
+
+    // spike deal 5 damage to the player
+    @Override
+    public int getDamage() {
+        return 5;
     }
 }

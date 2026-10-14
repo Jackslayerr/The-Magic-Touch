@@ -10,6 +10,7 @@ import Tilesets.CastleTileset;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.BouncyCloud;
 import EnhancedMapTiles.CrumblingBlock;
 import GameObject.Rectangle;
 import Utils.Direction;
@@ -97,6 +98,9 @@ public class LevelOneMap extends Map {
         CrumblingBlock crumblingBlock4 = new CrumblingBlock(getMapTile(4, 15).getLocation(), "CrumblingBlock.png");
         enhancedMapTiles.add(crumblingBlock4);
 
+        BouncyCloud bouncyCloud1 = new BouncyCloud(getMapTile(5, 13).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud1);
+
         return enhancedMapTiles;
     }
 
@@ -180,10 +184,7 @@ public class LevelOneMap extends Map {
         // sign tutorial
         Sign sign2 = new Sign(
                 getMapTile(7, 15).getLocation().subtractY(13),
-                "Your treasure-hunting dreams have come true!"
-                + "\n" + "Your mentor, a retired hunter has entrusted you with finding"
-                + "\n" + "the legendary artifacts of Bonwold the Great."
-                + "\n" + "Welcome to the Fire Dungeon!"
+                 "Welcome to the Fire Dungeon!"
                 + "\n" + "Defeat the goblins and claim the first artifact."
                 + "\n" + "Press Z to use your Fire Hand Rune."
                 + "\n" + "Light torches to solve the puzzles!"

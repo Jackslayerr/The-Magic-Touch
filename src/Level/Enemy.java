@@ -1,3 +1,4 @@
+
 package Level;
 
 import GameObject.Frame;
@@ -35,9 +36,15 @@ public class Enemy extends MapEntity {
 
     public void update(Player player) {
         super.update();
+
         if (intersects(player)) {
             touchedPlayer(player);
         }
+    }
+
+    // Default damage dealt by an enemy
+    public int getDamage() {
+        return 10;
     }
 
     // A subclass can override this method to specify what it does when it touches the player
