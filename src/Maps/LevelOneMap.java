@@ -184,10 +184,7 @@ public class LevelOneMap extends Map {
         // sign tutorial
         Sign sign2 = new Sign(
                 getMapTile(7, 15).getLocation().subtractY(13),
-                "Your treasure-hunting dreams have come true!"
-                + "\n" + "Your mentor, a retired hunter has entrusted you with finding"
-                + "\n" + "the legendary artifacts of Bonwold the Great."
-                + "\n" + "Welcome to the Fire Dungeon!"
+                 "Welcome to the Fire Dungeon!"
                 + "\n" + "Defeat the goblins and claim the first artifact."
                 + "\n" + "Press Z to use your Fire Hand Rune."
                 + "\n" + "Light torches to solve the puzzles!"
