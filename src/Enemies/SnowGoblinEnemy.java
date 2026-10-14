@@ -138,4 +138,10 @@ public class SnowGoblinEnemy extends Enemy {
             });
         }};
     }
+
+    // snow GOBLIN deal 15 damage to the player
+    @Override
+    public int getDamage() {
+        return 15;
+    }
 }

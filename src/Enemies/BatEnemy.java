@@ -93,33 +93,39 @@ public class BatEnemy extends Enemy{
         }
     }
 
+    
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("FLY_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
-                            .withBounds(2, 2, 20, 12)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
-                            .withBounds(2, 2, 20, 12)
-                            .build()
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                    .withScale(2)
+                    .withBounds(2, 2, 20, 12)
+                    .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
+                    .withScale(2)
+                    .withBounds(2, 2, 20, 12)
+                    .build()
             });
 
             put("FLY_RIGHT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(2, 2, 20, 12)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(2, 2, 20, 12)
-                            .build()
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                    .withScale(2)
+                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .withBounds(2, 2, 20, 12)
+                    .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
+                    .withScale(2)
+                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .withBounds(2, 2, 20, 12)
+                    .build()
             });
         }};
     }
 
+    // Bats deal 5 damage to the player
+    @Override
+    public int getDamage() {
+        return 5;
+    }
 }

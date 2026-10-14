@@ -146,7 +146,13 @@ public class GoblinEnemy extends Enemy {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(6, 13, 12, 7)
                             .build()
-            });
+              });
         }};
+    }
+
+    // GOBLIN deal 15 damage to the player
+    @Override
+    public int getDamage() {
+        return 15;
     }
 }

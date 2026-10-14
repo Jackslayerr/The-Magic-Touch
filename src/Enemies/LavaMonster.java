@@ -203,7 +203,13 @@ public class LavaMonster extends Enemy {
         }};
     }
 
-    public enum LavaMonsterState {
-        WALK, SHOOT_WAIT, SHOOT
-    }
+   public enum LavaMonsterState {
+    WALK, SHOOT_WAIT, SHOOT
+}
+
+// Lava Monsters deal 20 damage to the player
+@Override
+public int getDamage() {
+    return 20;
+}
 }

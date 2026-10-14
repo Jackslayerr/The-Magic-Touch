@@ -70,8 +70,8 @@ public abstract class Player extends GameObject {
     // PLAYER HEALTH SYSTEM
     // =====================================
 
-    protected int health = 12;
-    protected final int maxHealth = 12;
+    protected int health = 100;
+    protected final int maxHealth = 100;
 
     // Damage cooldown prevents rapid repeated damage
     protected int damageCooldown = 0;
@@ -415,44 +415,37 @@ public abstract class Player extends GameObject {
     // PLAYER DAMAGE / HEALTH
     // =====================================
 
-    public void hurtPlayer(MapEntity mapEntity) {
+    
+public void hurtPlayer(MapEntity mapEntity) {
+    if (isInvincible) {
+        return;
+    }
 
-        if (isInvincible) {
-            return;
+    if (levelState != LevelState.RUNNING) {
+        return;
+    }
+
+    if (damageCooldown > 0) {
+        return;
+    }
+
+    if (mapEntity instanceof Enemy) {
+        Enemy enemy = (Enemy) mapEntity;
+
+        health -= enemy.getDamage();
+
+        if (health < 0) {
+            health = 0;
         }
 
-        if (levelState != LevelState.RUNNING) {
-            return;
-        }
+        damageCooldown = 60;
 
-        if (damageCooldown > 0) {
-            return;
-        }
-
-        if (mapEntity instanceof Enemy) {
-
-            health-= 4;
-
-            System.out.println("Player Health: " + health);
-
-            damageCooldown = 60;
-
-            if (health <= 0) {
-                health = 0;
-                levelState = LevelState.PLAYER_DEAD;
-            }
+        if (health == 0) {
+            levelState = LevelState.PLAYER_DEAD;
         }
     }
-//public void healPlayer() {
-   // if (health < maxHealth) {
-     //   health += 1;
-//    }
-//
-    //if (health > maxHealth) {
-     //   health = maxHealth;
-   // }
-//System.out.println("Player Health: " + health);
-//}
+}
+
     // Get current player health
     public int getHealth() {
         return health;

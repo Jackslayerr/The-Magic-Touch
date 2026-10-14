@@ -46,8 +46,13 @@ public class Icicle extends Enemy {
                 .withScale(3)
                 .withBounds(4,4,8,12)
                 .build()
-            });
-        
+              });
         }};
+    }
+
+    // ICICLE deal 5 damage to the player
+    @Override
+    public int getDamage() {
+        return 5;
     }
 }
