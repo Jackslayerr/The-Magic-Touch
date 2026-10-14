@@ -1,3 +1,4 @@
+
 package Game;
 
 import Engine.DefaultScreen;
@@ -6,70 +7,113 @@ import Engine.Screen;
 import Level.Map;
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
+import Screens.CutsceneScreen;
 import Screens.PlayLevelScreen;
 import Maps.LevelOneMap;
+import Maps.LevelTwoMap;
+import Maps.LevelThreeMap;
 
-/*
- * Based on the current game state, this class determines which Screen should be shown
- * There can only be one "currentScreen", although screens can have "nested" screens
- */
 public class ScreenCoordinator extends Screen {
-	// currently shown Screen
-	protected Screen currentScreen = new DefaultScreen();
 
-	// keep track of gameState so ScreenCoordinator knows which Screen to show
-	protected GameState gameState;
-	protected GameState previousGameState;
-	protected Map level;
-	protected String backgroundImageFile;
+    protected Screen currentScreen = new DefaultScreen();
 
-	public GameState getGameState() {
-		return gameState;
-	}
+    protected GameState gameState;
+    protected GameState previousGameState;
+    protected Map level;
+    protected String backgroundImageFile;
 
-	// Other Screens can set the gameState of this class to force it to change the currentScreen
-	public void setGameState(GameState gameState) {
-		this.gameState = gameState;
-	}
+    protected int destinationLevel = 1;
 
-	@Override
-	public void initialize(Map level, String backgroundImageFile) {
-		// start game off with Menu Screen
-		this.level = level;
-		this.backgroundImageFile = backgroundImageFile;
-		gameState = GameState.MENU;
-	}
+    public int getDestinationLevel() {
+        return destinationLevel;
+    }
 
-	@Override
-	public void update() {
-		do {
-			// if previousGameState does not equal gameState, it means there was a change in gameState
-			// this triggers ScreenCoordinator to bring up a new Screen based on what the gameState is
-			if (previousGameState != gameState) {
-				switch(gameState) {
-					case MENU:
-						currentScreen = new MenuScreen(this);
-						currentScreen.initialize(level, "menu-screen.png");
-						break;
-					case LEVEL:
-						currentScreen = new PlayLevelScreen(this);
-						currentScreen.initialize(new LevelOneMap(), "game-background-level1.png");
-						break;
-					case CREDITS:
-						currentScreen = new CreditsScreen(this);
-						break;
-				}
-			}
-			previousGameState = gameState;
+    public void setDestinationLevel(int destinationLevel) {
+        this.destinationLevel = destinationLevel;
+    }
 
-			// call the update method for the currentScreen
-			currentScreen.update();
-		} while (previousGameState != gameState);
-	}
+    public GameState getGameState() {
+        return gameState;
+    }
 
-	@Override
-	public void draw(GraphicsHandler graphicsHandler) {
-		// call the draw method for the currentScreen
-		currentScreen.draw(graphicsHandler);
-	}
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    @Override
+    public void initialize(Map level, String backgroundImageFile) {
+        this.level = level;
+        this.backgroundImageFile = backgroundImageFile;
+        this.destinationLevel = 1;
+        this.previousGameState = null;
+        this.gameState = GameState.MENU;
+    }
+
+    @Override
+    public void update() {
+        do {
+            if (previousGameState != gameState) {
+                switch (gameState) {
+
+                    case MENU:
+                        currentScreen = new MenuScreen(this);
+                        currentScreen.initialize(level, "menu-screen.png");
+                        break;
+
+                    case CUTSCENE:
+                        currentScreen = new CutsceneScreen(this);
+                        currentScreen.initialize(level, "menu-screen.png");
+                        break;
+
+                    case LEVEL:
+                        currentScreen = new PlayLevelScreen(this);
+
+                        switch (destinationLevel) {
+                            case 1:
+                                currentScreen.initialize(
+                                    new LevelOneMap(),
+                                    "game-background-level1.png"
+                                );
+                                break;
+
+                            case 2:
+                                currentScreen.initialize(
+                                    new LevelTwoMap(),
+                                    "game-background-level2.png"
+                                );
+                                break;
+
+                            case 3:
+                                currentScreen.initialize(
+                                    new LevelThreeMap(),
+                                    "game-background-level3.png"
+                                );
+                                break;
+
+                            default:
+                                destinationLevel = 1;
+                                currentScreen.initialize(
+                                    new LevelOneMap(),
+                                    "game-background-level1.png"
+                                );
+                                break;
+                        }
+                        break;
+
+                    case CREDITS:
+                        currentScreen = new CreditsScreen(this);
+                        break;
+                }
+            }
+
+            previousGameState = gameState;
+            currentScreen.update();
+
+        } while (previousGameState != gameState);
+    }
+
+    @Override
+    public void draw(GraphicsHandler graphicsHandler) {
+        currentScreen.draw(graphicsHandler);
+    }
 }

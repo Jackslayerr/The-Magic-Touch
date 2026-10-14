@@ -41,7 +41,7 @@ public class MenuScreen extends Screen {
 
         keyPressTimer = 0;
         menuItemSelected = -1;
-        keyLocker.lockKey(Key.SPACE);
+        keyLocker.lockKey(Key.ENTER);
     }
 
     public void update() {
@@ -76,15 +76,15 @@ public class MenuScreen extends Screen {
             pointerLocationY = 345;
         }
 
-        if (Keyboard.isKeyUp(Key.SPACE)) {
-            keyLocker.unlockKey(Key.SPACE);
+        if (Keyboard.isKeyUp(Key.ENTER)) {
+            keyLocker.unlockKey(Key.ENTER);
         }
 
-        if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
+        if (!keyLocker.isKeyLocked(Key.ENTER) && Keyboard.isKeyDown(Key.ENTER)) {
             menuItemSelected = currentMenuItemHovered;
 
             if (menuItemSelected == 0) {
-                screenCoordinator.setGameState(GameState.LEVEL);
+                screenCoordinator.setGameState(GameState.CUTSCENE);
             } else if (menuItemSelected == 1) {
                 screenCoordinator.setGameState(GameState.CREDITS);
             }
