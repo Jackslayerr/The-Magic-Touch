@@ -26,7 +26,7 @@ public class WaveAttack extends Enemy {
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
     public WaveAttack(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Player player) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("wave3.png"), 12, 12), "RIGHT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("newwave.png"), 20, 20), "RIGHT");
         this.movementSpeed = movementSpeed;
 
         // how long the wave will exist for before disappearing
@@ -58,7 +58,7 @@ public class WaveAttack extends Enemy {
                 if (fromPlayer && this.intersects(enemy) && this != enemy) {
                     enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
                    // player.healPlayer();
-                    System.out.println("PLAYER FIREBALL DEFEATED ENEMY!");
+                    System.out.println("PLAYER WAVE DEFEATED ENEMY!");
                     this.setMapEntityStatus(MapEntityStatus.REMOVED);
                  }
             }

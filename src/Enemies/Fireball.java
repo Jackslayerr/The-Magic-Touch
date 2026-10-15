@@ -4,6 +4,7 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
+import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.MapEntity;
@@ -28,16 +29,16 @@ public class Fireball extends Enemy {
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
     public Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("fireball.png"), 7, 7), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("newfireball2.png"), 15, 15), "RIGHT");
         this.movementSpeed = movementSpeed;
 
         // how long the fireball will exist for before disappearing
         this.existenceFrames = existenceFrames;
-        
+
         // if the fireball was shot by the player
         this.fromPlayer = fromPlayer;
         // Grabs map npcs
-        
+
         initialize();
     }
 
@@ -91,9 +92,9 @@ public class Fireball extends Enemy {
                 }
             }
             super.update(player);
-            
+
         }
-        
+
         existenceFrames--;
     }
 
@@ -113,14 +114,21 @@ public class Fireball extends Enemy {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
     }
-    
+
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("DEFAULT", new Frame[]{
+            put("RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(4)
+                            .withScale(2)
+                            .withBounds(0, 0, 7, 7)
+                            .build()
+            });
+            put("LEFT", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(0, 0, 7, 7)
                             .build()
             });
