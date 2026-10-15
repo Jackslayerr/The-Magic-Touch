@@ -25,6 +25,9 @@ public class LevelThreeMap extends Map {
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
+
+        SHEEP sheep = new SHEEP(getMapTile(17, 7).getLocation().subtractY(-110), Direction.LEFT);
+        enemies.add(sheep);
         return enemies;
     }
 
