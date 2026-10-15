@@ -24,7 +24,7 @@ public class SHEEP extends Enemy {
     private AirGroundState airGroundState;
 
     public SHEEP(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("S.H.E.E.P.Enemy.png"), 67, 74), "FLY_LEFT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("S.H.E.E.P.Enemy.png"), 33, 24), "FLY_LEFT");
         this.startFacingDirection = facingDirection;
         this.initialize();
     }
