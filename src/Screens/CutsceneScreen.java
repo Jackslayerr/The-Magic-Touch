@@ -28,22 +28,49 @@ public class CutsceneScreen extends Screen {
     private SpriteFont continueText;
 
     private int currentScene = 0;
+    private int currentLevel = 1;
+
     private boolean spaceWasDown = false;
     private boolean escWasDown = false;
 
-    private final String[] titles = {
+    // Each level has its own cutscene titles.
+    private final String[][] titles = {
+        {
             "THE LEGEND OF BONWOLD",
             "THE MENTOR'S QUEST",
             "THE FIRE DUNGEON"
+        },
+        {
+            "THE FROZEN FRONTIER",
+            "FROSTBITE CAVERNS"
+        },
+        {
+            "THE STORM APPROACHES",
+            "THUNDERBOLT CASTLE"
+        }
     };
 
-    private final String[] backgroundFiles = {
+    // Each level can use different background images.
+    // Missing images temporarily fall back to menu-screen.png.
+    private final String[][] backgroundFiles = {
+        {
             "menu-screen.png",
             "menu-screen.png",
             "menu-screen.png"
+        },
+        {
+            "frostbite-caverns-cutscene.png",
+            "frostbite-caverns-cutscene.png"
+        },
+        {
+            "thunderbolt-castle-cutscene.png",
+            "thunderbolt-castle-cutscene.png"
+        }
     };
 
-    private final String[] scenes = {
+    // Story dialogue for each level.
+    private final String[][] scenes = {
+        {
             "Long ago, the kingdom faced a terrible threat. " +
             "The evil sorcerer Malodor sought to plunge the world " +
             "into darkness. But one hero stood against him: " +
@@ -70,6 +97,38 @@ public class CutsceneScreen extends Screen {
             "and light torches to solve the dungeon's puzzles. " +
             "Objective: Defeat the goblins and retrieve the first " +
             "piece! Press Z to shoot fireballs. Your quest begins here!"
+        },
+
+        {
+            "After conquering the Fire Dungeon, your journey " +
+            "leads north into a frozen wilderness. Your mentor " +
+            "warns you that the next trail is hidden beneath " +
+            "ancient ice. Strange lights flicker inside the distant " +
+            "mountains, and a bitter wind carries whispers of " +
+            "something guarding the caverns below...",
+
+            "Welcome to Frostbite Caverns! Frozen passages and " +
+            "dangerous creatures stand between you and the next " +
+            "sword piece. Watch your footing, explore the icy halls, " +
+            "and overcome the creatures that protect this forgotten " +
+            "place. Your next trial begins now!"
+        },
+
+        {
+            "Word of your victories has spread across the kingdom. " +
+            "Your mentor directs you toward a towering fortress " +
+            "where violent storms gather around the highest spires. " +
+            "Lightning flashes across the sky, illuminating an " +
+            "ancient castle that has stood abandoned for generations. " +
+            "Something powerful waits within its walls...",
+
+            "Welcome to Thunderbolt Castle! Storm-charged halls " +
+            "and dangerous guardians stand in your way. Search " +
+            "the fortress, overcome its trials, and continue your " +
+            "quest for Bonwold's legendary sword. Your mentor " +
+            "believes the next piece lies beyond the castle's defenses. " +
+            "Prepare yourself for the challenge ahead!"
+        }
     };
 
     public CutsceneScreen(ScreenCoordinator screenCoordinator) {
@@ -78,6 +137,14 @@ public class CutsceneScreen extends Screen {
 
     @Override
     public void initialize(Map level, String backgroundImageFile) {
+
+        currentLevel = screenCoordinator.getDestinationLevel();
+
+        // Keep the level number within the levels currently implemented.
+        if (currentLevel < 1 || currentLevel > scenes.length) {
+            currentLevel = 1;
+        }
+
         currentScene = 0;
 
         spaceWasDown = Keyboard.isKeyDown(Key.SPACE);
@@ -86,37 +153,38 @@ public class CutsceneScreen extends Screen {
         loadCurrentBackground();
 
         titleText = createText(
-                titles[currentScene], 100, 155, 26
+            titles[currentLevel - 1][currentScene],
+            100, 155, 26
         );
 
         continueText = createText(
-                "Press SPACE to continue", 30, 555, 16
+            "Press SPACE to continue", 30, 555, 16
         );
 
         skipText = createText(
-                "Press ESC to skip all", 560, 555, 14
+            "Press ESC to skip all", 560, 555, 14
         );
     }
 
     private void loadCurrentBackground() {
-        String filename = backgroundFiles[currentScene];
 
-        // Use the custom image if it exists.
+        String filename =
+            backgroundFiles[currentLevel - 1][currentScene];
+
         File imageFile = new File("Resources/" + filename);
 
         if (imageFile.exists()) {
             backgroundImage = ImageLoader.load(filename);
         } else {
-            // Keep the game working while artwork is being created.
             backgroundImage = ImageLoader.load("menu-screen.png");
         }
     }
 
     private SpriteFont createText(
-            String text, int x, int y, int size) {
+        String text, int x, int y, int size) {
 
         SpriteFont font = new SpriteFont(
-                text, x, y, "Arial", size, Color.WHITE
+            text, x, y, "Arial", size, Color.WHITE
         );
 
         font.setOutlineColor(Color.BLACK);
@@ -126,18 +194,18 @@ public class CutsceneScreen extends Screen {
     }
 
     private void drawWrappedText(
-            GraphicsHandler graphicsHandler,
-            String text,
-            int x,
-            int y,
-            int maxWidth,
-            int lineHeight,
-            int fontSize) {
+        GraphicsHandler graphicsHandler,
+        String text,
+        int x,
+        int y,
+        int maxWidth,
+        int lineHeight,
+        int fontSize) {
 
         Graphics2D g = graphicsHandler.getGraphics();
 
         Font font = new Font(
-                "Arial", Font.PLAIN, fontSize
+            "Arial", Font.PLAIN, fontSize
         );
 
         FontMetrics metrics = g.getFontMetrics(font);
@@ -146,20 +214,22 @@ public class CutsceneScreen extends Screen {
         StringBuilder line = new StringBuilder();
 
         for (String word : text.split("\\s+")) {
+
             String testLine = line.length() == 0
-                    ? word
-                    : line + " " + word;
+                ? word
+                : line + " " + word;
 
             if (metrics.stringWidth(testLine) > maxWidth
                     && line.length() > 0) {
 
                 graphicsHandler.drawString(
-                        line.toString(), x, currentY,
-                        font, Color.WHITE
+                    line.toString(), x, currentY,
+                    font, Color.WHITE
                 );
 
                 currentY += lineHeight;
                 line = new StringBuilder(word);
+
             } else {
                 line = new StringBuilder(testLine);
             }
@@ -167,14 +237,15 @@ public class CutsceneScreen extends Screen {
 
         if (line.length() > 0) {
             graphicsHandler.drawString(
-                    line.toString(), x, currentY,
-                    font, Color.WHITE
+                line.toString(), x, currentY,
+                font, Color.WHITE
             );
         }
     }
 
     @Override
     public void update() {
+
         boolean spaceIsDown = Keyboard.isKeyDown(Key.SPACE);
         boolean escIsDown = Keyboard.isKeyDown(Key.ESC);
 
@@ -184,14 +255,18 @@ public class CutsceneScreen extends Screen {
         }
 
         if (spaceIsDown && !spaceWasDown) {
-            if (currentScene < scenes.length - 1) {
+
+            if (currentScene < scenes[currentLevel - 1].length - 1) {
+
                 currentScene++;
 
                 loadCurrentBackground();
 
                 titleText = createText(
-                        titles[currentScene], 100, 155, 26
+                    titles[currentLevel - 1][currentScene],
+                    100, 155, 26
                 );
+
             } else {
                 startLevel();
                 return;
@@ -204,23 +279,24 @@ public class CutsceneScreen extends Screen {
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
+
         graphicsHandler.drawImage(
-                backgroundImage, 0, 0, 800, 605
+            backgroundImage, 0, 0, 800, 605
         );
 
         graphicsHandler.drawFilledRectangleWithBorder(
-                70, 110, 660, 390,
-                new Color(20, 16, 30, 225),
-                new Color(218, 170, 75),
-                3
+            70, 110, 660, 390,
+            new Color(20, 16, 30, 225),
+            new Color(218, 170, 75),
+            3
         );
 
         titleText.draw(graphicsHandler);
 
         drawWrappedText(
-                graphicsHandler,
-                scenes[currentScene],
-                100, 220, 600, 30, 18
+            graphicsHandler,
+            scenes[currentLevel - 1][currentScene],
+            100, 220, 600, 30, 18
         );
 
         continueText.draw(graphicsHandler);
