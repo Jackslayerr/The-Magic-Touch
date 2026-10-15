@@ -132,7 +132,7 @@ public class DinosaurEnemy extends Enemy {
             int fireballY = Math.round(getY()) + 4;
 
             // create Fireball enemy
-            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, false);
+            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, false, player);
 
             // add fireball enemy to the map for it to spawn in the level
             map.addEnemy(fireball);
