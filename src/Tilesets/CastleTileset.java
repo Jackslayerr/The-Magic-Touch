@@ -153,7 +153,7 @@ public class CastleTileset extends Tileset {
 
         Frame castleFloatingPlatformFrame = new FrameBuilder(getSubImage(2, 2))
                 .withScale(tileScale)
-                .withBounds(0, 6, 16, 4)
+                .withBounds(0, 0, 16, 4)
                 .build();
 
         MapTileBuilder castleFloatingPlatformTile = new MapTileBuilder(castleFloatingPlatformFrame)

@@ -139,14 +139,14 @@ public class LevelOneMap extends Map {
         npcs.add(torch4);
 
         Torch torch5 = new Torch(
-                getMapTile(93, 15).getLocation().subtractY(-3),
+                getMapTile(93, 15).getLocation().subtractY(13),
                 5
         );
 
         npcs.add(torch5);
 
         Torch torch6 = new Torch(
-                getMapTile(79, 18).getLocation().subtractY(-3),
+                getMapTile(79, 18).getLocation().subtractY(13),
                 6
         );
 
@@ -160,14 +160,14 @@ public class LevelOneMap extends Map {
         npcs.add(torch7);
 
         Torch torch8 = new Torch(
-                getMapTile(78, 4).getLocation().subtractY(-3),
+                getMapTile(78, 4).getLocation().subtractY(13),
                 8
         );
 
         npcs.add(torch8);
 
         Torch torch9 = new Torch(
-                getMapTile(79, 9).getLocation().subtractY(-3),
+                getMapTile(79, 9).getLocation().subtractY(13),
                 9
         );
 
