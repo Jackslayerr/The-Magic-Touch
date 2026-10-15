@@ -571,7 +571,7 @@ public void hurtPlayer(MapEntity mapEntity) {
 
         int fireballY = Math.round(getY()) + 15;
 
-        Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, true);
+        Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, true, this);
 
         map.addEnemy(fireball);
 
