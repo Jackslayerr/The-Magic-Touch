@@ -16,6 +16,7 @@ import Utils.Point;
 import java.util.ArrayList;
 
 import Enemies.Fireball;
+import Enemies.Lightning;
 
 import static javax.swing.UIManager.put;
 
@@ -30,6 +31,7 @@ public abstract class Player extends GameObject {
     protected float momentumYIncrease = 0;
     protected int fireAnimationTimer = 0;
     protected int waveAnimationTimer = 0;
+    protected int lightningAnimationTimer = 0;
 
     // values used to handle player movement
     protected float jumpForce = 0;
@@ -60,6 +62,7 @@ public abstract class Player extends GameObject {
     protected Key CROUCH_KEY = Key.DOWN;
     protected Key FIRE_KEY = Key.Z;
     protected Key WAVE_KEY = Key.X;
+    protected Key LIGHTNING_KEY = Key.C;
 
     private boolean frozen = false;
 
@@ -169,18 +172,21 @@ public abstract class Player extends GameObject {
                 playerStanding();
                 playerShootFire();
                 playerShootWave();
+                playerShootLightning();
                 break;
 
             case WALKING:
                 playerWalking();
                 playerShootFire();
                 playerShootWave();
+                playerShootLightning();
                 break;
 
             case CROUCHING:
                 playerCrouching();
                 playerShootFire();
                 playerShootWave();
+                playerShootLightning();
                 break;
 
             case JUMPING:
@@ -343,6 +349,9 @@ public abstract class Player extends GameObject {
 
         if (Keyboard.isKeyUp(WAVE_KEY)) {
             keyLocker.unlockKey(WAVE_KEY);
+        }
+        if (Keyboard.isKeyUp(LIGHTNING_KEY)) {
+            keyLocker.unlockKey(LIGHTNING_KEY);
         }
     }
 
@@ -602,5 +611,24 @@ public void hurtPlayer(MapEntity mapEntity) {
 
 
         coolDown = 30;
+    }
+
+    public void shootLightning() {
+        float lightningX = this.getLocation().x;
+        float lightningY = this.getLocation().y - 144;
+        Point lightningLocation = new Point(lightningX, lightningY);
+        Lightning lightning = new Lightning(lightningLocation, map);
+        map.addEnemy(lightning);
+        coolDown = 30;
+    }
+    public void playerShootLightning() {
+        if (frozen) {
+            return;
+        }
+        if (Keyboard.isKeyDown(LIGHTNING_KEY) && !keyLocker.isKeyLocked(LIGHTNING_KEY) && coolDown == 0 && currentLevel >= 1) {
+            keyLocker.lockKey(LIGHTNING_KEY);
+            shootLightning();
+            lightningAnimationTimer = 15;
+        }
     }
 }
