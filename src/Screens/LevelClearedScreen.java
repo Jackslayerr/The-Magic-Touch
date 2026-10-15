@@ -1,30 +1,65 @@
+
 package Screens;
 
 import Engine.*;
 import Level.Map;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
-// This class is for the level cleared screen
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 public class LevelClearedScreen extends Screen {
+
     protected BufferedImage backgroundImage;
 
     public LevelClearedScreen() {
-        initialize(null, "level-cleared-level1.png");
+        this(1);
+    }
+
+    public LevelClearedScreen(int levelNumber) {
+        initialize(null, chooseBackground(levelNumber));
+    }
+
+    private String chooseBackground(int levelNumber) {
+        switch (levelNumber) {
+            case 1:
+                return "level-cleared-level1.png";
+
+            case 2:
+                return "level-cleared-level2.png";
+
+            case 3:
+                return "level-cleared-level1.png";
+
+            case 4:
+                return "level-cleared-level1.png";
+
+            case 5:
+                return "level-cleared-level1.png";
+
+            default:
+                return "level-cleared-level1.png";
+        }
     }
 
     @Override
     public void initialize(Map level, String backgroundImageFile) {
-        backgroundImage = ImageLoader.load(backgroundImageFile);
+        File imageFile = new File("Resources/" + backgroundImageFile);
+
+        if (imageFile.exists()) {
+            backgroundImage = ImageLoader.load(backgroundImageFile);
+        } else {
+            backgroundImage = ImageLoader.load("level-cleared-level1.png");
+        }
     }
 
     @Override
     public void update() {
-
     }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawImage(backgroundImage, 0, 0, 794, 576);
+        graphicsHandler.drawImage(
+            backgroundImage, 0, 0, 794, 576
+        );
     }
 }

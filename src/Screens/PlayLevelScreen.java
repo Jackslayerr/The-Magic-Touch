@@ -52,7 +52,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.addListener(this);
         this.player.setCurrentLevel(currentLevel);
 
-        levelClearedScreen = new LevelClearedScreen();
+        levelClearedScreen = new LevelClearedScreen(currentLevel);
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
