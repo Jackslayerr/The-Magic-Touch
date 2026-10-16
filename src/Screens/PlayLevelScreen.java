@@ -33,6 +33,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected int currentLevel = 1;
     protected static int totalLevels = 3;
 
+    // Red screen flash when the player takes damage
+    private int damageFlashTimer = 0;
+    private static final int DAMAGE_FLASH_DURATION = 12;
+
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
@@ -52,6 +56,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.addListener(this);
         this.player.setCurrentLevel(currentLevel);
 
+        // Reset the damage effect whenever a level loads
+        damageFlashTimer = 0;
+
         levelClearedScreen = new LevelClearedScreen(currentLevel);
         levelLoseScreen = new LevelLoseScreen(this);
 
@@ -60,13 +67,23 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     @Override
     public void update() {
-
-
         switch (playLevelScreenState) {
 
             case RUNNING:
+                int healthBeforeUpdate = player.getHealth();
+
                 player.update();
                 map.update(player);
+
+                int healthAfterUpdate = player.getHealth();
+
+                // Start the red flash whenever health decreases
+                if (healthAfterUpdate < healthBeforeUpdate) {
+                    damageFlashTimer = DAMAGE_FLASH_DURATION;
+                } else if (damageFlashTimer > 0) {
+                    damageFlashTimer--;
+                }
+
                 break;
 
             case LEVEL_COMPLETED:
@@ -86,7 +103,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
-
         switch (playLevelScreenState) {
 
             case RUNNING:
@@ -97,6 +113,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
                 drawHealthBar(graphicsHandler);
+
+                // Draw the damage flash over the gameplay
+                drawDamageFlash(graphicsHandler);
                 break;
 
             case LEVEL_COMPLETED:
@@ -116,6 +135,39 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 levelLoseScreen.draw(graphicsHandler);
                 break;
         }
+    }
+
+    // Draw a translucent red border that fades away
+    private void drawDamageFlash(GraphicsHandler graphicsHandler) {
+        if (damageFlashTimer <= 0) {
+            return;
+        }
+
+        Graphics2D g = graphicsHandler.getGraphics();
+
+        int alpha = (int) (
+            180.0 * damageFlashTimer / DAMAGE_FLASH_DURATION
+        );
+
+        g.setColor(new Color(255, 0, 0, alpha));
+
+        int borderThickness = 22;
+        int screenWidth = 800;
+        int screenHeight = 605;
+
+        // Top and bottom borders
+        g.fillRect(0, 0, screenWidth, borderThickness);
+        g.fillRect(
+            0, screenHeight - borderThickness,
+            screenWidth, borderThickness
+        );
+
+        // Left and right borders
+        g.fillRect(0, 0, borderThickness, screenHeight);
+        g.fillRect(
+            screenWidth - borderThickness, 0,
+            borderThickness, screenHeight
+        );
     }
 
     private void drawHealthBar(GraphicsHandler graphicsHandler) {
