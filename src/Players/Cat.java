@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class Cat extends Player {
 
     public Cat(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("hi-defsheet2.png"), 140, 140), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("hi-defsheet4.png"), 140, 140), x, y, "STAND_RIGHT");
         gravity = .5f;
         terminalVelocityY = 6f;
         jumpHeight = 10.3f;
@@ -190,6 +190,21 @@ public class Cat extends Player {
 
             put("WAVE_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(6, 1))
+                            .withScale(.4f)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(36, 20, 48, 110)
+                            .build()
+            });
+
+            put("BOLT_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 2))
+                            .withScale(.4f)
+                            .withBounds(36, 20, 48, 110)
+                            .build()
+            });
+
+            put("BOLT_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 2))
                             .withScale(.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(36, 20, 48, 110)

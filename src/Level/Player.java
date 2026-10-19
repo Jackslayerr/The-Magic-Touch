@@ -368,6 +368,12 @@ public abstract class Player extends GameObject {
             return;
         }
 
+        if (lightningAnimationTimer > 0) {
+            lightningAnimationTimer--;
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "BOLT_RIGHT" : "BOLT_LEFT";
+            return;
+        }
+
         if (playerState == PlayerState.STANDING) {
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
 
@@ -617,7 +623,7 @@ public void hurtPlayer(MapEntity mapEntity) {
         float lightningX = this.getLocation().x;
         float lightningY = this.getLocation().y - 144;
         Point lightningLocation = new Point(lightningX, lightningY);
-        Lightning lightning = new Lightning(lightningLocation, map);
+        Lightning lightning = new Lightning(lightningLocation, map, this);
         map.addEnemy(lightning);
         coolDown = 30;
     }

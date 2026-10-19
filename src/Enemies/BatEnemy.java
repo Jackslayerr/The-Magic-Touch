@@ -87,11 +87,7 @@ public class BatEnemy extends Enemy{
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if bat collides with the ground, keep its air state to AIR
         if (direction == Direction.DOWN) {
-            if (hasCollided) {
-                airGroundState = AirGroundState.AIR;
-            } else {
-                airGroundState = AirGroundState.AIR;
-            }
+            airGroundState = AirGroundState.AIR;
         }
     }
 
