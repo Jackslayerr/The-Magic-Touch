@@ -18,11 +18,13 @@ public class Lightning extends Enemy {
     Point playerLocation;
     ArrayList<Enemy> enemies;
     int existenceFrames = 20;
+    private Direction facingDirection;
 
-    public Lightning(Point playerLocation, Map map) {
-        super(playerLocation.x, playerLocation.y, new SpriteSheet(ImageLoader.load("thunderCloud.png"), 64, 160), "LIGHTNING");
+    public Lightning(Point playerLocation, Map map, Player player) {
+        super(playerLocation.x, playerLocation.y, new SpriteSheet(ImageLoader.load("thunderCloud.png"), 64, 160), player.getFacingDirection() == Direction.RIGHT ? "BOLT_RIGHT" : "BOLT_LEFT");
         this.playerLocation = playerLocation;
         enemies = map.getEnemies();
+        initialize();
     }
 
     @Override
@@ -54,13 +56,21 @@ public class Lightning extends Enemy {
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-        return new HashMap<String, Frame[]>() {{
-            put("LIGHTNING", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0,0), 8)
-                .withScale(1)
-                .withBounds(16,0,32,144)
-                .build()
-            });
+            return new HashMap<String, Frame[]>() {{
+                put("BOLT_RIGHT", new Frame[] {
+                        new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                                .withScale(1)
+                                .withBounds(16, 0, 32, 144)
+                                .build()
+                });
+
+                put("BOLT_LEFT", new Frame[] {
+                        new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                                .withScale(1)
+                                .withImageEffect(GameObject.ImageEffect.FLIP_HORIZONTAL)
+                                .withBounds(16, 0, 32, 144)
+                                .build()
+                });
         }};
     }
 }

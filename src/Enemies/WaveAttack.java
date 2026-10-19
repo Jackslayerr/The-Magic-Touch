@@ -94,13 +94,13 @@ public class WaveAttack extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(4)
+                            .withScale(2)
                             .withBounds(1, 1, 5, 5)
                             .build()
             });
             put("LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(4)
+                            .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(1, 1, 5, 5)
                             .build()
