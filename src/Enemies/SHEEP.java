@@ -57,10 +57,22 @@ public class SHEEP extends Enemy {
         }
 
         // move SHEEP
-        moveYHandleCollision(moveAmountY);
-        moveXHandleCollision(moveAmountX);
+        moveY(moveAmountY);
+        moveX(moveAmountX);
 
         super.update(player);
+    }
+
+    @Override
+    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+        // leave empty
+    }
+
+    @Override
+    public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+        if (direction == Direction.DOWN) {
+           airGroundState = AirGroundState.AIR;
+        }
     }
 
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -87,8 +99,8 @@ public class SHEEP extends Enemy {
                             .withBounds(2, 4, 20, 17)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 1), 30)
-                            .withScale(10)
-                            .withBounds(2, 4, 20, 17)
+                            .withScale(8)
+                            .withBounds(-25, -20, 80, 70)
                             .build()
             });
 
