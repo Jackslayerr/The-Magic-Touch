@@ -66,23 +66,23 @@ public class SHEEP extends Enemy {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("FLY_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 30)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
                             .withScale(3)
                             .withBounds(2, 4, 20, 17)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 30)
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 100)
                             .withScale(3)
                             .withBounds(2, 4, 20, 17)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 0), 30)
+                    new FrameBuilder(spriteSheet.getSprite(1, 0), 100)
                             .withScale(3)
                             .withBounds(2, 4, 20, 17)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 1), 30)
+                    new FrameBuilder(spriteSheet.getSprite(1, 1), 100)
                             .withScale(3)
                             .withBounds(2, 4, 20, 17)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(2, 0), 30)
+                    new FrameBuilder(spriteSheet.getSprite(2, 0), 100)
                             .withScale(3)
                             .withBounds(2, 4, 20, 17)
                             .build(),
