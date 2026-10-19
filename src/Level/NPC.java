@@ -19,6 +19,7 @@ public class NPC extends MapEntity {
     protected Textbox textbox = new Textbox("");
     protected int textboxOffsetX = 0;
     protected int textboxOffsetY = 0;
+    protected boolean drawTextbox = true;
 
     public NPC(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
@@ -75,7 +76,7 @@ public class NPC extends MapEntity {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        if (talkedTo && talkedToTime >= 0) {
+        if (talkedTo && talkedToTime >= 0 && drawTextbox) {
             textbox.draw(graphicsHandler);
         }
     }

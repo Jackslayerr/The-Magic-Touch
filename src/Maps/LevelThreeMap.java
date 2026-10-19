@@ -1,9 +1,7 @@
 package Maps;
 
 import Level.*;
-import NPCs.Mentor;
-import NPCs.Torch;
-import NPCs.Sign;
+import NPCs.*;
 import Enemies.*;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
@@ -43,6 +41,12 @@ public class LevelThreeMap extends Map {
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
+
+        Teleporter teleporter1 = new Teleporter(getMapTile(32, 16).getLocation().subtractY(48), "GoldTeleporter.png",69, 16);
+        npcs.add(teleporter1);    
+
+        Teleporter teleporter2 = new Teleporter(getMapTile(69, 16).getLocation().subtractY(48), "DiamondTeleporter.png",32, 16);
+        npcs.add(teleporter2);
 
         return npcs;
     }
