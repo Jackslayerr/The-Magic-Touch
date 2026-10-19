@@ -73,6 +73,22 @@ public class SHEEP extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 30)
                             .withScale(3)
                             .withBounds(2, 4, 20, 17)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 0), 30)
+                            .withScale(3)
+                            .withBounds(2, 4, 20, 17)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 1), 30)
+                            .withScale(3)
+                            .withBounds(2, 4, 20, 17)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 0), 30)
+                            .withScale(3)
+                            .withBounds(2, 4, 20, 17)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 1), 30)
+                            .withScale(10)
+                            .withBounds(2, 4, 20, 17)
                             .build()
             });
 
