@@ -130,7 +130,7 @@ public class LavaMonster extends Enemy {
             int fireballY = Math.round(getY() + 4);
 
             // create Fireball enemy
-            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, false, player);
+            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, false, facingDirection);
 
             // add fireball enemy to the map for it to spawn in the level
             map.addEnemy(fireball);

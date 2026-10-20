@@ -29,7 +29,7 @@ public class Fireball extends Enemy {
     private Direction direction;
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
-    public Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Player player) {
+    public Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Direction direction) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("newfireball2.png"), 15, 15), "RIGHT");
         this.movementSpeed = movementSpeed;
 
@@ -39,7 +39,7 @@ public class Fireball extends Enemy {
         // if the fireball was shot by the player
         this.fromPlayer = fromPlayer;
         // Grabs map npcs
-        this.direction = player.getFacingDirection();
+        this.direction = direction;
         if (direction == Direction.LEFT) {
             currentAnimationName = "LEFT";
         } else {
