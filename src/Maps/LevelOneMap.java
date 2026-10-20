@@ -83,23 +83,19 @@ public class LevelOneMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(93, 11).getLocation(), "WaterChest.png");
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(146, 11).getLocation(), "WaterChest.png");
         enhancedMapTiles.add(endLevelBox);
 
-        CrumblingBlock crumblingBlock1 = new CrumblingBlock(getMapTile(1, 15).getLocation(), "CrumblingIceBlock.png");
-        enhancedMapTiles.add(crumblingBlock1);
 
-        CrumblingBlock crumblingBlock2 = new CrumblingBlock(getMapTile(2, 15).getLocation(), "CrumblingIceBlock.png");
-        enhancedMapTiles.add(crumblingBlock2);
+        for (int i = 0; i < 10; i++) {
+            CrumblingBlock crumblingBlock = new CrumblingBlock(getMapTile(100 + i, 12).getLocation(), "CrumblingBlock.png");
+            enhancedMapTiles.add(crumblingBlock);
+        }
 
-        CrumblingBlock crumblingBlock3 = new CrumblingBlock(getMapTile(3, 15).getLocation(), "CrumblingBlock.png");
-        enhancedMapTiles.add(crumblingBlock3);
-
-        CrumblingBlock crumblingBlock4 = new CrumblingBlock(getMapTile(4, 15).getLocation(), "CrumblingBlock.png");
-        enhancedMapTiles.add(crumblingBlock4);
-
-        BouncyCloud bouncyCloud1 = new BouncyCloud(getMapTile(5, 13).getLocation(), "BouncyCloud.png");
-        enhancedMapTiles.add(bouncyCloud1);
+        for (int i = 0; i < 13; i++) {
+            CrumblingBlock crumblingBlock = new CrumblingBlock(getMapTile(121 + i, 12).getLocation(), "CrumblingBlock.png");
+            enhancedMapTiles.add(crumblingBlock);
+        }
 
         return enhancedMapTiles;
     }
@@ -139,7 +135,7 @@ public class LevelOneMap extends Map {
         npcs.add(torch4);
 
         Torch torch5 = new Torch(
-                getMapTile(93, 15).getLocation().subtractY(13),
+                getMapTile(93, 16).getLocation().subtractY(13),
                 5
         );
 
@@ -153,7 +149,7 @@ public class LevelOneMap extends Map {
         npcs.add(torch6);
 
         Torch torch7 = new Torch(
-                getMapTile(90, 7).getLocation().subtractY(13),
+                getMapTile(90, 6).getLocation().subtractY(13),
                 7
         );
 
