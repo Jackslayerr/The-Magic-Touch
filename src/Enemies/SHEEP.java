@@ -41,6 +41,8 @@ public class SHEEP extends Enemy {
         airGroundState = AirGroundState.AIR;
     }
 
+    private int lifeTimer = 500; // how long bro flies before he blows (up)
+
     @Override
     public void update(Player player) {
         float moveAmountX = 0;
@@ -61,6 +63,23 @@ public class SHEEP extends Enemy {
         moveX(moveAmountX);
 
         super.update(player);
+
+        if (lifeTimer <= 0) {
+            explode();
+        }
+        lifeTimer--;
+    }
+
+    public void explode() {
+        float explosionX = this.getX() - 82;
+        float explosionY = this.getY() - 60;
+
+        // spawn explosion
+        Explosion explosion = new Explosion(new Point(explosionX, explosionY));
+        map.addEnemy(explosion);
+
+        // delete sheep
+        this.mapEntityStatus = Level.MapEntityStatus.REMOVED;
     }
 
     @Override
@@ -97,10 +116,6 @@ public class SHEEP extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(2, 0), 100)
                             .withScale(3)
                             .withBounds(2, 4, 20, 17)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(2, 1), 30)
-                            .withScale(8)
-                            .withBounds(-25, -20, 80, 70)
                             .build()
             });
 
