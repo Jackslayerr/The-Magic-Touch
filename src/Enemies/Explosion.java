@@ -42,4 +42,9 @@ public class Explosion extends Enemy {
             });
         }};
     }
+
+    @Override
+    public int getDamage() {
+        return 50;
+    }
 }
