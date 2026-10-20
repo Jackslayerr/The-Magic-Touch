@@ -33,7 +33,7 @@ public class CutsceneScreen extends Screen {
     private boolean spaceWasDown = false;
     private boolean escWasDown = false;
 
-    // Each level has its own cutscene titles.
+    // Cutscene titles for each level.
     private final String[][] titles = {
         {
             "THE LEGEND OF BONWOLD",
@@ -50,21 +50,20 @@ public class CutsceneScreen extends Screen {
         }
     };
 
-    // Each level can use different background images.
-    // Missing images temporarily fall back to menu-screen.png.
+    // Background PNGs for each cutscene.
     private final String[][] backgroundFiles = {
         {
-            "menu-screen.png",
-            "menu-screen.png",
-            "menu-screen.png"
+            "cutscene-level1-1.png",
+            "cutscene-level1-2.png",
+            "cutscene-level1-3.png"
         },
         {
-            "frostbite-caverns-cutscene.png",
-            "frostbite-caverns-cutscene.png"
+            "cutscene-level2-1.png",
+            "cutscene-level2-2.png"
         },
         {
-            "thunderbolt-castle-cutscene.png",
-            "thunderbolt-castle-cutscene.png"
+            "cutscene-level3-1.png",
+            "cutscene-level3-2.png"
         }
     };
 
@@ -140,7 +139,7 @@ public class CutsceneScreen extends Screen {
 
         currentLevel = screenCoordinator.getDestinationLevel();
 
-        // Keep the level number within the levels currently implemented.
+        // Keep the level number within the implemented levels.
         if (currentLevel < 1 || currentLevel > scenes.length) {
             currentLevel = 1;
         }
@@ -151,18 +150,23 @@ public class CutsceneScreen extends Screen {
         escWasDown = Keyboard.isKeyDown(Key.ESC);
 
         loadCurrentBackground();
+        updateCutsceneText();
+    }
+
+    // Creates the title and controls for the current scene.
+    private void updateCutsceneText() {
 
         titleText = createText(
             titles[currentLevel - 1][currentScene],
-            100, 155, 26
+            40, 29, 18
         );
 
         continueText = createText(
-            "Press SPACE to continue", 30, 555, 16
+            "SPACE: Continue", 515, 29, 13
         );
 
         skipText = createText(
-            "Press ESC to skip all", 560, 555, 14
+            "ESC: Skip", 680, 29, 13
         );
     }
 
@@ -176,6 +180,11 @@ public class CutsceneScreen extends Screen {
         if (imageFile.exists()) {
             backgroundImage = ImageLoader.load(filename);
         } else {
+            System.out.println(
+                "Cutscene background not found: " +
+                imageFile.getPath()
+            );
+
             backgroundImage = ImageLoader.load("menu-screen.png");
         }
     }
@@ -184,11 +193,11 @@ public class CutsceneScreen extends Screen {
         String text, int x, int y, int size) {
 
         SpriteFont font = new SpriteFont(
-            text, x, y, "Arial", size, Color.WHITE
+            text, x, y, "Arial", size, Color.BLACK
         );
 
-        font.setOutlineColor(Color.BLACK);
-        font.setOutlineThickness(3);
+        font.setOutlineColor(new Color(255, 235, 180));
+        font.setOutlineThickness(1);
 
         return font;
     }
@@ -200,7 +209,8 @@ public class CutsceneScreen extends Screen {
         int y,
         int maxWidth,
         int lineHeight,
-        int fontSize) {
+        int fontSize,
+        int maxLines) {
 
         Graphics2D g = graphicsHandler.getGraphics();
 
@@ -211,9 +221,12 @@ public class CutsceneScreen extends Screen {
         FontMetrics metrics = g.getFontMetrics(font);
 
         int currentY = y;
-        StringBuilder line = new StringBuilder();
+        int linesDrawn = 0;
 
-        for (String word : text.split("\\s+")) {
+        StringBuilder line = new StringBuilder();
+        String[] words = text.split("\\s+");
+
+        for (String word : words) {
 
             String testLine = line.length() == 0
                 ? word
@@ -222,12 +235,18 @@ public class CutsceneScreen extends Screen {
             if (metrics.stringWidth(testLine) > maxWidth
                     && line.length() > 0) {
 
+                if (linesDrawn >= maxLines) {
+                    return;
+                }
+
                 graphicsHandler.drawString(
                     line.toString(), x, currentY,
-                    font, Color.WHITE
+                    font, Color.BLACK
                 );
 
                 currentY += lineHeight;
+                linesDrawn++;
+
                 line = new StringBuilder(word);
 
             } else {
@@ -235,10 +254,10 @@ public class CutsceneScreen extends Screen {
             }
         }
 
-        if (line.length() > 0) {
+        if (line.length() > 0 && linesDrawn < maxLines) {
             graphicsHandler.drawString(
                 line.toString(), x, currentY,
-                font, Color.WHITE
+                font, Color.BLACK
             );
         }
     }
@@ -256,16 +275,13 @@ public class CutsceneScreen extends Screen {
 
         if (spaceIsDown && !spaceWasDown) {
 
-            if (currentScene < scenes[currentLevel - 1].length - 1) {
+            if (currentScene <
+                    scenes[currentLevel - 1].length - 1) {
 
                 currentScene++;
 
                 loadCurrentBackground();
-
-                titleText = createText(
-                    titles[currentLevel - 1][currentScene],
-                    100, 155, 26
-                );
+                updateCutsceneText();
 
             } else {
                 startLevel();
@@ -280,27 +296,46 @@ public class CutsceneScreen extends Screen {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
 
+        // Draw the background across the game screen.
         graphicsHandler.drawImage(
             backgroundImage, 0, 0, 800, 605
         );
 
+        // Small tan banner matching the dialogue box.
         graphicsHandler.drawFilledRectangleWithBorder(
-            70, 110, 660, 390,
-            new Color(20, 16, 30, 225),
-            new Color(218, 170, 75),
+            25, 15, 750, 45,
+            new Color(244, 215, 139),
+            new Color(151, 92, 43),
             3
         );
 
-        titleText.draw(graphicsHandler);
+        // Main dialogue box, raised slightly from the bottom.
+        graphicsHandler.drawFilledRectangleWithBorder(
+            35, 405, 730, 175,
+            new Color(244, 215, 139),
+            new Color(151, 92, 43),
+            4
+        );
 
+        // Inner highlight border.
+        graphicsHandler.drawFilledRectangleWithBorder(
+            43, 413, 714, 159,
+            new Color(244, 215, 139),
+            new Color(255, 235, 180),
+            2
+        );
+
+        // Title and controls in the small top banner.
+        titleText.draw(graphicsHandler);
+        continueText.draw(graphicsHandler);
+        skipText.draw(graphicsHandler);
+
+        // Dialogue text inside the bottom box.
         drawWrappedText(
             graphicsHandler,
             scenes[currentLevel - 1][currentScene],
-            100, 220, 600, 30, 18
+            60, 440, 680, 24, 16, 5
         );
-
-        continueText.draw(graphicsHandler);
-        skipText.draw(graphicsHandler);
     }
 
     private void startLevel() {
