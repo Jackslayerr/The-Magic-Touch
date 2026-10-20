@@ -36,7 +36,7 @@ public class CutsceneScreen extends Screen {
     // Cutscene titles for each level.
     private final String[][] titles = {
         {
-            "THE LEGEND OF BONWOLD",
+            "THE LEGEND",
             "THE MENTOR'S QUEST",
             "THE FIRE DUNGEON"
         },
@@ -99,12 +99,11 @@ public class CutsceneScreen extends Screen {
         },
 
         {
-            "After conquering the Fire Dungeon, your journey " +
-            "leads north into a frozen wilderness. Your mentor " +
-            "warns you that the next trail is hidden beneath " +
-            "ancient ice. Strange lights flicker inside the distant " +
-            "mountains, and a bitter wind carries whispers of " +
-            "something guarding the caverns below...",
+            // Level 2, Scene 1
+            "Excellent work! One artifact down, three to go! " +
+            "I can already feel our kingdom becoming... safer. Ha ha! " +
+            "You've done wonderfully, my young adventurer. " +
+            "Now, onward to the Frostbite Caverns! There's no time to waste!",
 
             "Welcome to Frostbite Caverns! Frozen passages and " +
             "dangerous creatures stand between you and the next " +
@@ -114,19 +113,15 @@ public class CutsceneScreen extends Screen {
         },
 
         {
-            "Word of your victories has spread across the kingdom. " +
-            "Your mentor directs you toward a towering fortress " +
-            "where violent storms gather around the highest spires. " +
-            "Lightning flashes across the sky, illuminating an " +
-            "ancient castle that has stood abandoned for generations. " +
-            "Something powerful waits within its walls...",
+            "Wonderful! You're making excellent progress! " +
+            "Keep collecting those artifacts, and let's say we'll have everything we need. Ha ha! " +
+            "You've done your part splendidly. " +
+            "Now, onward to Thunderbolt Castle! The next artifact awaits!",
 
             "Welcome to Thunderbolt Castle! Storm-charged halls " +
             "and dangerous guardians stand in your way. Search " +
             "the fortress, overcome its trials, and continue your " +
-            "quest for Bonwold's legendary sword. Your mentor " +
-            "believes the next piece lies beyond the castle's defenses. " +
-            "Prepare yourself for the challenge ahead!"
+            "quest for Bonwold's legendary sword.!"
         }
     };
 
