@@ -7,6 +7,7 @@ import NPCs.Sign;
 import Enemies.*;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.IceBlock;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import GameObject.Rectangle;
@@ -20,7 +21,11 @@ public class LevelTwoMap extends Map {
 
     public LevelTwoMap() {
         super("level_two_map.txt", new IceCaveTileset());
+        //actual
         this.playerStartPosition = getMapTile(2, 16).getLocation();
+
+        //test
+        //this.playerStartPosition = getMapTile(42, 15).getLocation();
     }
 
     @Override
@@ -81,6 +86,20 @@ public class LevelTwoMap extends Map {
         Icicle Icicle14 = new Icicle(getMapTile(38, 17).getLocation().subtractY(0));
         enemies.add(Icicle14);
 
+        Icicle Icicle15 = new Icicle(getMapTile(71, 16).getLocation().subtractY(0));
+        enemies.add(Icicle15);
+
+        Icicle Icicle16 = new Icicle(getMapTile(72, 16).getLocation().subtractY(0));
+        enemies.add(Icicle16);
+
+        Icicle Icicle17 = new Icicle(getMapTile(80, 16).getLocation().subtractY(0));
+        enemies.add(Icicle17);
+
+        Icicle Icicle18 = new Icicle(getMapTile(81, 16).getLocation().subtractY(0));
+        enemies.add(Icicle18);
+
+
+
         /* Enemies
          */
 
@@ -93,22 +112,23 @@ public class LevelTwoMap extends Map {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
 
-        VerticalMovingPlatform vmp = new VerticalMovingPlatform(
-                ImageLoader.load("IceCaveMovingPlatform.png"),
-                getMapTile(45, 9).getLocation(),
-                getMapTile(45, 14).getLocation(),
-                TileType.JUMP_THROUGH_PLATFORM,
-                3,
-                new Rectangle(0, 6, 48,4),
-                Direction.DOWN
-        );
-        enhancedMapTiles.add(vmp);
-        
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(46, 15).getLocation(), "LightningChest.png");
-        enhancedMapTiles.add(endLevelBox);
 
-        IceBlock iceBlock = new IceBlock(getMapTile(43,15).getLocation());
-        enhancedMapTiles.add(iceBlock);
+        
+        //EndLevelBox endLevelBox = new EndLevelBox(getMapTile(46, 15).getLocation(), "LightningChest.png");
+        //enhancedMapTiles.add(endLevelBox);
+
+        IceBlock iceBlock1 = new IceBlock(getMapTile(45,15).getLocation());
+        enhancedMapTiles.add(iceBlock1);
+
+        IceBlock iceBlock2 = new IceBlock(getMapTile(67,9).getLocation());
+        enhancedMapTiles.add(iceBlock2);
+
+        IceBlock iceBlock3 = new IceBlock(getMapTile(70,9).getLocation());
+        enhancedMapTiles.add(iceBlock3);
+
+        IceBlock iceBlock4 = new IceBlock(getMapTile(86,16).getLocation());
+        enhancedMapTiles.add(iceBlock4);
+
 
         return enhancedMapTiles;
     }

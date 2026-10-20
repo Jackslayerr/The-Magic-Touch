@@ -82,6 +82,7 @@ public class HorizontalMovingPlatform extends EnhancedMapTile {
             player.moveXHandleCollision(moveAmountX);
         }
 
+
         super.update(player);
     }
 
