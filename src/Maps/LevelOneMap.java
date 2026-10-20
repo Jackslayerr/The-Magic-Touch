@@ -9,6 +9,7 @@ import NPCs.Sign;
 import Tilesets.CastleTileset;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.Trigger;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import EnhancedMapTiles.BouncyCloud;
 import EnhancedMapTiles.CrumblingBlock;
@@ -195,6 +196,9 @@ public class LevelOneMap extends Map {
         );
 
         npcs.add(sign3);
+
+        Trigger trigger = new Trigger(getMapTile(8, 15).getLocation(), 1);
+        enhancedMapTiles.add(trigger);
 
         return npcs;
     }

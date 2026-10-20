@@ -24,6 +24,9 @@ public class EnhancedMapTile extends MapTile {
     public EnhancedMapTile(float x, float y, Frame frame, TileType tileType) {
         super(x, y, frame, tileType);
     }
+    public EnhancedMapTile(float x, float y) {
+        super(x,y);
+    }
 
     @Override
     public void initialize() {

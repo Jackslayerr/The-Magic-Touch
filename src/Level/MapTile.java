@@ -39,6 +39,9 @@ public class MapTile extends MapEntity {
         super(x, y, frame);
         this.tileType = tileType;
     }
+    public MapTile(float x, float y) {
+        super(x, y);
+    }
 
     public TileType getTileType() {
         return tileType;
