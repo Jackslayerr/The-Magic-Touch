@@ -197,7 +197,7 @@ public class LevelOneMap extends Map {
 
         npcs.add(sign3);
 
-        Trigger trigger = new Trigger(getMapTile(8, 15).getLocation(), 1);
+        Trigger trigger = new Trigger(getMapTile(122, 9).getLocation(), 1, 0, -64, 16, 80, this);
         enhancedMapTiles.add(trigger);
 
         return npcs;

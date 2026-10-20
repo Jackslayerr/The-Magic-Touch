@@ -10,16 +10,20 @@ import GameObject.SpriteSheet;
 import Utils.*;
 import Level.*;
 import Enemies.*;
+import Level.Map;
+import Level.MapTile;
 // A Trigger invisible block that can be used to make things happen
 public class Trigger extends EnhancedMapTile {
     int id;
     boolean triggered = false;
-    public Trigger(Point location, int id) {
+    Map map;
+    public Trigger(Point location, int id, int boundx, int boundy, int boundWidth, int boundHeight, Map map) {
         super(location.x, location.y, new FrameBuilder(ImageLoader.load("transparent.png"))
               .withScale(3)
-              .withBounds(0, 0, 16, 16)
-              .build(), TileType.NOT_PASSABLE);
+              .withBounds(boundx, boundy, boundWidth, boundHeight)
+              .build(), TileType.PASSABLE);
         this.id = id;
+        this.map = map;
     }
     
     @Override
@@ -34,7 +38,7 @@ public class Trigger extends EnhancedMapTile {
     }
     public void doSomething() {
         if (id == 1) {
-            System.out.println("Hey");
+            Puzzle.addTiles(120, 120, 9, 11, 21, map);
             triggered = true;
         }
     }
