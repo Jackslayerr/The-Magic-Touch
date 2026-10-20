@@ -1,8 +1,10 @@
 package EnhancedMapTiles;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.SpriteSheet;
 import Utils.*;
@@ -16,7 +18,7 @@ public class Trigger extends EnhancedMapTile {
         super(location.x, location.y, new FrameBuilder(ImageLoader.load("transparent.png"))
               .withScale(3)
               .withBounds(0, 0, 16, 16)
-              .build(), TileType.PASSABLE);
+              .build(), TileType.NOT_PASSABLE);
         this.id = id;
     }
     
@@ -40,5 +42,6 @@ public class Trigger extends EnhancedMapTile {
     public void initialize() {
         super.initialize();
     }
+    
     
 }

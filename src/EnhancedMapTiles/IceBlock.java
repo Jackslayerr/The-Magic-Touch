@@ -44,9 +44,9 @@ public class IceBlock extends EnhancedMapTile {
         super.update(player);
         if (move == true) {
             if (direction == Direction.RIGHT) {
-                this.moveX(1);
+                this.moveXHandleCollision(1);
             } else {
-                this.moveX(-1);
+                this.moveXHandleCollision(-1);
             }
             moveCount += 1;
             if (moveCount == 48) {
