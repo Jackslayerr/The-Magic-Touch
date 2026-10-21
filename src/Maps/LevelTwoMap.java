@@ -150,6 +150,20 @@ public class LevelTwoMap extends Map {
 
         npcs.add(sign1);
 
+        Sign sign2 = new Sign(
+                getMapTile(42, 15).getLocation().subtractY(13),
+                "We can push the Ice Block Using the Wave!"
+        );
+
+        npcs.add(sign2);
+
+        Sign sign3 = new Sign(
+                getMapTile(78, 5).getLocation().subtractY(13),
+                "We can melt the Ice Blocks using the Fireball as well!"
+        );
+
+        npcs.add(sign3);
+
         return npcs;
     }
 }
