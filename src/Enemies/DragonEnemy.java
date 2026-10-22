@@ -97,7 +97,7 @@ public class DragonEnemy extends Enemy {
         float targetPlayerX = player.getX();
 
         // Instantiate sheep with upward trajectory targeting the player's X
-        SHEEP sheep = new SHEEP(spawnPoint, player.getFacingDirection());
+        SHEEP2 sheep = new SHEEP2(spawnPoint, targetPlayerX);
 
         // Add sheep to active entities in the map
         if (this.map != null) {
