@@ -631,7 +631,7 @@ public void hurtPlayer(MapEntity mapEntity) {
         if (frozen) {
             return;
         }
-        if (Keyboard.isKeyDown(LIGHTNING_KEY) && !keyLocker.isKeyLocked(LIGHTNING_KEY) && coolDown == 0 && currentLevel >= 1) {
+        if (Keyboard.isKeyDown(LIGHTNING_KEY) && !keyLocker.isKeyLocked(LIGHTNING_KEY) && coolDown == 0 && currentLevel >= 3) {
             keyLocker.lockKey(LIGHTNING_KEY);
             shootLightning();
             lightningAnimationTimer = 15;
