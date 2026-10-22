@@ -26,6 +26,7 @@ public class LevelTwoMap extends Map {
     public LevelTwoMap() {
         super("level_two_map.txt", new IceCaveTileset());
         //actual
+        // 2,26
         this.playerStartPosition = getMapTile(2, 26).getLocation();
 
         //test
@@ -139,6 +140,8 @@ public class LevelTwoMap extends Map {
         Icicle Icicle27 = new Icicle(getMapTile(88, 12).getLocation().subtractY(0), true);
         enemies.add(Icicle27);
 
+        SnowBallBoss boss2 = new SnowBallBoss(getMapTile(200,11).getLocation(), Direction.LEFT);
+        enemies.add(boss2);
         /* Enemies
          */
 
@@ -157,11 +160,12 @@ public class LevelTwoMap extends Map {
         enhancedMapTiles.add(endLevelBox);
 
 
-        IceBlock iceBlock2 = new IceBlock(getMapTile(67,19).getLocation());
-        enhancedMapTiles.add(iceBlock2);
+       
 
-        IceBlock iceBlock3 = new IceBlock(getMapTile(70,19).getLocation());
-        enhancedMapTiles.add(iceBlock3);
+        IceBlockRespawn iceBlockRespawn2 = new IceBlockRespawn(getMapTile(68, 19).getLocation());
+        enhancedMapTiles.add(iceBlockRespawn2);
+
+       
 
         IceBlock iceBlock4 = new IceBlock(getMapTile(75,20).getLocation());
         enhancedMapTiles.add(iceBlock4);
@@ -178,8 +182,8 @@ public class LevelTwoMap extends Map {
         IceBlock iceBlock7 = new IceBlock(getMapTile(96,13).getLocation());
         enhancedMapTiles.add(iceBlock7);
 
-        IceBlock iceBlock8 = new IceBlock(getMapTile(99,10).getLocation());
-        enhancedMapTiles.add(iceBlock8);
+        IceBlockRespawn iceBlockRespawn3 = new IceBlockRespawn(getMapTile(99,10).getLocation());
+        enhancedMapTiles.add(iceBlockRespawn3);
 
         Button button1 = new Button(getMapTile(82, 19).getLocation(), 66, 66, 23, 26, this, "Button.png");
         enhancedMapTiles.add(button1);

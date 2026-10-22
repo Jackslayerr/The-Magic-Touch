@@ -33,6 +33,7 @@ public class SnowBallBoss extends Enemy {
         if (this.intersects(player)) {
             player.setLevelState(LevelState.PLAYER_DEAD);
         }
+        moveYHandleCollision(5.0f);
 
 
     }
@@ -51,12 +52,6 @@ public class SnowBallBoss extends Enemy {
         snowball sb = new snowball(shootPoint);
         map.addEnemy(sb);
     }
-    @Override
-    public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler);
-        drawBounds(graphicsHandler, new Color(255, 0, 0, 100));   // red, semi-transparent
-    }
-
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
