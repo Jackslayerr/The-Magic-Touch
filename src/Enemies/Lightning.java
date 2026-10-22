@@ -42,7 +42,11 @@ public class Lightning extends Enemy {
         for (Enemy enemy : enemies) {
             if (this.touching(enemy) || this.intersects(enemy)) {
                 if (enemy != this) {
-                    enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    if (enemy instanceof DragonEnemy) {
+                        ((DragonEnemy) enemy).takeDamage(0.3f);
+                    } else {
+                        enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    }
                 }
             }
         }
