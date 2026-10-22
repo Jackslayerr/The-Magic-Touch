@@ -41,9 +41,17 @@ public class Fireball extends Enemy {
         // Grabs map npcs
         this.direction = direction;
         if (direction == Direction.LEFT) {
-            currentAnimationName = "LEFT";
+            if (fromPlayer) {
+                currentAnimationName = "LEFT";
+            } else {
+                currentAnimationName = "LEFT_LAVA";
+            }
         } else {
-            currentAnimationName = "RIGHT";
+            if (fromPlayer) {
+                currentAnimationName = "RIGHT";
+            } else {
+                currentAnimationName = "RIGHT_LAVA";
+            }
         }
 
         initialize();
@@ -136,6 +144,19 @@ public class Fireball extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(0, 0, 7, 7)
+                            .build()
+            });
+            put("LEFT_LAVA", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                            .withScale(4)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(0, 0, 7, 7)
+                            .build()
+            });
+            put("RIGHT_LAVA", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                            .withScale(4)
                             .withBounds(0, 0, 7, 7)
                             .build()
             });

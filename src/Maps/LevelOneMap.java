@@ -23,7 +23,8 @@ public class LevelOneMap extends Map {
 
     public LevelOneMap() {
         super("level_one_map.txt", new CastleTileset());
-        this.playerStartPosition = getMapTile(3, 16).getLocation();
+        // 3,16
+        this.playerStartPosition = getMapTile(120, 11).getLocation();
     }
 
     @Override
@@ -35,8 +36,8 @@ public class LevelOneMap extends Map {
                 Direction.LEFT
         );
 
-        LavaMonster lavaMonster = new LavaMonster(getMapTile(73, 15).getLocation().subtractY(0),
-                getMapTile(76, 15).getLocation().subtractY(0), Direction.LEFT);
+        LavaMonster lavaMonster = new LavaMonster(getMapTile(125, 11).getLocation().subtractY(13),
+                getMapTile(130, 11).getLocation().subtractY(13), Direction.LEFT);
 
        BatEnemy Bat1 = new BatEnemy(getMapTile(41, 13).getLocation().subtractY(20), Direction.LEFT);
        BatEnemy Bat2 = new BatEnemy(getMapTile(84, 6).getLocation().subtractY(20), Direction.LEFT);
@@ -197,7 +198,7 @@ public class LevelOneMap extends Map {
 
         npcs.add(sign3);
 
-        Trigger trigger = new Trigger(getMapTile(122, 9).getLocation(), 1, 0, -64, 16, 80, this);
+        Trigger trigger = new Trigger(getMapTile(122, 7).getLocation(), 1, 0, 0, 16, 80, this);
         enhancedMapTiles.add(trigger);
 
         return npcs;
