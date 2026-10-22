@@ -50,16 +50,30 @@ public class WaveAttack extends Enemy {
         if (existenceFrames == 0) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         } else {
-            // move fireball forward
+            // determine move direction and amount
+            float moveAmount = (facingDirection == Direction.RIGHT) ? movementSpeed : -movementSpeed;
+            // move WAVE forward
             moveXHandleCollision(movementSpeed);
             enemies = map.getEnemies();
             npcs = map.getNPCs();
             for (Enemy enemy : enemies) {
                 if (fromPlayer && this.intersects(enemy) && this != enemy) {
-                    enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
-                   // player.healPlayer();
-                    System.out.println("PLAYER WAVE DEFEATED ENEMY!");
-                    this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    if (enemy instanceof LavaMonster) { // Lava Monster dies on impact
+                        enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        System.out.println("PLAYER WAVE DEFEATED LAVA MONSTER!");
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        break;
+                    } else { // OTHER ENEMIES GET PUSHED BACK
+
+                        // push enemy in direction wave is moving
+                        float pushDistance = 3.0f;
+
+                        if (facingDirection == Direction.RIGHT) {
+                            enemy.moveX(pushDistance);
+                        } else {
+                            enemy.moveX(-pushDistance);
+                        }
+                    }
                  }
             }
             super.update(player);

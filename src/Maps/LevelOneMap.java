@@ -24,7 +24,7 @@ public class LevelOneMap extends Map {
     public LevelOneMap() {
         super("level_one_map.txt", new CastleTileset());
         // 3,16
-        this.playerStartPosition = getMapTile(120, 11).getLocation();
+        this.playerStartPosition = getMapTile(3, 16).getLocation();
     }
 
     @Override

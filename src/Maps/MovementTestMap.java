@@ -1,6 +1,7 @@
 package Maps;
 
 import Enemies.GoblinEnemy;
+import Enemies.SnowBallBoss;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
@@ -19,7 +20,7 @@ public class MovementTestMap extends Map {
 
     public MovementTestMap() {
         super("movement_test_map.txt", new CastleTileset());
-        this.playerStartPosition = getMapTile(12, 12).getLocation();
+        this.playerStartPosition = getMapTile(3, 11).getLocation();
     }
 
     @Override
@@ -31,7 +32,8 @@ public class MovementTestMap extends Map {
 
         // DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
         // enemies.add(dinosaurEnemy);
-
+        SnowBallBoss boss = new SnowBallBoss(getMapTile(15, 4).getLocation(), Direction.LEFT);
+        enemies.add(boss);
         return enemies;
     }
 
@@ -49,16 +51,16 @@ public class MovementTestMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
-                ImageLoader.load("CastleMovingPlatform.png"),
-                getMapTile(8, 8).getLocation(),
-                getMapTile(14, 8).getLocation(),
-                TileType.JUMP_THROUGH_PLATFORM,
-                3,
-                new Rectangle(0, 6,48,4),
-                Direction.RIGHT
-        );
-        enhancedMapTiles.add(hmp);
+        // HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
+        //         ImageLoader.load("CastleMovingPlatform.png"),
+        //         getMapTile(8, 8).getLocation(),
+        //         getMapTile(14, 8).getLocation(),
+        //         TileType.JUMP_THROUGH_PLATFORM,
+        //         3,
+        //         new Rectangle(0, 6,48,4),
+        //         Direction.RIGHT
+        // );
+        // enhancedMapTiles.add(hmp);
 
         return enhancedMapTiles;
     }

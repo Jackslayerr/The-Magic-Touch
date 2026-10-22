@@ -153,7 +153,7 @@ public class IceCaveTileset extends Tileset {
 
         Frame castleFloatingPlatformFrame = new FrameBuilder(getSubImage(2, 2))
                 .withScale(tileScale)
-                .withBounds(0, 6, 16, 4)
+                .withBounds(0, 0, 16, 4)
                 .build();
 
         MapTileBuilder castleFloatingPlatformTile = new MapTileBuilder(castleFloatingPlatformFrame)
@@ -244,6 +244,15 @@ public class IceCaveTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(bridgeTile);
+
+        Frame caveBackgroundFrame = new FrameBuilder(getSubImage(3, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder caveBackgroundTile = new MapTileBuilder(caveBackgroundFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(caveBackgroundTile);
 
         return mapTiles;
     }

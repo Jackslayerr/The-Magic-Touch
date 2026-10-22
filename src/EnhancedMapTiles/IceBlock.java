@@ -54,6 +54,7 @@ public class IceBlock extends EnhancedMapTile {
                 moveCount = 0;
             }
         } else {
+            
             moveBlock();
         }
         moveYHandleCollision(3.0f);

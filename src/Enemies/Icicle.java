@@ -7,6 +7,7 @@ import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.Player;
 import Utils.Point;
+import GameObject.ImageEffect;
 
 import java.util.HashMap;
 
@@ -14,13 +15,21 @@ import java.util.HashMap;
 public class Icicle extends Enemy {
 
 
-    public Icicle(Point location) {
+    public Icicle(Point location, boolean flipped) {
         super(
             location.x,
             location.y,
             new SpriteSheet(ImageLoader.load("Icicle.png"), 16, 16),
             "IDLE"
         );
+
+        if (flipped) {
+            for (Frame frame : animations.get("IDLE")) {
+                frame.setImageEffect(ImageEffect.FLIP_VERTICAL);
+                frame.setBounds(4,0,8,12);
+            }
+            updateCurrentFrame();
+        }
 
         this.initialize();
     }
