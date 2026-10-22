@@ -22,6 +22,7 @@ public class DragonEnemy extends Enemy {
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
+    private int health = 30; // takes 30 hits to slay the dragon
 
     public DragonEnemy(Point location, Direction facingDirection) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("DragonEnemy.png"), 52, 43), "FLY_LEFT");
@@ -63,6 +64,17 @@ public class DragonEnemy extends Enemy {
         super.update(player);
     }
 
+    public void takeDamage(int damage) {
+        this.health -= damage;
+
+        System.out.println("DRAGON HIT! HOLY S**T! HEALTH: " + this.health);
+
+        // when health is zero, she dies :(
+        if (this.health <= 0) {
+            this.setMapEntityStatus(Level.MapEntityStatus.REMOVED);
+        }
+    }
+
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // leave empty
@@ -80,15 +92,15 @@ public class DragonEnemy extends Enemy {
             put("FLY_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
                             .withScale(8)
-                            .withBounds(0, 0, 20, 20)
+                            .withBounds(2, 2, 48, 39)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 100)
                             .withScale(8)
-                            .withBounds(0, 0, 20, 20)
+                            .withBounds(2, 2, 48, 39)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 0), 100)
                             .withScale(8)
-                            .withBounds(2, 4, 20, 20)
+                            .withBounds(2, 2, 48, 39)
                             .build()
             });
 
@@ -96,17 +108,17 @@ public class DragonEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
                             .withScale(8)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(0, 0, 20, 20)
+                            .withBounds(2, 2, 48, 39)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 100)
                             .withScale(8)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(0, 0, 20, 20)
+                            .withBounds(2, 2, 48, 39)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 0), 100)
                             .withScale(8)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(0, 0, 20, 20)
+                            .withBounds(2, 2, 48, 39)
                             .build()
             });
         }};

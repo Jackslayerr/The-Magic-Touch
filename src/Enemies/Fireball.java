@@ -71,6 +71,13 @@ public class Fireball extends Enemy {
             for (Enemy enemy : enemies) {
                  if (fromPlayer && this.intersects(enemy) && this != enemy) {
 
+                     // CHECK IF IT'S A DRAGON
+                     if (enemy instanceof DragonEnemy) {
+                         ((DragonEnemy) enemy).takeDamage(1); // reduce health by uno
+                         this.setMapEntityStatus(MapEntityStatus.REMOVED); // remove fireball
+                         break;
+                     }
+
                      // CHECK IF IT'S A LAVA MONSTER OR SPIKE
                      if (enemy instanceof LavaMonster || enemy instanceof Spike) {
                          this.setMapEntityStatus(MapEntityStatus.REMOVED);

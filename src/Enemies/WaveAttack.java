@@ -56,10 +56,14 @@ public class WaveAttack extends Enemy {
             npcs = map.getNPCs();
             for (Enemy enemy : enemies) {
                 if (fromPlayer && this.intersects(enemy) && this != enemy) {
-                    enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
-                   // player.healPlayer();
-                    System.out.println("PLAYER WAVE DEFEATED ENEMY!");
-                    this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    if (enemy instanceof LavaMonster) {
+                        enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        // player.healPlayer();
+                        System.out.println("PLAYER WAVE DEFEATED ENEMY!");
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    } else {
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    }
                  }
             }
             super.update(player);
