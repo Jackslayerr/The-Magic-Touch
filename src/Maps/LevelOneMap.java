@@ -198,6 +198,13 @@ public class LevelOneMap extends Map {
 
         npcs.add(sign3);
 
+        Sign sign4 = new Sign(
+                getMapTile(117, 11).getLocation().subtractY(13),
+                "WARNING: Boss Ahead. Watching out for the disappearing platforms "
+                + "\n" + "The boss has to watch out for them too..."
+        );
+        npcs.add(sign4);
+
         Trigger trigger = new Trigger(getMapTile(122, 7).getLocation(), 1, 0, 0, 16, 80, this);
         enhancedMapTiles.add(trigger);
 
