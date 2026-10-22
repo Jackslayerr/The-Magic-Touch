@@ -107,7 +107,7 @@ public class Fireball extends Enemy {
                      }
 
                      // CHECK IF IT'S A LAVA MONSTER OR SPIKE
-                     if (enemy instanceof LavaMonster || enemy instanceof Spike) {
+                     if (enemy instanceof LavaMonster || enemy instanceof Spike || enemy instanceof SnowBallBoss) {
                          this.setMapEntityStatus(MapEntityStatus.REMOVED);
                          break;
                      }

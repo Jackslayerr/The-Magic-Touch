@@ -22,7 +22,7 @@ public class ScreenCoordinator extends Screen {
     protected Map level;
     protected String backgroundImageFile;
 
-    protected int destinationLevel = 3;
+    protected int destinationLevel = 1;
 
     public int getDestinationLevel() {
         return destinationLevel;
@@ -44,7 +44,7 @@ public class ScreenCoordinator extends Screen {
     public void initialize(Map level, String backgroundImageFile) {
         this.level = level;
         this.backgroundImageFile = backgroundImageFile;
-        this.destinationLevel = 3;
+        this.destinationLevel = 1;
         this.previousGameState = null;
         this.gameState = GameState.MENU;
     }
