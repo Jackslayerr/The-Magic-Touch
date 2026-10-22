@@ -22,7 +22,7 @@ public class DragonEnemy extends Enemy {
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
-    private int health = 30; // takes 30 hits to slay the dragon
+    private float health = 30.0f; // takes 30 hits to slay the dragon
 
     public DragonEnemy(Point location, Direction facingDirection) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("DragonEnemy.png"), 52, 43), "FLY_LEFT");
@@ -64,7 +64,7 @@ public class DragonEnemy extends Enemy {
         super.update(player);
     }
 
-    public void takeDamage(int damage) {
+    public void takeDamage(float damage) {
         this.health -= damage;
 
         System.out.println("DRAGON HIT! HOLY S**T! HEALTH: " + this.health);

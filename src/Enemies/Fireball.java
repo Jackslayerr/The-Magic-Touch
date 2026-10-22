@@ -73,7 +73,7 @@ public class Fireball extends Enemy {
 
                      // CHECK IF IT'S A DRAGON
                      if (enemy instanceof DragonEnemy) {
-                         ((DragonEnemy) enemy).takeDamage(1); // reduce health by uno
+                         ((DragonEnemy) enemy).takeDamage(1.0f); // reduce health by uno
                          this.setMapEntityStatus(MapEntityStatus.REMOVED); // remove fireball
                          break;
                      }
