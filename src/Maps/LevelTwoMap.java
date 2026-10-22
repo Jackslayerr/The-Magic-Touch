@@ -153,8 +153,8 @@ public class LevelTwoMap extends Map {
 
 
         
-        //EndLevelBox endLevelBox = new EndLevelBox(getMapTile(46, 15).getLocation(), "LightningChest.png");
-        //enhancedMapTiles.add(endLevelBox);
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(227, 19).getLocation(), "LightningChest.png");
+        enhancedMapTiles.add(endLevelBox);
 
 
         IceBlock iceBlock2 = new IceBlock(getMapTile(67,19).getLocation());
