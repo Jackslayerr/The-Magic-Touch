@@ -9,6 +9,7 @@ import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.IceBlock;
+import EnhancedMapTiles.IceBlockRespawn;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import GameObject.Rectangle;
 import Tilesets.IceCaveTileset;
@@ -115,8 +116,7 @@ public class LevelTwoMap extends Map {
         //EndLevelBox endLevelBox = new EndLevelBox(getMapTile(46, 15).getLocation(), "LightningChest.png");
         //enhancedMapTiles.add(endLevelBox);
 
-        IceBlock iceBlock1 = new IceBlock(getMapTile(45,15).getLocation());
-        enhancedMapTiles.add(iceBlock1);
+       
 
         IceBlock iceBlock2 = new IceBlock(getMapTile(67,9).getLocation());
         enhancedMapTiles.add(iceBlock2);
@@ -126,6 +126,9 @@ public class LevelTwoMap extends Map {
 
         IceBlock iceBlock4 = new IceBlock(getMapTile(86,16).getLocation());
         enhancedMapTiles.add(iceBlock4);
+
+        IceBlockRespawn iceBlockRespawn = new IceBlockRespawn(getMapTile(44, 14).getLocation());
+        enhancedMapTiles.add(iceBlockRespawn);
 
 
         return enhancedMapTiles;
