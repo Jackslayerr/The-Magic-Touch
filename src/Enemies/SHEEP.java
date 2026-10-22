@@ -134,8 +134,4 @@ public class SHEEP extends Enemy {
         }};
     }
 
-    @Override
-    public int getDamage() {
-        return 50;
-    }
 }

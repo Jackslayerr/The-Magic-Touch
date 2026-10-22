@@ -7,11 +7,14 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
+import Level.LevelState;
 import Level.MapEntity;
+import Level.MapEntityStatus;
 import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import Utils.Puzzle;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -57,7 +60,7 @@ public class LavaMonster extends Enemy {
         } else if (facingDirection == Direction.LEFT) {
             currentAnimationName = "WALK_LEFT";
         }
-        airGroundState = AirGroundState.GROUND;
+        //airGroundState = AirGroundState.GROUND;
 
         // every certain number of frames, the fireball will be shot out
         shootWaitTimer = 50;
@@ -127,7 +130,7 @@ public class LavaMonster extends Enemy {
             }
 
             // define where fireball will spawn on the map (y location) relative to Lava Monster's location
-            int fireballY = Math.round(getY() + 4);
+            int fireballY = Math.round(getY() + 20);
 
             // create Fireball enemy
             Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, false, facingDirection);
@@ -143,8 +146,12 @@ public class LavaMonster extends Enemy {
         }
 
         super.update(player);
-
         previousLavaMonsterState = lavaMonsterState;
+        moveYHandleCollision(7.0f);
+        if (getY() > map.getHeightPixels() - 160) {
+            Puzzle.getRidOfTiles(134, 134, 9, 11, map);
+            setMapEntityStatus(MapEntityStatus.REMOVED);
+        }
     }
 
     @Override
@@ -166,23 +173,23 @@ public class LavaMonster extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                            .withScale(3)
+                            .withScale(5)
                             .withBounds(4, 2, 16, 19)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                            .withScale(3)
+                            .withScale(5)
                             .withBounds(4, 2, 16, 19)
                             .build()
             });
 
             put("WALK_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                            .withScale(3)
+                            .withScale(5)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 16, 19)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                            .withScale(3)
+                            .withScale(5)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 16, 19)
                             .build()
@@ -190,14 +197,14 @@ public class LavaMonster extends Enemy {
 
             put("SHOOT_LEFT", new Frame[]{
                      new FrameBuilder(spriteSheet.getSprite(0, 0))
-                             .withScale(3)
+                             .withScale(5)
                              .withBounds(4, 2, 16, 19)
                              .build(),
             });
 
             put("SHOOT_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
+                            .withScale(5)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 16, 19)
                             .build(),

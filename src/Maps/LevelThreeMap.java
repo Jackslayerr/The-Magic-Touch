@@ -24,9 +24,13 @@ public class LevelThreeMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        SHEEP sheep = new SHEEP(getMapTile(17, 7).getLocation().subtractY(-200), Direction.LEFT);
-        enemies.add(sheep);
+        /* SHEEP sheep = new SHEEP(getMapTile(17, 7).getLocation().subtractY(-350), Direction.LEFT);
+        enemies.add(sheep);*/
+
+        DragonEnemy dragonEnemy = new DragonEnemy(getMapTile(18, 7).getLocation().subtractY(-200), Direction.LEFT);
+        enemies.add(dragonEnemy);
         return enemies;
+
     }
 
     @Override

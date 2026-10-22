@@ -12,6 +12,7 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.IceBlock;
 import EnhancedMapTiles.Trigger;
+import EnhancedMapTiles.IceBlockRespawn;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import GameObject.Rectangle;
 import Tilesets.IceCaveTileset;
@@ -25,10 +26,10 @@ public class LevelTwoMap extends Map {
     public LevelTwoMap() {
         super("level_two_map.txt", new IceCaveTileset());
         //actual
-        //this.playerStartPosition = getMapTile(2, 26).getLocation();
+        this.playerStartPosition = getMapTile(2, 26).getLocation();
 
         //test
-        this.playerStartPosition = getMapTile(86, 2).getLocation();
+        //this.playerStartPosition = getMapTile(86, 2).getLocation();
     }
 
     @Override
@@ -155,8 +156,6 @@ public class LevelTwoMap extends Map {
         //EndLevelBox endLevelBox = new EndLevelBox(getMapTile(46, 15).getLocation(), "LightningChest.png");
         //enhancedMapTiles.add(endLevelBox);
 
-        IceBlock iceBlock1 = new IceBlock(getMapTile(45,25).getLocation());
-        enhancedMapTiles.add(iceBlock1);
 
         IceBlock iceBlock2 = new IceBlock(getMapTile(67,19).getLocation());
         enhancedMapTiles.add(iceBlock2);
@@ -214,6 +213,9 @@ public class LevelTwoMap extends Map {
                 Direction.DOWN
         );
         enhancedMapTiles.add(vmp1);
+
+        IceBlockRespawn iceBlockRespawn = new IceBlockRespawn(getMapTile(44, 24).getLocation());
+        enhancedMapTiles.add(iceBlockRespawn);
 
 
 
