@@ -11,6 +11,7 @@ import Level.Player;
 import Level.PlayerListener;
 import Maps.LevelOneMap;
 import Maps.LevelTwoMap;
+import Maps.MovementTestMap;
 import Maps.LevelThreeMap;
 import Players.Cat;
 import Engine.Key;
@@ -43,7 +44,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     @Override
     public void initialize(Map level, String backgroundImageFile) {
-        this.map = level;
+        this.map = new MovementTestMap();
         this.currentLevel = screenCoordinator.getDestinationLevel();
         this.backgroundImage = ImageLoader.load(backgroundImageFile);
 

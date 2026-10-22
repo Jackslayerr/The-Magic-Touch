@@ -56,6 +56,34 @@ public class Fireball extends Enemy {
 
         initialize();
     }
+    protected Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Direction direction,
+                   String imageName, int frameWidth, int frameHeight) {
+            super(location.x, location.y, new SpriteSheet(ImageLoader.load(imageName), frameWidth, frameHeight), "LEFT_LAVA");
+            this.movementSpeed = movementSpeed;
+
+        // how long the fireball will exist for before disappearing
+        this.existenceFrames = existenceFrames;
+
+        // if the fireball was shot by the player
+        this.fromPlayer = fromPlayer;
+        // Grabs map npcs
+        this.direction = direction;
+        if (direction == Direction.LEFT) {
+            if (fromPlayer) {
+                currentAnimationName = "LEFT";
+            } else {
+                currentAnimationName = "LEFT_LAVA";
+            }
+        } else {
+            if (fromPlayer) {
+                currentAnimationName = "RIGHT";
+            } else {
+                currentAnimationName = "RIGHT_LAVA";
+            }
+        }
+
+        initialize();
+    }
 
     @Override
     public void update(Player player) {
