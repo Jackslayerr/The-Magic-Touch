@@ -98,8 +98,6 @@ public class LevelTwoMap extends Map {
         Icicle Icicle18 = new Icicle(getMapTile(81, 16).getLocation().subtractY(0));
         enemies.add(Icicle18);
 
-
-
         /* Enemies
          */
 
@@ -152,7 +150,7 @@ public class LevelTwoMap extends Map {
 
         Sign sign2 = new Sign(
                 getMapTile(42, 15).getLocation().subtractY(13),
-                "We can push the Ice Block Using the Wave!"
+                "We can push the Ice Block using the Wave!"
         );
 
         npcs.add(sign2);
