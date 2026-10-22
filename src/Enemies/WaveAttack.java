@@ -66,7 +66,7 @@ public class WaveAttack extends Enemy {
                     } else { // OTHER ENEMIES GET PUSHED BACK
 
                         // push enemy in direction wave is moving
-                        float pushDistance = 4.0f;
+                        float pushDistance = 3.0f;
 
                         if (facingDirection == Direction.RIGHT) {
                             enemy.moveX(pushDistance);
