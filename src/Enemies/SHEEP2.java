@@ -18,7 +18,7 @@ public class SHEEP2 extends Enemy {
     private float velocityY = -6.0f;
     private float gravity = 0.25f;
     private float targetX;
-    private int lifeTimer = 300;
+    private int lifeTimer = 700;
 
     public SHEEP2(Point location, float targetX) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("S.H.E.E.P.Enemy.png"), 33, 24), "FLY_LEFT");
@@ -45,9 +45,9 @@ public class SHEEP2 extends Enemy {
         float currentX = this.getX();
         if (Math.abs(currentX - targetX) > 2) {
             if (currentX < targetX) {
-                moveAmountX += 2.0f;
+                moveAmountX += 4.0f;
             } else {
-                moveAmountX -= 2.0f;
+                moveAmountX -= 4.0f;
             }
         }
 
