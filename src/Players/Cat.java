@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class Cat extends Player {
 
     public Cat(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("hi-defsheet4.png"), 140, 140), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("hi-defsheet5.png"), 140, 140), x, y, "STAND_RIGHT");
         gravity = .5f;
         terminalVelocityY = 6f;
         jumpHeight = 10.3f;
