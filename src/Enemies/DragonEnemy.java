@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class DragonEnemy extends Enemy {
     private float gravity = 0.0f; // I intend for her to move up and down
-    private float movementSpeed = 0.2f; // She's quite big and slow
+    private float movementSpeed = 0.8f; // She's quite big and slow
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
@@ -47,15 +47,30 @@ public class DragonEnemy extends Enemy {
         float moveAmountX = 0;
         float moveAmountY = 0;
 
-        // no gravity if Dragon is in the air
+        // HORIZONTAL MOVEMENT
+        float playerCenterX = player.getX() + (player.getWidth() / 2f);
+        float dragonCenterX = this.getX() + (this.getWidth() / 2f);
 
-        if (airGroundState == AirGroundState.AIR) {
-            if (facingDirection == Direction.RIGHT) {
-                moveAmountX += movementSpeed;
-            } else {
-                moveAmountX -= movementSpeed;
-            }
+        if (playerCenterX > dragonCenterX + 10) {
+            moveAmountX += movementSpeed;
+            facingDirection = Direction.RIGHT;
+            currentAnimationName = "FLY_RIGHT";
+        } else if (playerCenterX < dragonCenterX - 10) {
+            moveAmountX -= movementSpeed;
+            facingDirection = Direction.LEFT;
+            currentAnimationName = "FLY_LEFT";
         }
+
+        // VERTICAL MOVEMENT
+        float targetY = player.getY() - 120;
+
+        if (this.getY() < targetY) {
+            moveAmountY += movementSpeed; // Fly down towards height
+        } else if (this.getY() > targetY) {
+            moveAmountY -= movementSpeed; // fly up towards height
+        }
+
+        // no gravity if Dragon is in the air
 
         // move Dragon
         moveY(moveAmountY);
@@ -91,32 +106,32 @@ public class DragonEnemy extends Enemy {
         return new HashMap<String, Frame[]>(){{
             put("FLY_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
-                            .withScale(8)
+                            .withScale(5)
                             .withBounds(2, 2, 48, 39)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 100)
-                            .withScale(8)
+                            .withScale(5)
                             .withBounds(2, 2, 48, 39)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 0), 100)
-                            .withScale(8)
+                            .withScale(5)
                             .withBounds(2, 2, 48, 39)
                             .build()
             });
 
             put("FLY_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
-                            .withScale(8)
+                            .withScale(5)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(2, 2, 48, 39)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 100)
-                            .withScale(8)
+                            .withScale(5)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(2, 2, 48, 39)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 0), 100)
-                            .withScale(8)
+                            .withScale(5)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(2, 2, 48, 39)
                             .build()
