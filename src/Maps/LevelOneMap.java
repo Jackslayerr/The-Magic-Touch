@@ -193,7 +193,7 @@ public class LevelOneMap extends Map {
                  "Welcome to the Fire Dungeon!"
                 + "\n" + "Defeat the goblins and claim the first artifact."
                 + "\n" + "Press Z to use your Fire Hand Rune."
-                + "\n" + "Light torches to solve the puzzles!"
+                + "\n" + "Light torches to open gates and build bridges!"
 
         );
 
