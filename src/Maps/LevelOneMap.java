@@ -12,10 +12,12 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Trigger;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import EnhancedMapTiles.BouncyCloud;
+import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.CrumblingBlock;
 import GameObject.Rectangle;
+import Utils.CheckpointManager;
 import Utils.Direction;
-
+import Level.*;
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
@@ -24,7 +26,8 @@ public class LevelOneMap extends Map {
     public LevelOneMap() {
         super("level_one_map.txt", new CastleTileset());
         // 3,16
-        this.playerStartPosition = getMapTile(3, 16).getLocation();
+        this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
+        //System.out.println(this.playerStartPosition);
     }
 
     @Override
@@ -98,6 +101,11 @@ public class LevelOneMap extends Map {
             CrumblingBlock crumblingBlock = new CrumblingBlock(getMapTile(121 + i, 12).getLocation(), "CrumblingBlock.png");
             enhancedMapTiles.add(crumblingBlock);
         }
+        Trigger trigger = new Trigger(getMapTile(122, 7).getLocation(), 1, 0, 0, 16, 80, this);
+        enhancedMapTiles.add(trigger);
+
+        Checkpoint checkpoint = new Checkpoint(getMapTile(65, 18).getLocation(), 16, 16, this, 1);
+        enhancedMapTiles.add(checkpoint);
 
         return enhancedMapTiles;
     }
@@ -205,8 +213,7 @@ public class LevelOneMap extends Map {
         );
         npcs.add(sign4);
 
-        Trigger trigger = new Trigger(getMapTile(122, 7).getLocation(), 1, 0, 0, 16, 80, this);
-        enhancedMapTiles.add(trigger);
+        
 
         return npcs;
     }

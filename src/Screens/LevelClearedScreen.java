@@ -3,6 +3,7 @@ package Screens;
 
 import Engine.*;
 import Level.Map;
+import Utils.CheckpointManager;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,9 +23,11 @@ public class LevelClearedScreen extends Screen {
     private String chooseBackground(int levelNumber) {
         switch (levelNumber) {
             case 1:
+                CheckpointManager.setIndex(2);
                 return "level-cleared-level1.png";
 
             case 2:
+                CheckpointManager.setIndex(3);
                 return "level-cleared-level2.png";
 
             case 3:

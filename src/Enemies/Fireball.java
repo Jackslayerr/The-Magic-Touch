@@ -136,7 +136,7 @@ public class Fireball extends Enemy {
                  }
             }
             for (NPC npc : npcs) {
-                if (npc instanceof Torch && this.intersects(npc)) {
+                if (npc instanceof Torch && (this.intersects(npc) || this.touching(npc))) {
                     npc.talkedTo = true;
                     this.setMapEntityStatus(MapEntityStatus.REMOVED);
                 }

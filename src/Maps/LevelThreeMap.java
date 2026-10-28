@@ -8,6 +8,7 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import GameObject.Rectangle;
 import Tilesets.LightningTileset;
+import Utils.CheckpointManager;
 import Utils.Direction;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class LevelThreeMap extends Map {
 
     public LevelThreeMap() {
         super("level_three_map.txt", new LightningTileset());
-        this.playerStartPosition = getMapTile(1, 16).getLocation();
+        this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
     }
 
     @Override
@@ -27,8 +28,8 @@ public class LevelThreeMap extends Map {
         /* SHEEP sheep = new SHEEP(getMapTile(17, 7).getLocation().subtractY(-350), Direction.LEFT);
         enemies.add(sheep);*/
 
-        DragonEnemy dragonEnemy = new DragonEnemy(getMapTile(18, 7).getLocation().subtractY(-200), Direction.LEFT);
-        enemies.add(dragonEnemy);
+        // DragonEnemy dragonEnemy = new DragonEnemy(getMapTile(18, 7).getLocation().subtractY(-200), Direction.LEFT);
+        // enemies.add(dragonEnemy);
         return enemies;
 
     }

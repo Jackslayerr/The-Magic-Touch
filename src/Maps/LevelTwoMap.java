@@ -16,6 +16,7 @@ import EnhancedMapTiles.IceBlockRespawn;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import GameObject.Rectangle;
 import Tilesets.IceCaveTileset;
+import Utils.CheckpointManager;
 import Utils.Direction;
 
 import java.util.ArrayList;
@@ -27,8 +28,7 @@ public class LevelTwoMap extends Map {
         super("level_two_map.txt", new IceCaveTileset());
         //actual
         // 2,26
-        this.playerStartPosition = getMapTile(2, 26).getLocation();
-
+        this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
         //test
         //this.playerStartPosition = getMapTile(86, 2).getLocation();
     }

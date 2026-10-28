@@ -37,7 +37,7 @@ public abstract class Map {
     protected Camera camera;
 
     // location player should start on when this map is first loaded
-    protected Point playerStartPosition;
+    public  Point playerStartPosition;
 
     // the location of the "mid point" of the screen
     // this is what tells the game that the player has reached the center of the screen, therefore the camera should move instead of the player
