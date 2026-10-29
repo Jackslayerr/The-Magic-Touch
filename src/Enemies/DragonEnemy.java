@@ -24,6 +24,9 @@ public class DragonEnemy extends Enemy {
     private AirGroundState airGroundState;
     private float health = 30.0f; // takes 30 hits to slay the dragon
 
+    private int attackTimer = 0;
+    private final int ATTACK_COOLDOWN = 180;
+
     public DragonEnemy(Point location, Direction facingDirection) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("DragonEnemy.png"), 52, 43), "FLY_LEFT");
         this.startFacingDirection = facingDirection;
@@ -76,7 +79,31 @@ public class DragonEnemy extends Enemy {
         moveY(moveAmountY);
         moveX(moveAmountX);
 
+        // ATTACK LOGIC
+        attackTimer++;
+        if (attackTimer >= ATTACK_COOLDOWN) {
+            launchSheepAttack(player);
+            attackTimer = 0; // Reset attack timer
+        }
+
         super.update(player);
+    }
+
+    private void launchSheepAttack(Player player) {
+        // Spawn point centered on dragon's current location
+        Point spawnPoint = new Point(this.getX() + (this.getWidth() / 2f), this.getY());
+
+        // Target where the player is currently standing
+        float targetPlayerX = player.getX();
+
+        // Instantiate sheep with upward trajectory targeting the player's X
+        SHEEP2 sheep = new SHEEP2(spawnPoint, targetPlayerX);
+
+        // Add sheep to active entities in the map
+        if (this.map != null) {
+            this.map.addEnemy(sheep);
+            System.out.println("DRAGON LAUNCHED S.H.E.E.P. AT PLAYER!");
+        }
     }
 
     public void takeDamage(float damage) {

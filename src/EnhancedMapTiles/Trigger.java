@@ -31,12 +31,12 @@ public class Trigger extends EnhancedMapTile {
         super.update(player);
         if (this.intersects(player) || this.touching(player)) {
             if (triggered == false) {
-                doSomething();
+                doSomething(player);
             }
         }
         
     }
-    public void doSomething() {
+    public void doSomething(Player player) {
         if (id == 1) {
             Puzzle.addTiles(120, 120, 9, 11, 21, map);
             triggered = true;
