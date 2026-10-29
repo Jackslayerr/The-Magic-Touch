@@ -25,6 +25,7 @@ public abstract class Player extends GameObject {
     // these should be set in a subclass
     protected float walkSpeed = 0;
     protected float gravity = 0;
+    protected float preFreezeGravity = 0;
     protected float jumpHeight = 0;
     protected float jumpDegrade = 0;
     protected float terminalVelocityY = 0;
@@ -65,6 +66,7 @@ public abstract class Player extends GameObject {
     protected Key LIGHTNING_KEY = Key.C;
 
     private boolean frozen = false;
+    private boolean airAfterLightning = false;
 
     // flags
     protected boolean isInvincible = false;
@@ -92,11 +94,19 @@ public abstract class Player extends GameObject {
     public void setFrozen(boolean frozen) {
         this.frozen = frozen;
         if (frozen) {
+            preFreezeGravity = gravity;
+            gravity = 0;
             playerState = PlayerState.STANDING;
             currentAnimationName = "STANDING_RIGHT";
             currentFrameIndex = 0;
+        } else if (airGroundState == AirGroundState.GROUND) {
+            playerState = PlayerState.STANDING;
+        }
+        if (!frozen) {
+            gravity = preFreezeGravity;
         }
     }
+    
     public void setCurrentLevel(int level) {
         currentLevel = level;
     }
@@ -116,6 +126,9 @@ public abstract class Player extends GameObject {
 
         if (coolDown != 0) {
             coolDown--;
+        }
+        if (airGroundState == AirGroundState.GROUND) {
+            airAfterLightning = false;
         }
 
         // if player is currently playing through level
@@ -162,6 +175,9 @@ public abstract class Player extends GameObject {
 
     // add gravity to player
     protected void applyGravity() {
+        if (frozen && airGroundState == AirGroundState.AIR) {
+            return;
+        }
         moveAmountY += gravity + momentumY;
     }
 
@@ -169,27 +185,28 @@ public abstract class Player extends GameObject {
     protected void handlePlayerState() {
         switch (playerState) {
             case STANDING:
+                playerShootLightning();
                 playerStanding();
                 playerShootFire();
                 playerShootWave();
-                playerShootLightning();
                 break;
 
             case WALKING:
+                playerShootLightning();
                 playerWalking();
                 playerShootFire();
                 playerShootWave();
-                playerShootLightning();
                 break;
 
             case CROUCHING:
+                playerShootLightning();
                 playerCrouching();
                 playerShootFire();
                 playerShootWave();
-                playerShootLightning();
                 break;
 
             case JUMPING:
+                playerShootLightning();
                 playerJumping(1.0f);
                 playerShootFire();
                 playerShootWave();
@@ -620,6 +637,7 @@ public void hurtPlayer(MapEntity mapEntity) {
     }
 
     public void shootLightning() {
+        setFrozen(true);
         float lightningX = this.getLocation().x;
         float lightningY = this.getLocation().y - 144;
         Point lightningLocation = new Point(lightningX, lightningY);
@@ -631,9 +649,12 @@ public void hurtPlayer(MapEntity mapEntity) {
         if (frozen) {
             return;
         }
-        if (Keyboard.isKeyDown(LIGHTNING_KEY) && !keyLocker.isKeyLocked(LIGHTNING_KEY) && coolDown == 0 && currentLevel >= 3) {
+        if (Keyboard.isKeyDown(LIGHTNING_KEY) && !keyLocker.isKeyLocked(LIGHTNING_KEY) && coolDown == 0 && currentLevel >= 3 && airAfterLightning == false) {
             keyLocker.lockKey(LIGHTNING_KEY);
             shootLightning();
+            if (airGroundState == AirGroundState.AIR) {
+                airAfterLightning = true;
+            }
             lightningAnimationTimer = 15;
         }
     }

@@ -30,6 +30,7 @@ public class Teleporter extends NPC {
     int timer;
     boolean wasSpacePressed = false;
     boolean playerNearby = false;
+    boolean froze = false;
 
     public Teleporter(Point location, String spriteFile, int xDestination, int yDestination) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load(spriteFile), 32, 32), "DEFAULT");
@@ -47,6 +48,7 @@ public class Teleporter extends NPC {
         if (talkedTo) {
             currentAnimationName = "TELEPORTING";
             player.setFrozen(true);
+            froze = true;
             timer++;
             if (timer >= 150) {
                 Point destination = map.getPositionByTileIndex(xDestination, yDestination);
@@ -56,7 +58,10 @@ public class Teleporter extends NPC {
             }
         } else {
             currentAnimationName = "DEFAULT";
-            player.setFrozen(false);
+            if (froze) {
+                player.setFrozen(false);
+                froze = false;
+            }
         }
         
 

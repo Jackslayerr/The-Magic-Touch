@@ -30,7 +30,6 @@ public class Lightning extends Enemy {
     @Override
     public void update(Player player) {
         lightningStrike();
-        player.setFrozen(true);
         existenceFrames -= 1;
         if (existenceFrames == 0) {
             player.setFrozen(false);
