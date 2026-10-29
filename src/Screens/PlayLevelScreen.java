@@ -44,7 +44,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     @Override
     public void initialize(Map level, String backgroundImageFile) {
-        this.map = new MovementTestMap();
+        this.map = level;
         this.currentLevel = screenCoordinator.getDestinationLevel();
         this.backgroundImage = ImageLoader.load(backgroundImageFile);
 
