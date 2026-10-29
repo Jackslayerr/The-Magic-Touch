@@ -104,7 +104,7 @@ public class LevelOneMap extends Map {
         Trigger trigger = new Trigger(getMapTile(122, 7).getLocation(), 1, 0, 0, 16, 80, this);
         enhancedMapTiles.add(trigger);
 
-        Checkpoint checkpoint = new Checkpoint(getMapTile(65, 18).getLocation(), 16, 16, this, 1);
+        Checkpoint checkpoint = new Checkpoint(getMapTile(65, 18).getLocation().subtractY(72), 16, 16, this, 1);
         enhancedMapTiles.add(checkpoint);
 
         return enhancedMapTiles;
