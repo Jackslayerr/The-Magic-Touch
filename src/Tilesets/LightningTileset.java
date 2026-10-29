@@ -582,6 +582,37 @@ public class LightningTileset extends Tileset {
 
         mapTiles.add(cloudTopPillarWithoutBackgroundTile);
 
+        Frame wireConnectorFrame = new FrameBuilder(getSubImage(10, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder wireConnectorTile = new MapTileBuilder(wireConnectorFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(wireConnectorTile);
+
+        Frame horizontalWireFrame = new FrameBuilder(getSubImage(10, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder horizontalWireTile = new MapTileBuilder(horizontalWireFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(horizontalWireTile);
+
+        Frame verticalWireFrame = new FrameBuilder(getSubImage(10, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder verticalWireTile = new MapTileBuilder(verticalWireFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(verticalWireTile);
+
+
+        mapTiles.add(horizontalWireTile);
+
+
         return mapTiles;
     }
 }
