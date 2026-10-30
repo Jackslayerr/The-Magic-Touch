@@ -4,8 +4,10 @@ import Level.*;
 import NPCs.*;
 import Enemies.*;
 import Engine.ImageLoader;
+import EnhancedMapTiles.BouncyCloud;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.zapOrb;
 import GameObject.Rectangle;
 import Tilesets.LightningTileset;
 import Utils.CheckpointManager;
@@ -38,8 +40,11 @@ public class LevelThreeMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
+        zapOrb zapOrb = new zapOrb(getMapTile(15, 14).getLocation(), getMapTile(17, 12).getLocation(), this);
+        enhancedMapTiles.add(zapOrb);
 
-
+        BouncyCloud bouncyCloud = new BouncyCloud(getMapTile(20, 16).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud);
         return enhancedMapTiles;
     }
 

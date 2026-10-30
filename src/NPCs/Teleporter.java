@@ -13,6 +13,7 @@ import Level.MapEntityStatus;
 import Level.MapTile;
 import Level.NPC;
 import Level.Player;
+import Utils.AirGroundState;
 import Utils.Point;
 import Utils.Puzzle;
 import Level.*;
@@ -45,10 +46,11 @@ public class Teleporter extends NPC {
     }
 
     public void update(Player player) {
-        if (talkedTo) {
+        if (talkedTo && player.getAirGroundState() == AirGroundState.GROUND) {
             currentAnimationName = "TELEPORTING";
             player.setFrozen(true);
             froze = true;
+            
             timer++;
             if (timer >= 150) {
                 Point destination = map.getPositionByTileIndex(xDestination, yDestination);

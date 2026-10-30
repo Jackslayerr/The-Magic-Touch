@@ -44,6 +44,7 @@ public abstract class Player extends GameObject {
 
     // Element Powers
     protected float coolDown = 0;
+    protected float earthCoolDown = 0;
     private int currentLevel = 1;
 
     // values used to keep track of player's current state
@@ -97,17 +98,17 @@ public abstract class Player extends GameObject {
     public void setFrozen(boolean frozen) {
         this.frozen = frozen;
         if (frozen) {
-            preFreezeGravity = gravity;
-            gravity = 0;
+           // preFreezeGravity = gravity;
+           // gravity = 0;
             playerState = PlayerState.STANDING;
             currentAnimationName = "STANDING_RIGHT";
             currentFrameIndex = 0;
         } else if (airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
-        if (!frozen) {
-            gravity = preFreezeGravity;
-        }
+        // if (!frozen) {
+        //     gravity = preFreezeGravity;
+        // }
     }
     
     public void setCurrentLevel(int level) {
@@ -129,6 +130,9 @@ public abstract class Player extends GameObject {
 
         if (coolDown != 0) {
             coolDown--;
+        }
+        if (earthCoolDown != 0) {
+            earthCoolDown--;
         }
         if (airGroundState == AirGroundState.GROUND) {
             airAfterLightning = false;
@@ -682,10 +686,10 @@ public void hurtPlayer(MapEntity mapEntity) {
         if (frozen) {
             return;
         }
-        if (Keyboard.isKeyDown(EARTH_KEY) && !keyLocker.isKeyLocked(EARTH_KEY) && earthAnimationTimer == 0 && currentLevel >= 0) {
+        if (Keyboard.isKeyDown(EARTH_KEY) && !keyLocker.isKeyLocked(EARTH_KEY) && earthCoolDown == 0 && currentLevel >= 0) {
             keyLocker.lockKey(EARTH_KEY);
             playerBuildPlatform();
-            earthAnimationTimer = 180;
+            earthCoolDown = 180;
         }
     }
 }
