@@ -12,6 +12,7 @@ import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import EnhancedMapTiles.*;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public abstract class Player extends GameObject {
     protected int fireAnimationTimer = 0;
     protected int waveAnimationTimer = 0;
     protected int lightningAnimationTimer = 0;
+    protected int earthAnimationTimer = 0;
 
     // values used to handle player movement
     protected float jumpForce = 0;
@@ -64,6 +66,7 @@ public abstract class Player extends GameObject {
     protected Key FIRE_KEY = Key.Z;
     protected Key WAVE_KEY = Key.X;
     protected Key LIGHTNING_KEY = Key.C;
+    protected Key EARTH_KEY = Key.V;
 
     private boolean frozen = false;
     private boolean airAfterLightning = false;
@@ -210,6 +213,7 @@ public abstract class Player extends GameObject {
                 playerJumping(1.0f);
                 playerShootFire();
                 playerShootWave();
+                playerEarthHand();
                 break;
         }
     }
@@ -370,6 +374,9 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyUp(LIGHTNING_KEY)) {
             keyLocker.unlockKey(LIGHTNING_KEY);
         }
+        if (Keyboard.isKeyUp(EARTH_KEY)) {
+            keyLocker.unlockKey(EARTH_KEY);
+        }
     }
 
     protected void handlePlayerAnimation() {
@@ -388,6 +395,12 @@ public abstract class Player extends GameObject {
         if (lightningAnimationTimer > 0) {
             lightningAnimationTimer--;
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "BOLT_RIGHT" : "BOLT_LEFT";
+            return;
+        }
+
+        if (earthAnimationTimer > 0) {
+            earthAnimationTimer--;
+            //this.currentAnimationName = facingDirection == Direction.RIGHT ? "EARTH_RIGHT" : "EARTH_LEFT";
             return;
         }
 
@@ -656,6 +669,23 @@ public void hurtPlayer(MapEntity mapEntity) {
                 airAfterLightning = true;
             }
             lightningAnimationTimer = 15;
+        }
+    }
+
+
+    public void playerBuildPlatform() {
+        Point spawnPoint = new Point(getX(), getBounds().getY2() + 8);
+        map.addEnhancedMapTile(new EarthPlatform(spawnPoint, "EarthHandPlatform.png"));
+    }
+
+    protected void playerEarthHand() {
+        if (frozen) {
+            return;
+        }
+        if (Keyboard.isKeyDown(EARTH_KEY) && !keyLocker.isKeyLocked(EARTH_KEY) && earthAnimationTimer == 0 && currentLevel >= 0) {
+            keyLocker.lockKey(EARTH_KEY);
+            playerBuildPlatform();
+            earthAnimationTimer = 180;
         }
     }
 }
