@@ -145,7 +145,8 @@ public class LevelTwoMap extends Map {
         /* Enemies
          */
 
-
+        PenguinEnemy penguinEnemy = new PenguinEnemy(getMapTile(4, 27).getLocation().subtractY(0), Direction.RIGHT);
+        enemies.add(penguinEnemy);
         return enemies;
     }
 
