@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -9,7 +10,7 @@ import Level.*;
 import NPCs.Torch;
 import Utils.Direction;
 import Utils.Point;
-
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,6 +37,12 @@ public class Fish extends Enemy {
         }
         initialize();
     }
+/*
+   public void draw(GraphicsHandler graphicsHandler) {
+       super.draw(graphicsHandler);
+       drawBounds(graphicsHandler,new Color(255, 0, 0, 100));
+   }
+ */
 
     @Override
     public void update(Player player) {
@@ -65,6 +72,7 @@ public class Fish extends Enemy {
         existenceFrames--;
     }
 
+
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         if (hasCollided) {
@@ -85,33 +93,33 @@ public class Fish extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
-                            .withScale(0.3f)
-                            .withBounds(10, 10, 80, 130)
+                            .withScale(0.4f)
+                            .withBounds(10, 30, 80, 80)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(0.3f)
-                            .withBounds(10, 10, 80, 130)
+                            .withScale(0.4f)
+                            .withBounds(10, 30, 80, 80)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(0.3f)
-                            .withBounds(10, 10, 80, 130)
+                            .withScale(0.4f)
+                            .withBounds(10, 30, 80, 80)
                             .build()
             });
             put("LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
-                            .withScale(0.3f)
+                            .withScale(0.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(10, 10, 80, 130)
+                            .withBounds(10, 30, 80, 80)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(0.3f)
+                            .withScale(0.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(10, 10, 80, 130)
+                            .withBounds(10, 30, 80, 80)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(0.3f)
+                            .withScale(0.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(10, 10, 80, 130)
+                            .withBounds(10, 30, 80, 80)
                             .build()
             });
         }};
