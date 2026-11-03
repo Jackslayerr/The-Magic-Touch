@@ -49,7 +49,7 @@ public class SnowBallBoss extends Enemy {
             yPoint = getY() + 325;
         }
         Point shootPoint = new Point(xPoint, yPoint);
-        snowball sb = new snowball(shootPoint);
+        snowball sb = new snowball(shootPoint, false, 8);
         map.addEnemy(sb);
     }
     @Override

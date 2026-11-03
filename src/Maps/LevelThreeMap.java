@@ -6,6 +6,7 @@ import Enemies.*;
 import Engine.ImageLoader;
 import EnhancedMapTiles.BouncyCloud;
 import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.SnowballLauncher;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import EnhancedMapTiles.zapOrb;
 import GameObject.Rectangle;
@@ -45,6 +46,10 @@ public class LevelThreeMap extends Map {
 
         BouncyCloud bouncyCloud = new BouncyCloud(getMapTile(20, 16).getLocation(), "BouncyCloud.png");
         enhancedMapTiles.add(bouncyCloud);
+
+        //SnowballLauncher snowballLauncher = new SnowballLauncher(getMapTile(85, 12).getLocation().subtractY(15), false);
+        //enhancedMapTiles.add(snowballLauncher);
+
         return enhancedMapTiles;
     }
 
