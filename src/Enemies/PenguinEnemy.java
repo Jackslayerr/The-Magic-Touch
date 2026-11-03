@@ -136,10 +136,12 @@ public class PenguinEnemy extends Enemy {
         super.update(player);
         previousPenguinState = penguinState;
     }
+    /*
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler,new Color(255, 0, 0, 100));
     }
+     */
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
