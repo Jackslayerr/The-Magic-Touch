@@ -73,10 +73,6 @@ public class LevelTwoMap extends Map {
         SnowGoblinEnemy snowGoblinEnemy3 = new SnowGoblinEnemy(getMapTile(19, 17).getLocation().subtractY(0), Direction.LEFT);
         enemies.add(snowGoblinEnemy3);
 
-        for (int i = 0; i < 7; i= i + 3) {
-            SnowGoblinEnemy snowGoblinEnemy = new SnowGoblinEnemy(getMapTile(88 + i, 3).getLocation(), Direction.RIGHT);
-            enemies.add(snowGoblinEnemy);
-        }
 
         Icicle Icicle9 = new Icicle(getMapTile(31, 27).getLocation().subtractY(0), false);
         enemies.add(Icicle9);;
@@ -154,8 +150,7 @@ public class LevelTwoMap extends Map {
         PenguinEnemy penguinEnemy3 = new PenguinEnemy(getMapTile(94, 3).getLocation().subtractY(0), Direction.RIGHT);
         enemies.add(penguinEnemy3);
 
-        PenguinEnemy penguinEnemy4 = new PenguinEnemy(getMapTile(33, 25).getLocation().subtractY(0), Direction.RIGHT);
-        enemies.add(penguinEnemy4);
+
 
         return enemies;
 
@@ -177,8 +172,6 @@ public class LevelTwoMap extends Map {
 
         IceBlockRespawn iceBlockRespawn2 = new IceBlockRespawn(getMapTile(68, 19).getLocation());
         enhancedMapTiles.add(iceBlockRespawn2);
-
-       
 
         IceBlock iceBlock4 = new IceBlock(getMapTile(75,20).getLocation());
         enhancedMapTiles.add(iceBlock4);

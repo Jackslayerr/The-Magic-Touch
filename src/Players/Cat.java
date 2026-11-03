@@ -208,6 +208,21 @@ public class Cat extends Player {
                             .withBounds(36, 20, 48, 110)
                             .build()
             });
+
+            put("EARTH_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 3))
+                            .withScale(.4f)
+                            .withBounds(36, 20, 48, 110)
+                            .build()
+            });
+
+            put("EARTH_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 3))
+                            .withScale(.4f)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(36, 20, 48, 110)
+                            .build()
+            });
         }};
     }
 }
