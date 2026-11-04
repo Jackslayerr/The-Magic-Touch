@@ -1,3 +1,4 @@
+
 package Screens;
 
 import Engine.*;
@@ -15,6 +16,7 @@ import Players.Cat;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Font;
 
 public class PlayLevelScreen extends Screen implements PlayerListener {
 
@@ -29,12 +31,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected int currentLevel = 1;
     protected static int totalLevels = 3;
 
-    // background music listener!
+    // Background music
     private BackgroundMusic backgroundMusic;
 
-    // Red screen flash when the player takes damage
+    // Red screen flash when player takes damage
     private int damageFlashTimer = 0;
     private static final int DAMAGE_FLASH_DURATION = 12;
+
+    // Health bar animation
+    private int healthBarAnimationTimer = 0;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -55,34 +60,37 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.addListener(this);
         this.player.setCurrentLevel(currentLevel);
 
-        // Reset the damage effect whenever a level loads
+        // Reset damage and health animations whenever a level loads
         damageFlashTimer = 0;
+        healthBarAnimationTimer = 0;
 
         levelClearedScreen = new LevelClearedScreen(currentLevel);
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-        // BACKGROUND MUSIC SECTION BABY
+        // Background music
         if (backgroundMusic != null) {
             backgroundMusic.stop();
         }
+
         backgroundMusic = new BackgroundMusic();
 
-        switch (currentLevel) { // this is temporary I'll fix it!
-            case 1: // level 1 music
+        switch (currentLevel) {
+            case 1:
                 backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
                 break;
-            case 2: // level 2 music
+            case 2:
                 backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
                 break;
-            case 3: // level 3 music
+            case 3:
                 backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
                 break;
-            default: // title music
+            default:
                 backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
                 break;
         }
+
         backgroundMusic.play();
         backgroundMusic.loop();
     }
@@ -105,6 +113,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 } else if (damageFlashTimer > 0) {
                     damageFlashTimer--;
                 }
+
+                // Update health bar animation
+                healthBarAnimationTimer++;
 
                 break;
 
@@ -134,9 +145,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
+
+                // Draw health HUD above the game world
                 drawHealthBar(graphicsHandler);
 
-                // Draw the damage flash over the gameplay
+                // Draw existing damage flash over gameplay
                 drawDamageFlash(graphicsHandler);
                 break;
 
@@ -147,6 +160,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     if (backgroundMusic != null) {
                         backgroundMusic.stop();
                     }
+
                     if (currentLevel < totalLevels) {
                         screenCoordinator.setDestinationLevel(currentLevel + 1);
                         screenCoordinator.setGameState(GameState.CUTSCENE);
@@ -162,7 +176,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
     }
 
-    // Draw a translucent red border that fades away
+    // ==========================================
+    // DAMAGE SCREEN FLASH
+    // ==========================================
+
     private void drawDamageFlash(GraphicsHandler graphicsHandler) {
         if (damageFlashTimer <= 0) {
             return;
@@ -195,38 +212,210 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         );
     }
 
+    // ==========================================
+    // HEALTH BAR HUD
+    // ==========================================
+
     private void drawHealthBar(GraphicsHandler graphicsHandler) {
         Graphics2D g = graphicsHandler.getGraphics();
-
-        int x = 20;
-        int y = 20;
-        int barWidth = 220;
-        int barHeight = 18;
 
         int health = Math.max(0, Math.min(
             player.getMaxHealth(),
             player.getHealth()
         ));
 
-        float healthPercent =
-            (float) health / player.getMaxHealth();
+        int maxHealth = player.getMaxHealth();
 
-        int filledWidth = Math.round(barWidth * healthPercent);
+        float healthPercent = (float) health / maxHealth;
 
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect(x, y, barWidth, barHeight);
+        // HUD position
+        int x = 20;
+        int y = 18;
 
-        if (health <= 10) {
-            g.setColor(Color.RED);
+        // ----------------------------------
+        // GOLD DECORATIVE FRAME
+        // ----------------------------------
+g.setColor(new Color(54, 32, 77));
+g.fillRect(x, y, 370, 48);
+
+g.setColor(new Color(255, 207, 91));
+g.fillRect(x, y, 370, 3);
+g.fillRect(x, y + 45, 370, 3);
+g.fillRect(x, y, 3, 48);
+g.fillRect(x + 367, y, 3, 48);
+
+g.setColor(new Color(135, 85, 37));
+g.drawRect(x + 4, y + 4, 362, 40);
+
+        // ----------------------------------
+        // PIXEL HEART
+        // ----------------------------------
+
+        drawPixelHeart(g, x + 12, y + 12, 4);
+
+        // ----------------------------------
+        // HEALTH BAR FRAME
+        // ----------------------------------
+
+        int barX = x + 48;
+        int barY = y + 11;
+        int barWidth = 200;
+        int barHeight = 20;
+
+        g.setColor(new Color(24, 18, 36));
+        g.fillRect(barX, barY, barWidth, barHeight);
+
+        g.setColor(new Color(255, 207, 91));
+        g.drawRect(
+            barX - 2,
+            barY - 2,
+            barWidth + 4,
+            barHeight + 4
+        );
+
+        // ----------------------------------
+        // HEALTH BAR COLOR
+        // ----------------------------------
+
+        Color healthColor;
+
+        if (health < 20) {
+
+            // Critical health: pulsing red
+            int pulse = (int) (
+                150 + 105 * (
+                    0.5 + 0.5 *
+                    Math.sin(healthBarAnimationTimer * 0.18)
+                )
+            );
+
+            healthColor = new Color(255, 35, 35, pulse);
+
+        } else if (damageFlashTimer > 0) {
+
+            // Brief red flash after taking damage
+            healthColor = Color.RED;
+
         } else {
-            g.setColor(Color.GREEN);
+
+            // Normal health: green
+            healthColor = new Color(55, 210, 85);
         }
 
-        g.fillRect(x, y, filledWidth, barHeight);
+        // ----------------------------------
+        // SEGMENTED HEALTH BAR
+        // ----------------------------------
 
-        g.setColor(Color.WHITE);
-        g.drawRect(x, y, barWidth, barHeight);
+        int segments = 20;
+        int segmentWidth = 9;
+        int segmentGap = 1;
+
+        int filledSegments = (int) Math.ceil(
+            healthPercent * segments
+        );
+
+        for (int i = 0; i < segments; i++) {
+
+            int segmentX = barX + 1 +
+                i * (segmentWidth + segmentGap);
+
+            if (i < filledSegments) {
+                g.setColor(healthColor);
+            } else {
+                g.setColor(new Color(65, 48, 65));
+            }
+
+            g.fillRect(
+                segmentX,
+                barY + 1,
+                segmentWidth,
+                barHeight - 2
+            );
+
+            // Small highlight on green segments
+            if (i < filledSegments && health >= 20
+                    && damageFlashTimer <= 0) {
+
+                g.setColor(new Color(255, 255, 255, 65));
+
+                g.fillRect(
+                    segmentX,
+                    barY + 1,
+                    segmentWidth,
+                    2
+                );
+            }
+        }
+
+        // ----------------------------------
+        // NUMERIC HEALTH DISPLAY
+        // ----------------------------------
+
+        String healthText = health + " / " + maxHealth;
+
+        Font healthFont = new Font(
+            "Monospaced",
+            Font.BOLD,
+            16
+        );
+
+        Color numberColor = health < 20
+            ? new Color(255, 95, 95)
+            : Color.WHITE;
+
+        graphicsHandler.drawStringWithOutline(
+            healthText,
+            x + 263,
+            y + 31,
+            healthFont,
+            numberColor,
+            Color.BLACK,
+            2f
+        );
     }
+
+    // ==========================================
+    // PIXEL ART HEART
+    // ==========================================
+
+    private void drawPixelHeart(Graphics2D g, int x, int y, int size) {
+
+        int[][] heart = {
+            {0, 1, 1, 0, 1, 1, 0},
+            {1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1},
+            {0, 1, 1, 1, 1, 1, 0},
+            {0, 0, 1, 1, 1, 0, 0},
+            {0, 0, 0, 1, 0, 0, 0}
+        };
+
+        for (int row = 0; row < heart.length; row++) {
+            for (int col = 0; col < heart[row].length; col++) {
+
+                if (heart[row][col] == 1) {
+
+                    // Main red heart
+                    g.setColor(new Color(220, 35, 55));
+
+                    // Pink highlights
+                    if (row == 1 && (col == 1 || col == 2)) {
+                        g.setColor(new Color(255, 115, 135));
+                    }
+
+                    g.fillRect(
+                        x + col * size,
+                        y + row * size,
+                        size,
+                        size
+                    );
+                }
+            }
+        }
+    }
+
+    // ==========================================
+    // LEVEL AND DEATH HANDLING
+    // ==========================================
 
     public PlayLevelScreenState getPlayLevelScreenState() {
         return playLevelScreenState;
@@ -242,9 +431,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     @Override
     public void onDeath() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
+
             if (backgroundMusic != null) {
                 backgroundMusic.stop();
             }
+
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
         }
     }
@@ -257,6 +448,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         if (backgroundMusic != null) {
             backgroundMusic.stop();
         }
+
         screenCoordinator.setGameState(GameState.MENU);
     }
 
@@ -266,12 +458,18 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         LEVEL_LOSE
     }
 
+    // ==========================================
+    // LEVEL LOADING
+    // ==========================================
+
     private Map chooseLevel(int levelNumber) {
         switch (levelNumber) {
             case 2:
                 return new LevelTwoMap();
+
             case 3:
                 return new LevelThreeMap();
+
             default:
                 return new LevelOneMap();
         }
@@ -281,8 +479,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         switch (levelNumber) {
             case 2:
                 return "game-background-level2.png";
+
             case 3:
                 return "game-background-level3.png";
+
             default:
                 return "game-background-level1.png";
         }
@@ -290,7 +490,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public void loadLevel(int levelNumber) {
         currentLevel = levelNumber;
+
         screenCoordinator.setDestinationLevel(levelNumber);
-        initialize(chooseLevel(levelNumber), chooseBackground(levelNumber));
+
+        initialize(
+            chooseLevel(levelNumber),
+            chooseBackground(levelNumber)
+        );
     }
 }
