@@ -235,17 +235,18 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // ----------------------------------
         // GOLD DECORATIVE FRAME
         // ----------------------------------
-g.setColor(new Color(54, 32, 77));
-g.fillRect(x, y, 370, 48);
 
-g.setColor(new Color(255, 207, 91));
-g.fillRect(x, y, 370, 3);
-g.fillRect(x, y + 45, 370, 3);
-g.fillRect(x, y, 3, 48);
-g.fillRect(x + 367, y, 3, 48);
+        g.setColor(new Color(54, 32, 77));
+        g.fillRect(x, y, 370, 48);
 
-g.setColor(new Color(135, 85, 37));
-g.drawRect(x + 4, y + 4, 362, 40);
+        g.setColor(new Color(255, 207, 91));
+        g.fillRect(x, y, 370, 3);
+        g.fillRect(x, y + 45, 370, 3);
+        g.fillRect(x, y, 3, 48);
+        g.fillRect(x + 367, y, 3, 48);
+
+        g.setColor(new Color(135, 85, 37));
+        g.drawRect(x + 4, y + 4, 362, 40);
 
         // ----------------------------------
         // PIXEL HEART
@@ -365,7 +366,7 @@ g.drawRect(x + 4, y + 4, 362, 40);
 
         graphicsHandler.drawStringWithOutline(
             healthText,
-            x + 263,
+            x + 265,
             y + 31,
             healthFont,
             numberColor,
