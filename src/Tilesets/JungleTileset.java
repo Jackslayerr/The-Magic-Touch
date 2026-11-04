@@ -486,15 +486,14 @@ public class JungleTileset extends Tileset {
 
         mapTiles.add(leavesMiddleTile);
 
-        Frame leavesBottomFrame = new FrameBuilder(getSubImage(9, 2))
+        Frame LeavesBottomFrame = new FrameBuilder(getSubImage(9, 2))
                 .withScale(tileScale)
-                .withBounds(0, 11, 16, 5)
                 .build();
 
-        MapTileBuilder leavesBottomTile = new MapTileBuilder(leavesBottomFrame)
+        MapTileBuilder LeavesBottomTile = new MapTileBuilder(LeavesBottomFrame)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(leavesBottomTile);
+        mapTiles.add(LeavesBottomTile);
 
         Frame leavesBottomLeftFrame = new FrameBuilder(getSubImage(9, 3))
                 .withScale(tileScale)
