@@ -20,6 +20,8 @@ import Enemies.Fireball;
 import Enemies.Lightning;
 
 import static javax.swing.UIManager.put;
+import Engine.GraphicsHandler;
+import java.awt.Color;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -589,12 +591,12 @@ public void hurtPlayer(MapEntity mapEntity) {
     }
 
     // Uncomment this to have game draw player's bounds
-    /*
-    public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler);
-        drawBounds(new Color(255, 0, 0, 100));
-    }
-    */
+    
+    // public void draw(GraphicsHandler graphicsHandler) {
+    //     super.draw(graphicsHandler);
+    //     drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+    // }
+    
 
     // Shoots a fireball from the player
     public void shootFire() {
