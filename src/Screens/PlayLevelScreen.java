@@ -1,8 +1,6 @@
 package Screens;
 
-import Engine.GraphicsHandler;
-import Engine.Screen;
-import Engine.ImageLoader;
+import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -13,8 +11,6 @@ import Maps.LevelTwoMap;
 import Maps.MovementTestMap;
 import Maps.LevelThreeMap;
 import Players.Cat;
-import Engine.Key;
-import Engine.Keyboard;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
@@ -32,6 +28,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     protected int currentLevel = 1;
     protected static int totalLevels = 3;
+
+    // background music listener!
+    private BackgroundMusic backgroundMusic;
 
     // Red screen flash when the player takes damage
     private int damageFlashTimer = 0;
@@ -63,6 +62,29 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+
+        // BACKGROUND MUSIC SECTION BABY
+        if (backgroundMusic != null) {
+            backgroundMusic.stop();
+        }
+        backgroundMusic = new BackgroundMusic();
+
+        switch (currentLevel) { // this is temporary I'll fix it!
+            case 1: // level 1 music
+                backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
+                break;
+            case 2: // level 2 music
+                backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
+                break;
+            case 3: // level 3 music
+                backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
+                break;
+            default: // title music
+                backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
+                break;
+        }
+        backgroundMusic.play();
+        backgroundMusic.loop();
     }
 
     @Override
@@ -122,6 +144,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 levelClearedScreen.draw(graphicsHandler);
 
                 if (Keyboard.isKeyDown(Key.SPACE)) {
+                    if (backgroundMusic != null) {
+                        backgroundMusic.stop();
+                    }
                     if (currentLevel < totalLevels) {
                         screenCoordinator.setDestinationLevel(currentLevel + 1);
                         screenCoordinator.setGameState(GameState.CUTSCENE);
@@ -217,6 +242,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     @Override
     public void onDeath() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
+            if (backgroundMusic != null) {
+                backgroundMusic.stop();
+            }
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
         }
     }
@@ -226,6 +254,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void goBackToMenu() {
+        if (backgroundMusic != null) {
+            backgroundMusic.stop();
+        }
         screenCoordinator.setGameState(GameState.MENU);
     }
 

@@ -37,16 +37,14 @@ public class zapOrb extends EnhancedMapTile {
     }
     public void zapPlayer(Player player) {
         player.setLocation(target.x, target.y);
+        player.setFrozen(false);
     }
     @Override
     public void initialize() {
         super.initialize();
     }
 
-    public void draw(GraphicsHandler graphicsHandler) {
-        super.draw(graphicsHandler);
-        drawBounds(graphicsHandler, new Color(255, 0, 0, 170));
-    }
+    
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
