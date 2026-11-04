@@ -30,7 +30,7 @@ public class Icicle extends Enemy {
             }
             updateCurrentFrame();
         }
-
+        canBePushed = false;
         this.initialize();
     }
 

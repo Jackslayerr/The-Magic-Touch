@@ -33,6 +33,8 @@ public class LevelThreeMap extends Map {
 
         // DragonEnemy dragonEnemy = new DragonEnemy(getMapTile(18, 7).getLocation().subtractY(-200), Direction.LEFT);
         // enemies.add(dragonEnemy);
+        badOrb orb = new badOrb(getMapTile(22, 193).getLocation(), 3.0f, 3.0f);
+        enemies.add(orb);
         return enemies;
 
     }

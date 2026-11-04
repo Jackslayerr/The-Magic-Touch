@@ -63,7 +63,7 @@ public class WaveAttack extends Enemy {
                         System.out.println("PLAYER WAVE DEFEATED LAVA MONSTER!");
                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
                         break;
-                    } else { // OTHER ENEMIES GET PUSHED BACK
+                    } else if (enemy.canBePushed == true) { // OTHER ENEMIES GET PUSHED BACK
 
                         // push enemy in direction wave is moving
                         float pushDistance = 3.0f;
