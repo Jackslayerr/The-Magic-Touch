@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -12,6 +13,7 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
+import java.awt.*;
 import java.util.HashMap;
 
 public class PenguinEnemy extends Enemy {
@@ -76,7 +78,7 @@ public class PenguinEnemy extends Enemy {
         } else {
             shootWaitTimer--;
         }
-
+        moveYHandleCollision(3);
         if (penguinState == STATE_WALK) {
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "WALK_RIGHT";
@@ -122,7 +124,7 @@ public class PenguinEnemy extends Enemy {
                 fishDir = Direction.LEFT;
             }
 
-            int fishY = Math.round(getY());
+            int fishY = Math.round(getY() + 8);
 
             Fish fish = new Fish(new Point(fishX, fishY), fishSpeed, 300, false, fishDir);
             map.addEnemy(fish);
@@ -134,6 +136,12 @@ public class PenguinEnemy extends Enemy {
         super.update(player);
         previousPenguinState = penguinState;
     }
+    /*
+    public void draw(GraphicsHandler graphicsHandler) {
+        super.draw(graphicsHandler);
+        drawBounds(graphicsHandler,new Color(255, 0, 0, 100));
+    }
+     */
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
@@ -153,12 +161,12 @@ public class PenguinEnemy extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                            .withScale(0.22f)
+                            .withScale(0.30f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(15, 5, 130, 210)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                            .withScale(0.22f)
+                            .withScale(0.30f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(15, 5, 130, 210)
                             .build()
@@ -166,18 +174,18 @@ public class PenguinEnemy extends Enemy {
 
             put("WALK_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                            .withScale(0.22f)
+                            .withScale(0.30f)
                             .withBounds(15, 5, 130, 210)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                            .withScale(0.22f)
+                            .withScale(0.30f)
                             .withBounds(15, 5, 130, 210)
                             .build()
             });
 
             put("SHOOT_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 30)
-                            .withScale(0.22f)
+                            .withScale(0.30f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(15, 5, 130, 210)
                             .build(),
@@ -185,7 +193,7 @@ public class PenguinEnemy extends Enemy {
 
             put("SHOOT_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 30)
-                            .withScale(0.22f)
+                            .withScale(0.30f)
                             .withBounds(15, 5, 130, 210)
                             .build(),
             });

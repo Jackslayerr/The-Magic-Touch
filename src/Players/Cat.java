@@ -14,9 +14,8 @@ import java.util.HashMap;
 // This is the class for the Cat player character
 // basically just sets some values for physics and then defines animations
 public class Cat extends Player {
-
     public Cat(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("hi-defsheet5.png"), 140, 140), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("playerSpriteSheet.png"), 140, 140), x, y, "STAND_RIGHT");
         gravity = .5f;
         terminalVelocityY = 6f;
         jumpHeight = 10.3f;
@@ -145,7 +144,7 @@ public class Cat extends Player {
                     new FrameBuilder(spriteSheet.getSprite(5, 1), 8)
                             .withScale(.4f)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(5, 2), -1)
+                    new FrameBuilder(spriteSheet.getSprite(5, 2), 8)
                             .withScale(.4f)
                             .build()
             });
@@ -159,7 +158,7 @@ public class Cat extends Player {
                             .withScale(.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(5, 2), -1)
+                    new FrameBuilder(spriteSheet.getSprite(5, 2), 8)
                             .withScale(.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build()
@@ -204,6 +203,21 @@ public class Cat extends Player {
 
             put("BOLT_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(6, 2))
+                            .withScale(.4f)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(36, 20, 48, 110)
+                            .build()
+            });
+
+            put("EARTH_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 3))
+                            .withScale(.4f)
+                            .withBounds(36, 20, 48, 110)
+                            .build()
+            });
+
+            put("EARTH_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 3))
                             .withScale(.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(36, 20, 48, 110)

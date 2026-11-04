@@ -73,10 +73,6 @@ public class LevelTwoMap extends Map {
         SnowGoblinEnemy snowGoblinEnemy3 = new SnowGoblinEnemy(getMapTile(19, 17).getLocation().subtractY(0), Direction.LEFT);
         enemies.add(snowGoblinEnemy3);
 
-        for (int i = 0; i < 7; i= i + 3) {
-            SnowGoblinEnemy snowGoblinEnemy = new SnowGoblinEnemy(getMapTile(88 + i, 3).getLocation(), Direction.RIGHT);
-            enemies.add(snowGoblinEnemy);
-        }
 
         Icicle Icicle9 = new Icicle(getMapTile(31, 27).getLocation().subtractY(0), false);
         enemies.add(Icicle9);;
@@ -145,9 +141,20 @@ public class LevelTwoMap extends Map {
         /* Enemies
          */
 
-        PenguinEnemy penguinEnemy = new PenguinEnemy(getMapTile(4, 27).getLocation().subtractY(0), Direction.RIGHT);
-        enemies.add(penguinEnemy);
+        PenguinEnemy penguinEnemy1 = new PenguinEnemy(getMapTile(90, 3).getLocation().subtractY(0), Direction.RIGHT);
+        enemies.add(penguinEnemy1);
+
+        PenguinEnemy penguinEnemy2 = new PenguinEnemy(getMapTile(92, 3).getLocation().subtractY(0), Direction.RIGHT);
+        enemies.add(penguinEnemy2);
+
+        PenguinEnemy penguinEnemy3 = new PenguinEnemy(getMapTile(94, 3).getLocation().subtractY(0), Direction.RIGHT);
+        enemies.add(penguinEnemy3);
+
+
+
         return enemies;
+
+
     }
 
     @Override
@@ -165,8 +172,6 @@ public class LevelTwoMap extends Map {
 
         IceBlockRespawn iceBlockRespawn2 = new IceBlockRespawn(getMapTile(68, 19).getLocation());
         enhancedMapTiles.add(iceBlockRespawn2);
-
-       
 
         IceBlock iceBlock4 = new IceBlock(getMapTile(75,20).getLocation());
         enhancedMapTiles.add(iceBlock4);
@@ -246,17 +251,18 @@ public class LevelTwoMap extends Map {
 
         Sign sign2 = new Sign(
                 getMapTile(42, 25).getLocation().subtractY(13),
-                "We can push the Ice Block using the Wave!"
+                "Hmmm: Snow + Water = ???"
         );
 
         npcs.add(sign2);
 
         Sign sign3 = new Sign(
-                getMapTile(78, 15).getLocation().subtractY(13),
-                "We can melt the Ice Blocks using the Fireball as well!"
+                getMapTile(67, 19).getLocation().subtractY(13),
+                "We can melt the Ice Blocks using the Fireball as well to retrace our steps."
         );
 
         npcs.add(sign3);
+
 
         return npcs;
     }

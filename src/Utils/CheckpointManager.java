@@ -6,7 +6,7 @@ public class CheckpointManager {
     private static final CheckpointManager instance = new CheckpointManager();
     ArrayList<Point> checkPointLists = new ArrayList<>();
     // Change This For Testing
-    static int currentIndex = 3;
+    static int currentIndex = 0;
     private CheckpointManager() {
         checkPointLists.add(new Point(144.0f, 768.0f)); // Level 1 Start Index 0
         checkPointLists.add(new Point(3120.0f, 864.0f)); // Level 1 Checkpoint Index 1
