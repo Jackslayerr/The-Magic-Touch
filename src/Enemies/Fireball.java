@@ -13,6 +13,7 @@ import Level.NPC;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
+import EnhancedMapTiles.MagmaBlock;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -107,7 +108,7 @@ public class Fireball extends Enemy {
                      }
 
                      // CHECK IF IT'S A LAVA MONSTER OR SPIKE
-                     if (enemy instanceof LavaMonster || enemy instanceof Spike || enemy instanceof SnowBallBoss) {
+                     if (enemy instanceof LavaMonster || enemy instanceof Spike || enemy instanceof SnowBallBoss || enemy instanceof LavaSlime) {
                          this.setMapEntityStatus(MapEntityStatus.REMOVED);
                          break;
                      }
@@ -152,7 +153,15 @@ public class Fireball extends Enemy {
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided) {
-            this.mapEntityStatus = MapEntityStatus.REMOVED;
+            if (entityCollidedWith instanceof MagmaBlock) {
+                this.mapEntityStatus = MapEntityStatus.REMOVED;
+                LavaSlime lavaSlime = new LavaSlime(entityCollidedWith.getLocation());
+                map.addEnemy(lavaSlime);
+                entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
+            } else {
+                this.mapEntityStatus = MapEntityStatus.REMOVED;
+            }
+
         }
     }
 

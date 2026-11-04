@@ -33,6 +33,10 @@ public class LevelThreeMap extends Map {
 
         // DragonEnemy dragonEnemy = new DragonEnemy(getMapTile(18, 7).getLocation().subtractY(-200), Direction.LEFT);
         // enemies.add(dragonEnemy);
+
+        LavaSlime lavaSlime = new LavaSlime(getMapTile(8, 16).getLocation().subtractY(0));
+        enemies.add(lavaSlime);
+
         return enemies;
 
     }
@@ -47,8 +51,8 @@ public class LevelThreeMap extends Map {
         BouncyCloud bouncyCloud = new BouncyCloud(getMapTile(20, 16).getLocation(), "BouncyCloud.png");
         enhancedMapTiles.add(bouncyCloud);
 
-        //SnowballLauncher snowballLauncher = new SnowballLauncher(getMapTile(85, 12).getLocation().subtractY(15), false);
-        //enhancedMapTiles.add(snowballLauncher);
+        SnowballLauncher snowballLauncher = new SnowballLauncher(getMapTile(85, 12).getLocation().subtractY(15), false);
+        enhancedMapTiles.add(snowballLauncher);
 
         return enhancedMapTiles;
     }

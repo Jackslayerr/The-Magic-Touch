@@ -10,6 +10,7 @@ import Level.*;
 import NPCs.Torch;
 import Utils.Direction;
 import Utils.Point;
+import EnhancedMapTiles.MagmaBlock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class WaveAttack extends Enemy {
     private Direction facingDirection;
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
+    ArrayList<EnhancedMapTile> enhancedMapTiles;
     public WaveAttack(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Player player) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("newwave.png"), 20, 20), "RIGHT");
         this.movementSpeed = movementSpeed;
@@ -55,12 +57,24 @@ public class WaveAttack extends Enemy {
             // move WAVE forward
             moveXHandleCollision(movementSpeed);
             enemies = map.getEnemies();
+            enhancedMapTiles = map.getEnhancedMapTiles();
             npcs = map.getNPCs();
             for (Enemy enemy : enemies) {
                 if (fromPlayer && this.intersects(enemy) && this != enemy) {
                     if (enemy instanceof LavaMonster) { // Lava Monster dies on impact
                         enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
                         System.out.println("PLAYER WAVE DEFEATED LAVA MONSTER!");
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        break;
+                    }
+                    if (enemy instanceof LavaSlime) { // Lava Slime replaced by magma block
+                        enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+
+                        MagmaBlock magmaBlock = new MagmaBlock(enemy.getLocation());
+                        map.addEnhancedMapTile(magmaBlock);
+
+                        System.out.println("PLAYER WAVE DEFEATED LAVA SLIME!");
+
                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
                         break;
                     } else { // OTHER ENEMIES GET PUSHED BACK
