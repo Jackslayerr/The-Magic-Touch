@@ -9,6 +9,7 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.SnowballLauncher;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import EnhancedMapTiles.zapOrb;
+import EnhancedMapTiles.SpeedRing;
 import GameObject.Rectangle;
 import Tilesets.LightningTileset;
 import Utils.CheckpointManager;
@@ -76,7 +77,8 @@ public class LevelThreeMap extends Map {
         enhancedMapTiles.add(zapOrb13);
 
 
-
+        SpeedRing speedRing = new SpeedRing(getMapTile(4, 196).getLocation());
+        enhancedMapTiles.add(speedRing);
 
 
 

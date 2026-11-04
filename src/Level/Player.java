@@ -74,6 +74,8 @@ public abstract class Player extends GameObject {
     private boolean frozen = false;
     private boolean airAfterLightning = false;
 
+    private float speedMultiplier = 1f;
+
     // flags
     protected boolean isInvincible = false;
 
@@ -254,12 +256,12 @@ public abstract class Player extends GameObject {
         }
 
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-            moveAmountX -= walkSpeed;
+            moveAmountX -= walkSpeed * speedMultiplier;
             facingDirection = Direction.LEFT;
         }
 
         else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-            moveAmountX += walkSpeed;
+            moveAmountX += walkSpeed * speedMultiplier;
             facingDirection = Direction.RIGHT;
         }
 
@@ -328,11 +330,11 @@ public abstract class Player extends GameObject {
 
             // allows movement while in the air
             if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-                moveAmountX -= walkSpeed;
+                moveAmountX -= walkSpeed * speedMultiplier;
             }
 
             else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-                moveAmountX += walkSpeed;
+                moveAmountX += walkSpeed * speedMultiplier;
             }
 
             if (moveAmountY > 0) {
@@ -694,5 +696,11 @@ public void hurtPlayer(MapEntity mapEntity) {
             playerBuildPlatform();
             earthCoolDown = 180;
         }
+    }
+
+    //speed Multiplier for speed ring
+    public float setSpeedMultiplier(float multiplier) {
+        speedMultiplier = multiplier;
+        return speedMultiplier;
     }
 }
