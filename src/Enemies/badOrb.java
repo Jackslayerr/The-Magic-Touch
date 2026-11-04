@@ -15,7 +15,7 @@ public class badOrb extends Enemy {
     float xSpeed;
     float ySpeed;
     public badOrb(Point location, float xSpeed, float ySpeed) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("ElectricOrb.png"), 32, 32), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BadOrb.png"), 32, 32), "DEFAULT");
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         canBePushed = false;
