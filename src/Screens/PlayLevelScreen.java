@@ -441,8 +441,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             if (backgroundMusic != null) {
                 backgroundMusic.stop();
             }
-
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+            levelLoseScreen.initialize(map, "you-lost.png");
         }
     }
 

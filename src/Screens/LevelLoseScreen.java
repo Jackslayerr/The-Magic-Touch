@@ -12,10 +12,11 @@ public class LevelLoseScreen extends Screen {
     protected BufferedImage backgroundImage;
     protected KeyLocker keyLocker = new KeyLocker();
     protected PlayLevelScreen playLevelScreen;
+    protected BackgroundMusic backgroundMusic;
 
     public LevelLoseScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
-        initialize(null, "you-lost.png");
+        //initialize(null, "you-lost.png"); This has to be stopped for the death music to work
     }
 
     @Override
@@ -24,6 +25,10 @@ public class LevelLoseScreen extends Screen {
 
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
+
+        backgroundMusic = new BackgroundMusic();
+        backgroundMusic.loadMusic("/Audio/Game_Over.wav");
+        backgroundMusic.play();
     }
 
     @Override
@@ -37,9 +42,17 @@ public class LevelLoseScreen extends Screen {
 
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
+            stopJingle();
             playLevelScreen.resetLevel();
         } else if (Keyboard.isKeyDown(Key.ESC) && !keyLocker.isKeyLocked(Key.ESC)) {
+            stopJingle();
             playLevelScreen.goBackToMenu();
+        }
+    }
+
+    private void stopJingle() {
+        if (backgroundMusic != null) {
+            backgroundMusic.stop();
         }
     }
 
