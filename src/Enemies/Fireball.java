@@ -3,6 +3,7 @@ package Enemies;
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.SoundEffect;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -30,6 +31,7 @@ public class Fireball extends Enemy {
     private Direction direction;
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
+    private SoundEffect hitSound;
     public Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Direction direction) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("newfireball2.png"), 15, 15), "RIGHT");
         this.movementSpeed = movementSpeed;
@@ -41,6 +43,9 @@ public class Fireball extends Enemy {
         this.fromPlayer = fromPlayer;
         // Grabs map npcs
         this.direction = direction;
+
+        hitSound = new SoundEffect();
+        hitSound.load("/Audio/FIREBALL_HIT_THING.wav");
         if (direction == Direction.LEFT) {
             if (fromPlayer) {
                 currentAnimationName = "LEFT";
@@ -102,6 +107,9 @@ public class Fireball extends Enemy {
 
                      // CHECK IF IT'S A DRAGON
                      if (enemy instanceof DragonEnemy) {
+                         if (hitSound != null) {
+                             hitSound.play(); // Play impact sound when hitting walls/blocks
+                         }
                          ((DragonEnemy) enemy).takeDamage(1.0f); // reduce health by uno
                          this.setMapEntityStatus(MapEntityStatus.REMOVED); // remove fireball
                          break;
@@ -115,6 +123,9 @@ public class Fireball extends Enemy {
 
                      // CHECK IF IT'S A SNOW GOBLIN!!!!!
                      if (enemy instanceof SnowGoblinEnemy) {
+                         if (hitSound != null) {
+                             hitSound.play(); // Play impact sound when hitting walls/blocks
+                         }
                          // Remove le snow goblin
                          enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
 
@@ -129,6 +140,9 @@ public class Fireball extends Enemy {
                          break; // Stop checking enemies with this fireball
                      } else {
                          // Default Behavior for all Enemies
+                         if (hitSound != null) {
+                             hitSound.play(); // Play impact sound when hitting walls/blocks
+                         }
                          enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
                          System.out.println("PLAYER FIREBALL DEFEATED ENEMY!");
                          this.setMapEntityStatus(MapEntityStatus.REMOVED);
@@ -153,6 +167,9 @@ public class Fireball extends Enemy {
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided) {
+            if (hitSound != null) {
+                hitSound.play(); // Play impact sound when hitting walls/blocks
+            }
             if (entityCollidedWith instanceof MagmaBlock) {
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
                 LavaSlime lavaSlime = new LavaSlime(entityCollidedWith.getLocation());
