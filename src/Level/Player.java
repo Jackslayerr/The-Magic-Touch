@@ -58,6 +58,7 @@ public abstract class Player extends GameObject {
     protected LevelState levelState;
 
     protected SoundEffect jumpSound;
+    protected SoundEffect hurtSound;
 
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
@@ -95,6 +96,9 @@ public abstract class Player extends GameObject {
 
         jumpSound = new SoundEffect();
         jumpSound.load("/Audio/JUMPAGE_TWO.wav");
+
+        hurtSound = new SoundEffect();
+        hurtSound.load("/Audio/DAMAGE_OW.wav");
     }
 
     public void setFrozen(boolean frozen) {
@@ -513,6 +517,10 @@ public abstract class Player extends GameObject {
             }
 
             damageCooldown = 60;
+
+            if (hurtSound != null) {
+                hurtSound.play();
+            }
 
             if (health == 0) {
                 levelState = LevelState.PLAYER_DEAD;
