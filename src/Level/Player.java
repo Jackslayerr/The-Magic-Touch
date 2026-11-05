@@ -275,60 +275,71 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // FIXED PLAYER JUMPING
+    // player JUMPING state logic
     public void playerJumping(float multiplier) {
+
+
         if (frozen) {
             return;
         }
 
-        if (previousAirGroundState == AirGroundState.GROUND &&
-            airGroundState == AirGroundState.GROUND) {
 
-            currentAnimationName =
-                facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+        if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
+
+
+            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+
 
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight * multiplier;
 
+
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
+
+
+                if (jumpForce < 0) {
+                    jumpForce = 0;
+                }
+            }
+        }
+
+
+        else if (airGroundState == AirGroundState.AIR) {
+            if (jumpForce > 0) {
+                moveAmountY -= jumpForce;
+                jumpForce -= jumpDegrade;
+
 
                 if (jumpForce < 0) {
                     jumpForce = 0;
                 }
             }
 
-        } else if (airGroundState == AirGroundState.AIR) {
-
-            if (jumpForce > 0) {
-                moveAmountY -= jumpForce;
-                jumpForce -= jumpDegrade;
-
-                if (jumpForce < 0) {
-                    jumpForce = 0;
-                }
-            }
 
             // allows movement while in the air
             if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-                moveAmountX -= walkSpeed;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-                moveAmountX += walkSpeed;
                 moveAmountX -= walkSpeed * speedMultiplier;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+            }
+
+
+            else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 moveAmountX += walkSpeed * speedMultiplier;
             }
+
 
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
+        }
 
-        } else if (previousAirGroundState == AirGroundState.AIR &&
-                   airGroundState == AirGroundState.GROUND) {
+
+        else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
     }
+
 
     protected void playerShootFire() {
         if (frozen) {
