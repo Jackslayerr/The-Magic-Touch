@@ -1,4 +1,3 @@
-
 package Screens;
 
 import Engine.*;
@@ -51,9 +50,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.currentLevel = screenCoordinator.getDestinationLevel();
         this.backgroundImage = ImageLoader.load(backgroundImageFile);
 
+        // Give the background image to the camera for parallax scrolling
+        map.getCamera().setBackgroundImage(backgroundImage);
+
         this.player = new Cat(
-            map.getPlayerStartPosition().x,
-            map.getPlayerStartPosition().y
+                map.getPlayerStartPosition().x,
+                map.getPlayerStartPosition().y
         );
 
         this.player.setMap(map);
@@ -139,11 +141,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         switch (playLevelScreenState) {
 
             case RUNNING:
-                graphicsHandler.drawImage(
-                    backgroundImage, 0, 0, 800, 605
-                );
 
+                // Camera now draws the scrolling background
                 map.draw(graphicsHandler);
+
                 player.draw(graphicsHandler);
 
                 // Draw health HUD above the game world
@@ -188,7 +189,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         Graphics2D g = graphicsHandler.getGraphics();
 
         int alpha = (int) (
-            180.0 * damageFlashTimer / DAMAGE_FLASH_DURATION
+                180.0 * damageFlashTimer / DAMAGE_FLASH_DURATION
         );
 
         g.setColor(new Color(255, 0, 0, alpha));
@@ -200,15 +201,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // Top and bottom borders
         g.fillRect(0, 0, screenWidth, borderThickness);
         g.fillRect(
-            0, screenHeight - borderThickness,
-            screenWidth, borderThickness
+                0, screenHeight - borderThickness,
+                screenWidth, borderThickness
         );
 
         // Left and right borders
         g.fillRect(0, 0, borderThickness, screenHeight);
         g.fillRect(
-            screenWidth - borderThickness, 0,
-            borderThickness, screenHeight
+                screenWidth - borderThickness, 0,
+                borderThickness, screenHeight
         );
     }
 
@@ -220,8 +221,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         Graphics2D g = graphicsHandler.getGraphics();
 
         int health = Math.max(0, Math.min(
-            player.getMaxHealth(),
-            player.getHealth()
+                player.getMaxHealth(),
+                player.getHealth()
         ));
 
         int maxHealth = player.getMaxHealth();
@@ -268,10 +269,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         g.setColor(new Color(255, 207, 91));
         g.drawRect(
-            barX - 2,
-            barY - 2,
-            barWidth + 4,
-            barHeight + 4
+                barX - 2,
+                barY - 2,
+                barWidth + 4,
+                barHeight + 4
         );
 
         // ----------------------------------
@@ -284,10 +285,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
             // Critical health: pulsing red
             int pulse = (int) (
-                150 + 105 * (
-                    0.5 + 0.5 *
-                    Math.sin(healthBarAnimationTimer * 0.18)
-                )
+                    150 + 105 * (
+                            0.5 + 0.5 *
+                                    Math.sin(healthBarAnimationTimer * 0.18)
+                    )
             );
 
             healthColor = new Color(255, 35, 35, pulse);
@@ -312,13 +313,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         int segmentGap = 1;
 
         int filledSegments = (int) Math.ceil(
-            healthPercent * segments
+                healthPercent * segments
         );
 
         for (int i = 0; i < segments; i++) {
 
             int segmentX = barX + 1 +
-                i * (segmentWidth + segmentGap);
+                    i * (segmentWidth + segmentGap);
 
             if (i < filledSegments) {
                 g.setColor(healthColor);
@@ -327,10 +328,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             }
 
             g.fillRect(
-                segmentX,
-                barY + 1,
-                segmentWidth,
-                barHeight - 2
+                    segmentX,
+                    barY + 1,
+                    segmentWidth,
+                    barHeight - 2
             );
 
             // Small highlight on green segments
@@ -340,10 +341,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 g.setColor(new Color(255, 255, 255, 65));
 
                 g.fillRect(
-                    segmentX,
-                    barY + 1,
-                    segmentWidth,
-                    2
+                        segmentX,
+                        barY + 1,
+                        segmentWidth,
+                        2
                 );
             }
         }
@@ -355,23 +356,23 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         String healthText = health + " / " + maxHealth;
 
         Font healthFont = new Font(
-            "Monospaced",
-            Font.BOLD,
-            16
+                "Monospaced",
+                Font.BOLD,
+                16
         );
 
         Color numberColor = health < 20
-            ? new Color(255, 95, 95)
-            : Color.WHITE;
+                ? new Color(255, 95, 95)
+                : Color.WHITE;
 
         graphicsHandler.drawStringWithOutline(
-            healthText,
-            x + 265,
-            y + 31,
-            healthFont,
-            numberColor,
-            Color.BLACK,
-            2f
+                healthText,
+                x + 265,
+                y + 31,
+                healthFont,
+                numberColor,
+                Color.BLACK,
+                2f
         );
     }
 
@@ -382,12 +383,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     private void drawPixelHeart(Graphics2D g, int x, int y, int size) {
 
         int[][] heart = {
-            {0, 1, 1, 0, 1, 1, 0},
-            {1, 1, 1, 1, 1, 1, 1},
-            {1, 1, 1, 1, 1, 1, 1},
-            {0, 1, 1, 1, 1, 1, 0},
-            {0, 0, 1, 1, 1, 0, 0},
-            {0, 0, 0, 1, 0, 0, 0}
+                {0, 1, 1, 0, 1, 1, 0},
+                {1, 1, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1, 1, 1},
+                {0, 1, 1, 1, 1, 1, 0},
+                {0, 0, 1, 1, 1, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0}
         };
 
         for (int row = 0; row < heart.length; row++) {
@@ -404,10 +405,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     }
 
                     g.fillRect(
-                        x + col * size,
-                        y + row * size,
-                        size,
-                        size
+                            x + col * size,
+                            y + row * size,
+                            size,
+                            size
                     );
                 }
             }
@@ -495,8 +496,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         screenCoordinator.setDestinationLevel(levelNumber);
 
         initialize(
-            chooseLevel(levelNumber),
-            chooseBackground(levelNumber)
+                chooseLevel(levelNumber),
+                chooseBackground(levelNumber)
         );
     }
 }

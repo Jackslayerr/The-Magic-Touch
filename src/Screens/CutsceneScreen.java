@@ -9,12 +9,12 @@ import Engine.Screen;
 import Game.ScreenCoordinator;
 import Game.GameState;
 import Level.Map;
-import SpriteFont.SpriteFont;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -23,9 +23,8 @@ public class CutsceneScreen extends Screen {
     private ScreenCoordinator screenCoordinator;
     private BufferedImage backgroundImage;
 
-    private SpriteFont titleText;
-    private SpriteFont skipText;
-    private SpriteFont continueText;
+    // Custom pixel font.
+    private Font dialogueFont;
 
     private int currentScene = 0;
     private int currentLevel = 1;
@@ -99,7 +98,6 @@ public class CutsceneScreen extends Screen {
         },
 
         {
-            // Level 2, Scene 1
             "Excellent work! One artifact down, three to go! " +
             "I can already feel our kingdom becoming... safer. Ha ha! " +
             "You've done wonderfully, my young adventurer. " +
@@ -144,25 +142,39 @@ public class CutsceneScreen extends Screen {
         spaceWasDown = Keyboard.isKeyDown(Key.SPACE);
         escWasDown = Keyboard.isKeyDown(Key.ESC);
 
+        loadDialogueFont();
         loadCurrentBackground();
-        updateCutsceneText();
     }
 
-    // Creates the title and controls for the current scene.
-    private void updateCutsceneText() {
+    // Load the custom Pixel Operator font.
+    private void loadDialogueFont() {
 
-        titleText = createText(
-            titles[currentLevel - 1][currentScene],
-            40, 29, 18
-        );
+        try {
 
-        continueText = createText(
-            "SPACE: Continue", 515, 29, 13
-        );
+            File fontFile = new File(
+                "Resources/fonts/PixelOperator-Bold.ttf"
+            );
 
-        skipText = createText(
-            "ESC: Skip", 680, 29, 13
-        );
+            dialogueFont = Font.createFont(
+                Font.TRUETYPE_FONT,
+                fontFile
+            );
+
+            System.out.println("Pixel Operator font loaded!");
+
+        } catch (Exception e) {
+
+            System.out.println(
+                "Could not load Pixel Operator font: " +
+                e.getMessage()
+            );
+
+            dialogueFont = new Font(
+                "Monospaced",
+                Font.BOLD,
+                17
+            );
+        }
     }
 
     private void loadCurrentBackground() {
@@ -173,8 +185,11 @@ public class CutsceneScreen extends Screen {
         File imageFile = new File("Resources/" + filename);
 
         if (imageFile.exists()) {
+
             backgroundImage = ImageLoader.load(filename);
+
         } else {
+
             System.out.println(
                 "Cutscene background not found: " +
                 imageFile.getPath()
@@ -184,19 +199,7 @@ public class CutsceneScreen extends Screen {
         }
     }
 
-    private SpriteFont createText(
-        String text, int x, int y, int size) {
-
-        SpriteFont font = new SpriteFont(
-            text, x, y, "Arial", size, Color.BLACK
-        );
-
-        font.setOutlineColor(new Color(255, 235, 180));
-        font.setOutlineThickness(1);
-
-        return font;
-    }
-
+    // Draws wrapped dialogue using the pixel font.
     private void drawWrappedText(
         GraphicsHandler graphicsHandler,
         String text,
@@ -209,8 +212,8 @@ public class CutsceneScreen extends Screen {
 
         Graphics2D g = graphicsHandler.getGraphics();
 
-        Font font = new Font(
-            "Arial", Font.PLAIN, fontSize
+        Font font = dialogueFont.deriveFont(
+            Font.BOLD, (float) fontSize
         );
 
         FontMetrics metrics = g.getFontMetrics(font);
@@ -235,8 +238,11 @@ public class CutsceneScreen extends Screen {
                 }
 
                 graphicsHandler.drawString(
-                    line.toString(), x, currentY,
-                    font, Color.BLACK
+                    line.toString(),
+                    x,
+                    currentY,
+                    font,
+                    new Color(85, 45, 25)
                 );
 
                 currentY += lineHeight;
@@ -245,14 +251,19 @@ public class CutsceneScreen extends Screen {
                 line = new StringBuilder(word);
 
             } else {
+
                 line = new StringBuilder(testLine);
             }
         }
 
         if (line.length() > 0 && linesDrawn < maxLines) {
+
             graphicsHandler.drawString(
-                line.toString(), x, currentY,
-                font, Color.BLACK
+                line.toString(),
+                x,
+                currentY,
+                font,
+                new Color(85, 45, 25)
             );
         }
     }
@@ -263,11 +274,13 @@ public class CutsceneScreen extends Screen {
         boolean spaceIsDown = Keyboard.isKeyDown(Key.SPACE);
         boolean escIsDown = Keyboard.isKeyDown(Key.ESC);
 
+        // ESC skips the cutscene.
         if (escIsDown && !escWasDown) {
             startLevel();
             return;
         }
 
+        // SPACE advances to the next scene.
         if (spaceIsDown && !spaceWasDown) {
 
             if (currentScene <
@@ -276,9 +289,9 @@ public class CutsceneScreen extends Screen {
                 currentScene++;
 
                 loadCurrentBackground();
-                updateCutsceneText();
 
             } else {
+
                 startLevel();
                 return;
             }
@@ -296,7 +309,7 @@ public class CutsceneScreen extends Screen {
             backgroundImage, 0, 0, 800, 605
         );
 
-        // Small tan banner matching the dialogue box.
+        // Small tan title banner.
         graphicsHandler.drawFilledRectangleWithBorder(
             25, 15, 750, 45,
             new Color(244, 215, 139),
@@ -304,7 +317,7 @@ public class CutsceneScreen extends Screen {
             3
         );
 
-        // Main dialogue box, raised slightly from the bottom.
+        // Main dialogue box.
         graphicsHandler.drawFilledRectangleWithBorder(
             35, 405, 730, 175,
             new Color(244, 215, 139),
@@ -320,16 +333,47 @@ public class CutsceneScreen extends Screen {
             2
         );
 
-        // Title and controls in the small top banner.
-        titleText.draw(graphicsHandler);
-        continueText.draw(graphicsHandler);
-        skipText.draw(graphicsHandler);
+        // Draw all top banner text using Pixel Operator.
+        Graphics2D g = graphicsHandler.getGraphics();
 
-        // Dialogue text inside the bottom box.
+        g.setRenderingHint(
+            RenderingHints.KEY_TEXT_ANTIALIASING,
+            RenderingHints.VALUE_TEXT_ANTIALIAS_OFF
+        );
+
+        g.setColor(new Color(85, 45, 25));
+
+        // Cutscene title.
+        g.setFont(
+            dialogueFont.deriveFont(Font.BOLD, 18f)
+        );
+
+        g.drawString(
+            titles[currentLevel - 1][currentScene],
+            40, 43
+        );
+
+        // Continue control.
+        g.setFont(
+            dialogueFont.deriveFont(Font.BOLD, 13f)
+        );
+
+        g.drawString(
+            "SPACE: CONTINUE",
+            515, 43
+        );
+
+        // Skip control.
+        g.drawString(
+            "ESC: SKIP",
+            680, 43
+        );
+
+        // Main dialogue text.
         drawWrappedText(
             graphicsHandler,
             scenes[currentLevel - 1][currentScene],
-            60, 440, 680, 24, 16, 5
+            60, 440, 680, 25, 17, 5
         );
     }
 
