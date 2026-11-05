@@ -86,7 +86,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 backgroundMusic.loadMusic("/Audio/Preservation_of_Artifacts.wav");
                 break;
             case 2:
-                backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
+                backgroundMusic.loadMusic("/Audio/Im_Turning_Blue.wav");
                 break;
             case 3:
                 backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
