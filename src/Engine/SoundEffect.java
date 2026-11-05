@@ -20,7 +20,7 @@ public class SoundEffect {
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
 
-            setVolume(5.0f);
+            setVolume(-5.0f);
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();

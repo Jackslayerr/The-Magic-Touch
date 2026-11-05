@@ -19,7 +19,7 @@ public class BackgroundMusic {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioURL);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-            setVolume(-40.0f); // make it quieter
+            setVolume(-10.0f); // make it quieter
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
