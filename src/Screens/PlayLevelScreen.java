@@ -161,9 +161,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 levelClearedScreen.draw(graphicsHandler);
 
                 if (Keyboard.isKeyDown(Key.SPACE)) {
-                    if (backgroundMusic != null) {
-                        backgroundMusic.stop();
-                    }
+                    levelClearedScreen.stopJingle();
+                    //if (backgroundMusic != null) {
+                    //    backgroundMusic.stop();
+                   // }
 
                     if (currentLevel < totalLevels) {
                         screenCoordinator.setDestinationLevel(currentLevel + 1);
@@ -429,6 +430,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     @Override
     public void onLevelCompleted() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
+            if (backgroundMusic != null) {
+                backgroundMusic.stop();
+            }
             levelClearedScreen = new LevelClearedScreen(currentLevel);
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
         }

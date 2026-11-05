@@ -11,6 +11,7 @@ import java.io.File;
 public class LevelClearedScreen extends Screen {
 
     protected BufferedImage backgroundImage;
+    protected BackgroundMusic backgroundMusic;
 
     public LevelClearedScreen() {
         this(1);
@@ -53,10 +54,20 @@ public class LevelClearedScreen extends Screen {
         } else {
             backgroundImage = ImageLoader.load("level-cleared-level1.png");
         }
+
+        backgroundMusic = new BackgroundMusic();
+        backgroundMusic.loadMusic("/Audio/Wait_I_Did_It.wav");
+        backgroundMusic.play();
     }
 
     @Override
     public void update() {
+    }
+
+    public void stopJingle() {
+        if (backgroundMusic != null) {
+            backgroundMusic.stop();
+        }
     }
 
     @Override
