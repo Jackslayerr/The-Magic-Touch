@@ -1,4 +1,3 @@
-
 package Level;
 
 import Builders.FrameBuilder;
@@ -25,7 +24,6 @@ import java.awt.Color;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
-    // these should be set in a subclass
     protected float walkSpeed = 0;
     protected float gravity = 0;
     protected float preFreezeGravity = 0;
@@ -57,7 +55,6 @@ public abstract class Player extends GameObject {
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
 
-    // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
     // define keys
@@ -76,17 +73,11 @@ public abstract class Player extends GameObject {
 
     private float speedMultiplier = 1f;
 
-    // flags
     protected boolean isInvincible = false;
 
-    // =====================================
     // PLAYER HEALTH SYSTEM
-    // =====================================
-
     protected int health = 100;
     protected final int maxHealth = 100;
-
-    // Damage cooldown prevents rapid repeated damage
     protected int damageCooldown = 0;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
@@ -102,17 +93,12 @@ public abstract class Player extends GameObject {
     public void setFrozen(boolean frozen) {
         this.frozen = frozen;
         if (frozen) {
-            // preFreezeGravity = gravity;
-            // gravity = 0;
             playerState = PlayerState.STANDING;
             currentAnimationName = "STANDING_RIGHT";
             currentFrameIndex = 0;
         } else if (airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
-        // if (!frozen) {
-        //     gravity = preFreezeGravity;
-        // }
     }
 
     public void setCurrentLevel(int level) {
@@ -127,7 +113,6 @@ public abstract class Player extends GameObject {
         moveAmountX = 0;
         moveAmountY = 0;
 
-        // Update damage cooldown
         if (damageCooldown > 0) {
             damageCooldown--;
         }
@@ -135,18 +120,18 @@ public abstract class Player extends GameObject {
         if (coolDown != 0) {
             coolDown--;
         }
+
         if (earthCoolDown != 0) {
             earthCoolDown--;
         }
+
         if (airGroundState == AirGroundState.GROUND) {
             airAfterLightning = false;
         }
 
-        // if player is currently playing through level
         if (levelState == LevelState.RUNNING) {
             applyGravity();
 
-            // update player's state and current actions
             do {
                 previousPlayerState = playerState;
                 handlePlayerState();
@@ -154,45 +139,38 @@ public abstract class Player extends GameObject {
 
             previousAirGroundState = airGroundState;
 
-            // move player with respect to map collisions
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
-            // Check if player has fallen below the map
-            //System.out.println("Player Y: " + getY() + " | Map Height: " + map.getHeightPixels());
-            if (levelState == LevelState.RUNNING && map.getHeightPixels() > 0 && getY() > map.getHeightPixels()) {
+
+            if (levelState == LevelState.RUNNING &&
+                map.getHeightPixels() > 0 &&
+                getY() > map.getHeightPixels()) {
                 health = 0;
                 levelState = LevelState.PLAYER_DEAD;
             }
 
-
             handlePlayerAnimation();
-
             updateLockedKeys();
-
-            // update player's animation
             super.update();
         }
 
-        // if player has beaten level
         else if (levelState == LevelState.LEVEL_COMPLETED) {
             updateLevelCompleted();
         }
 
-        // if player has lost level
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
         }
     }
 
-    // add gravity to player
     protected void applyGravity() {
         if (frozen && airGroundState == AirGroundState.AIR) {
             return;
         }
+
         moveAmountY += gravity + momentumY;
     }
 
-    // based on player's current state, call appropriate method
     protected void handlePlayerState() {
         switch (playerState) {
             case STANDING:
@@ -226,16 +204,16 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // player STANDING state logic
     protected void playerStanding() {
-
         if (frozen) {
             return;
         }
 
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) ||
+            Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.WALKING;
-        } else if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        } else if (Keyboard.isKeyDown(JUMP_KEY) &&
+                   !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         } else if (Keyboard.isKeyDown(CROUCH_KEY)) {
@@ -243,9 +221,8 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // player WALKING state logic
+    // FIXED PLAYER WALKING
     protected void playerWalking() {
-
         if (frozen) {
             return;
         }
@@ -253,21 +230,16 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
             moveAmountX -= walkSpeed * speedMultiplier;
             facingDirection = Direction.LEFT;
-<<<<<<< HEAD
         } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-            moveAmountX += walkSpeed;
-=======
-        }
-
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             moveAmountX += walkSpeed * speedMultiplier;
->>>>>>> d8de15b3eb60a8bc8c3e1265f26bc88aef913782
             facingDirection = Direction.RIGHT;
-        } else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+        } else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) &&
+                   Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.STANDING;
         }
 
-        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        if (Keyboard.isKeyDown(JUMP_KEY) &&
+            !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         } else if (Keyboard.isKeyDown(CROUCH_KEY)) {
@@ -275,31 +247,33 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // player CROUCHING state logic
     protected void playerCrouching() {
         if (frozen) {
             return;
         }
+
         if (Keyboard.isKeyUp(CROUCH_KEY)) {
             playerState = PlayerState.STANDING;
         }
 
-        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        if (Keyboard.isKeyDown(JUMP_KEY) &&
+            !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
     }
 
-    // player JUMPING state logic
+    // FIXED PLAYER JUMPING
     public void playerJumping(float multiplier) {
-
         if (frozen) {
             return;
         }
 
-        if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
+        if (previousAirGroundState == AirGroundState.GROUND &&
+            airGroundState == AirGroundState.GROUND) {
 
-            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+            currentAnimationName =
+                facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight * multiplier;
@@ -312,7 +286,9 @@ public abstract class Player extends GameObject {
                     jumpForce = 0;
                 }
             }
+
         } else if (airGroundState == AirGroundState.AIR) {
+
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
@@ -324,40 +300,36 @@ public abstract class Player extends GameObject {
 
             // allows movement while in the air
             if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-<<<<<<< HEAD
-                moveAmountX -= walkSpeed;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-                moveAmountX += walkSpeed;
-=======
                 moveAmountX -= walkSpeed * speedMultiplier;
-            }
-
-            else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 moveAmountX += walkSpeed * speedMultiplier;
->>>>>>> d8de15b3eb60a8bc8c3e1265f26bc88aef913782
             }
 
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
-        } else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
+
+        } else if (previousAirGroundState == AirGroundState.AIR &&
+                   airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
     }
 
-    // Shoots fire when FIRE_KEY is pressed and cooldown is up
     protected void playerShootFire() {
         if (frozen) {
             return;
         }
-        if (Keyboard.isKeyDown(FIRE_KEY) && !keyLocker.isKeyLocked(FIRE_KEY) && coolDown == 0 && currentLevel >= 1) {
+
+        if (Keyboard.isKeyDown(FIRE_KEY) &&
+            !keyLocker.isKeyLocked(FIRE_KEY) &&
+            coolDown == 0 && currentLevel >= 1) {
+
             keyLocker.lockKey(FIRE_KEY);
             shootFire();
             fireAnimationTimer = 15;
         }
     }
 
-    // increases momentum while player is in air
     protected void increaseMomentum() {
         momentumY += momentumYIncrease;
 
@@ -378,9 +350,11 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyUp(WAVE_KEY)) {
             keyLocker.unlockKey(WAVE_KEY);
         }
+
         if (Keyboard.isKeyUp(LIGHTNING_KEY)) {
             keyLocker.unlockKey(LIGHTNING_KEY);
         }
+
         if (Keyboard.isKeyUp(EARTH_KEY)) {
             keyLocker.unlockKey(EARTH_KEY);
         }
@@ -389,58 +363,76 @@ public abstract class Player extends GameObject {
     protected void handlePlayerAnimation() {
         if (fireAnimationTimer > 0) {
             fireAnimationTimer--;
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+            this.currentAnimationName =
+                facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
             return;
         }
 
         if (waveAnimationTimer > 0) {
             waveAnimationTimer--;
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "WAVE_RIGHT" : "WAVE_LEFT";
+            this.currentAnimationName =
+                facingDirection == Direction.RIGHT ? "WAVE_RIGHT" : "WAVE_LEFT";
             return;
         }
 
         if (lightningAnimationTimer > 0) {
             lightningAnimationTimer--;
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "BOLT_RIGHT" : "BOLT_LEFT";
+            this.currentAnimationName =
+                facingDirection == Direction.RIGHT ? "BOLT_RIGHT" : "BOLT_LEFT";
             return;
         }
 
         if (earthAnimationTimer > 0) {
             earthAnimationTimer--;
-            //this.currentAnimationName = facingDirection == Direction.RIGHT ? "EARTH_RIGHT" : "EARTH_LEFT";
             return;
         }
 
         if (playerState == PlayerState.STANDING) {
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+            this.currentAnimationName =
+                facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
 
-            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
-            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+            int centerX = Math.round(getBounds().getX1()) +
+                Math.round(getBounds().getWidth() / 2f);
+            int centerY = Math.round(getBounds().getY1()) +
+                Math.round(getBounds().getHeight() / 2f);
 
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
 
-            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+            if (currentMapTile != null &&
+                currentMapTile.getTileType() == TileType.WATER) {
+                this.currentAnimationName =
+                    facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
             }
+
         } else if (playerState == PlayerState.WALKING) {
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+            this.currentAnimationName =
+                facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+
         } else if (playerState == PlayerState.CROUCHING) {
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
+            this.currentAnimationName =
+                facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
+
         } else if (playerState == PlayerState.JUMPING) {
             if (lastAmountMovedY <= 0) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+                this.currentAnimationName =
+                    facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
             } else {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
+                this.currentAnimationName =
+                    facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
         }
     }
 
     @Override
-    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+    public void onEndCollisionCheckX(boolean hasCollided,
+                                     Direction direction,
+                                     MapEntity entityCollidedWith) {
     }
 
     @Override
-    public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+    public void onEndCollisionCheckY(boolean hasCollided,
+                                     Direction direction,
+                                     MapEntity entityCollidedWith) {
         if (direction == Direction.DOWN) {
             if (hasCollided) {
                 momentumY = 0;
@@ -449,6 +441,7 @@ public abstract class Player extends GameObject {
                 playerState = PlayerState.JUMPING;
                 airGroundState = AirGroundState.AIR;
             }
+
         } else if (direction == Direction.UP) {
             if (hasCollided) {
                 jumpForce = 0;
@@ -456,10 +449,7 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // =====================================
     // PLAYER DAMAGE / HEALTH
-    // =====================================
-
 
     public void hurtPlayer(MapEntity mapEntity) {
         if (isInvincible) {
@@ -491,33 +481,34 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // Get current player health
     public int getHealth() {
         return health;
     }
 
-    // Get maximum player health
     public int getMaxHealth() {
         return maxHealth;
     }
 
-    // other entities can call this to tell the player they beat a level
     public void completeLevel() {
         levelState = LevelState.LEVEL_COMPLETED;
     }
 
-    // if player has beaten level
     public void updateLevelCompleted() {
-        if (airGroundState != AirGroundState.GROUND && map.getCamera().containsDraw(this)) {
+        if (airGroundState != AirGroundState.GROUND &&
+            map.getCamera().containsDraw(this)) {
+
             currentAnimationName = "FALL_RIGHT";
             applyGravity();
             increaseMomentum();
             super.update();
             moveYHandleCollision(moveAmountY);
+
         } else if (map.getCamera().containsDraw(this)) {
+
             currentAnimationName = "WALK_RIGHT";
             super.update();
             moveXHandleCollision(walkSpeed);
+
         } else {
             for (PlayerListener listener : listeners) {
                 listener.onLevelCompleted();
@@ -525,9 +516,9 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // if player has lost level
     public void updatePlayerDead() {
         if (!currentAnimationName.startsWith("DEATH")) {
+
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "DEATH_RIGHT";
             } else {
@@ -535,9 +526,12 @@ public abstract class Player extends GameObject {
             }
 
             super.update();
+
         } else if (currentFrameIndex != getCurrentAnimation().length - 1) {
             super.update();
+
         } else if (currentFrameIndex == getCurrentAnimation().length - 1) {
+
             if (map.getCamera().containsDraw(this)) {
                 moveY(3);
             } else {
@@ -583,7 +577,6 @@ public abstract class Player extends GameObject {
     //     drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
     // }
 
-
     // Shoots a fireball from the player
     public void shootFire() {
         int fireballX;
@@ -599,11 +592,15 @@ public abstract class Player extends GameObject {
 
         int fireballY = Math.round(getY()) + 15;
 
-        Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60, true, this.facingDirection);
+        Fireball fireball = new Fireball(
+            new Point(fireballX, fireballY),
+            movementSpeed,
+            60,
+            true,
+            this.facingDirection
+        );
 
         map.addEnemy(fireball);
-
-        // Modify to change cooldown
         coolDown = 30;
     }
 
@@ -611,7 +608,11 @@ public abstract class Player extends GameObject {
         if (frozen) {
             return;
         }
-        if (Keyboard.isKeyDown(WAVE_KEY) && !keyLocker.isKeyLocked(WAVE_KEY) && coolDown == 0 && currentLevel >= 2) {
+
+        if (Keyboard.isKeyDown(WAVE_KEY) &&
+            !keyLocker.isKeyLocked(WAVE_KEY) &&
+            coolDown == 0 && currentLevel >= 2) {
+
             keyLocker.lockKey(WAVE_KEY);
             shootWave();
             waveAnimationTimer = 15;
@@ -632,21 +633,28 @@ public abstract class Player extends GameObject {
 
         int waveY = Math.round(getY()) + 15;
 
-
-        WaveAttack wave = new WaveAttack(new Point(waveX, waveY), movementSpeed, 60, true, this);
+        WaveAttack wave = new WaveAttack(
+            new Point(waveX, waveY),
+            movementSpeed,
+            60,
+            true,
+            this
+        );
 
         map.addEnemy(wave);
-
-
         coolDown = 30;
     }
 
     public void shootLightning() {
         setFrozen(true);
+
         float lightningX = this.getLocation().x;
         float lightningY = this.getLocation().y - 144;
+
         Point lightningLocation = new Point(lightningX, lightningY);
+
         Lightning lightning = new Lightning(lightningLocation, map, this);
+
         map.addEnemy(lightning);
         coolDown = 30;
     }
@@ -655,34 +663,46 @@ public abstract class Player extends GameObject {
         if (frozen) {
             return;
         }
-        if (Keyboard.isKeyDown(LIGHTNING_KEY) && !keyLocker.isKeyLocked(LIGHTNING_KEY) && coolDown == 0 && currentLevel >= 3 && airAfterLightning == false) {
+
+        if (Keyboard.isKeyDown(LIGHTNING_KEY) &&
+            !keyLocker.isKeyLocked(LIGHTNING_KEY) &&
+            coolDown == 0 && currentLevel >= 3 &&
+            airAfterLightning == false) {
+
             keyLocker.lockKey(LIGHTNING_KEY);
             shootLightning();
+
             if (airGroundState == AirGroundState.AIR) {
                 airAfterLightning = true;
             }
+
             lightningAnimationTimer = 15;
         }
     }
 
-
     public void playerBuildPlatform() {
         Point spawnPoint = new Point(getX(), getBounds().getY2() + 8);
-        map.addEnhancedMapTile(new EarthPlatform(spawnPoint, "EarthHandPlatform.png"));
+        map.addEnhancedMapTile(
+            new EarthPlatform(spawnPoint, "EarthHandPlatform.png")
+        );
     }
 
     protected void playerEarthHand() {
         if (frozen) {
             return;
         }
-        if (Keyboard.isKeyDown(EARTH_KEY) && !keyLocker.isKeyLocked(EARTH_KEY) && earthCoolDown == 0 && currentLevel >= 0) {
+
+        if (Keyboard.isKeyDown(EARTH_KEY) &&
+            !keyLocker.isKeyLocked(EARTH_KEY) &&
+            earthCoolDown == 0 && currentLevel >= 0) {
+
             keyLocker.lockKey(EARTH_KEY);
             playerBuildPlatform();
             earthCoolDown = 180;
         }
     }
 
-    //speed Multiplier for speed ring
+    // speed Multiplier for speed ring
     public float setSpeedMultiplier(float multiplier) {
         speedMultiplier = multiplier;
         return speedMultiplier;

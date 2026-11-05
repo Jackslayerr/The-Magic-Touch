@@ -1,48 +1,44 @@
-
 package Level;
 
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
 import GameObject.GameObject;
 import GameObject.Rectangle;
-import Maps.LevelTwoMap;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-// This class represents a Map's "Camera", aka a piece of the map that is currently included in a level's update/draw logic based on what should be shown on screen.
+// This class represents the map's camera.
 public class Camera extends Rectangle {
 
-    // the current map this camera is attached to
     private Map map;
 
-    // Background image for Level 2
+    // Background image for parallax scrolling
     private BufferedImage backgroundImage;
 
-    // width and height of each tile in the map
+    // Background scroll speed relative to the camera
+    private static final double BACKGROUND_SCROLL_SPEED = 0.5;
+
     private int tileWidth, tileHeight;
 
-    // leftover space on screen
     private int leftoverSpaceX, leftoverSpaceY;
 
-    // current map entities
     private ArrayList<Enemy> activeEnemies = new ArrayList<>();
     private ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
     private ArrayList<NPC> activeNPCs = new ArrayList<>();
 
-    // determines how many tiles off screen an entity can be before inactive
     private final int UPDATE_OFF_SCREEN_RANGE = 4;
 
     public Camera(int startX, int startY, int tileWidth, int tileHeight, Map map) {
-        super(startX, startY, ScreenManager.getScreenWidth() / tileWidth, ScreenManager.getScreenHeight() / tileHeight);
+        super(
+                startX,
+                startY,
+                ScreenManager.getScreenWidth() / tileWidth,
+                ScreenManager.getScreenHeight() / tileHeight
+        );
 
         this.map = map;
-
-        // Load background only for Level 2
-        if (map instanceof LevelTwoMap) {
-            backgroundImage = Engine.ImageLoader.load("game-background-level2.png");
-        }
 
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
@@ -51,7 +47,12 @@ public class Camera extends Rectangle {
         this.leftoverSpaceY = ScreenManager.getScreenHeight() % tileHeight;
     }
 
-    // gets the tile index that the camera's x and y values are currently on
+    // Assign the background image
+    public void setBackgroundImage(BufferedImage backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    // Gets the tile index that the camera's x and y values are currently on
     public Point getTileIndexByCameraPosition() {
         int xIndex = Math.round(getX()) / tileWidth;
         int yIndex = Math.round(getY()) / tileHeight;
@@ -69,7 +70,7 @@ public class Camera extends Rectangle {
         }
     }
 
-    // update map entities currently a part of the update/draw cycle
+    // Update map entities currently part of the update/draw cycle
     public void updateMapEntities(Player player) {
         activeEnemies = loadActiveEnemies();
         activeEnhancedMapTiles = loadActiveEnhancedMapTiles();
@@ -88,7 +89,7 @@ public class Camera extends Rectangle {
         }
     }
 
-    // determine which enemies are active
+    // Determine which enemies are active
     private ArrayList<Enemy> loadActiveEnemies() {
         ArrayList<Enemy> activeEnemies = new ArrayList<>();
 
@@ -111,7 +112,7 @@ public class Camera extends Rectangle {
         return activeEnemies;
     }
 
-    // determine which enhanced map tiles are active
+    // Determine which enhanced map tiles are active
     private ArrayList<EnhancedMapTile> loadActiveEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
 
@@ -134,7 +135,7 @@ public class Camera extends Rectangle {
         return activeEnhancedMapTiles;
     }
 
-    // determine which NPCs are active
+    // Determine which NPCs are active
     private ArrayList<NPC> loadActiveNPCs() {
         ArrayList<NPC> activeNPCs = new ArrayList<>();
 
@@ -164,14 +165,24 @@ public class Camera extends Rectangle {
 
     public void draw(GraphicsHandler graphicsHandler) {
 
-        // Draw Level 2 background first
+        // Draw the background at half the camera's horizontal speed
         if (backgroundImage != null) {
+
+            int backgroundWidth = 1600;
+            int backgroundHeight = 605;
+
+            int backgroundX = -(int) (getX() * BACKGROUND_SCROLL_SPEED);
+
+            // Stop at the edge of the background image
+            int minimumX = ScreenManager.getScreenWidth() - backgroundWidth;
+            backgroundX = Math.max(minimumX, Math.min(0, backgroundX));
+
             graphicsHandler.drawImage(
                     backgroundImage,
+                    backgroundX,
                     0,
-                    0,
-                    ScreenManager.getScreenWidth(),
-                    ScreenManager.getScreenHeight()
+                    backgroundWidth,
+                    backgroundHeight
             );
         }
 
@@ -180,7 +191,7 @@ public class Camera extends Rectangle {
         drawMapEntities(graphicsHandler);
     }
 
-    // draws visible map tiles to the screen
+    // Draw visible map tiles to the screen
     public void drawMapTiles(GraphicsHandler graphicsHandler) {
         Point tileIndex = getTileIndexByCameraPosition();
 
@@ -195,7 +206,7 @@ public class Camera extends Rectangle {
         }
     }
 
-    // draws active map entities to the screen
+    // Draw active map entities
     public void drawMapEntities(GraphicsHandler graphicsHandler) {
         for (Enemy enemy : activeEnemies) {
             if (containsDraw(enemy)) {
