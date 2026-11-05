@@ -8,6 +8,7 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
+import Players.Cat;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -410,6 +411,8 @@ public abstract class Player extends GameObject {
 
         if (earthAnimationTimer > 0) {
             earthAnimationTimer--;
+            this.currentAnimationName =
+                    facingDirection == Direction.RIGHT ? "EARTH_RIGHT" : "EARTH_LEFT";
             return;
         }
 
@@ -725,6 +728,9 @@ public abstract class Player extends GameObject {
             keyLocker.lockKey(EARTH_KEY);
             playerBuildPlatform();
             earthCoolDown = 180;
+            earthAnimationTimer = 15;
+
+            ((Cat) this).playEarthAnimation();
         }
     }
 
