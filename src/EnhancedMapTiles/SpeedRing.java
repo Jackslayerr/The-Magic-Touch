@@ -19,7 +19,7 @@ public class SpeedRing extends EnhancedMapTile {
     private static int speedBoostTime = 240;
 
     public SpeedRing(Point location) {
-        super(location.x, location.y - 16, new SpriteSheet(ImageLoader.load("Button.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y - 16, new SpriteSheet(ImageLoader.load("SpeedRing.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override
