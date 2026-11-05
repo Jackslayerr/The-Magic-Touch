@@ -13,6 +13,7 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.IceBlock;
 import EnhancedMapTiles.Trigger;
 import EnhancedMapTiles.IceBlockRespawn;
+import EnhancedMapTiles.SnowballLauncher;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import GameObject.Rectangle;
 import Tilesets.IceCaveTileset;
@@ -27,7 +28,7 @@ public class LevelTwoMap extends Map {
     public LevelTwoMap() {
         super("level_two_map.txt", new IceCaveTileset());
         this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
-        System.out.println(CheckpointManager.getInstance().getIndex());
+        //this.playerStartPosition = getMapTile(135, 24).getLocation().subtractY(0);
     }
 
     @Override
@@ -147,6 +148,24 @@ public class LevelTwoMap extends Map {
         PenguinEnemy penguinEnemy3 = new PenguinEnemy(getMapTile(94, 3).getLocation().subtractY(0), Direction.RIGHT);
         enemies.add(penguinEnemy3);
 
+        LavaSlime lavaSlime1 = new LavaSlime(getMapTile(137, 24).getLocation().subtractX(16));
+        enemies.add(lavaSlime1);
+
+        LavaSlime lavaSlime2 = new LavaSlime(getMapTile(129, 19).getLocation().subtractX(16));
+        enemies.add(lavaSlime2);
+
+        LavaSlime lavaSlime3 = new LavaSlime(getMapTile(134, 19).getLocation().subtractX(-16));
+        enemies.add(lavaSlime3);
+
+        LavaSlime lavaSlime4 = new LavaSlime(getMapTile(160, 6).getLocation().subtractX(16));
+        enemies.add(lavaSlime4);
+
+        
+        PenguinEnemy penguinEnemy4 = new PenguinEnemy(getMapTile(152, 11).getLocation().subtractY(0), Direction.RIGHT);
+        enemies.add(penguinEnemy4);
+
+        PenguinEnemy penguinEnemy5 = new PenguinEnemy(getMapTile(157, 11).getLocation().subtractY(0), Direction.RIGHT);
+        enemies.add(penguinEnemy5);    
 
 
         return enemies;
@@ -223,6 +242,54 @@ public class LevelTwoMap extends Map {
 
         IceBlockRespawn iceBlockRespawn = new IceBlockRespawn(getMapTile(44, 24).getLocation());
         enhancedMapTiles.add(iceBlockRespawn);
+
+        VerticalMovingPlatform vmp2 = new VerticalMovingPlatform(
+                ImageLoader.load("IceCaveMovingPlatform.png"),
+                getMapTile(112, 4).getLocation(),
+                getMapTile(112, 28).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 0,48,4),
+                Direction.DOWN
+        );
+        enhancedMapTiles.add(vmp2);
+
+
+        VerticalMovingPlatform vmp4 = new VerticalMovingPlatform(
+                ImageLoader.load("IceCaveMovingPlatform.png"),
+                getMapTile(116, 4).getLocation(),
+                getMapTile(116, 28).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 0,48,4),
+                Direction.DOWN
+        );
+        enhancedMapTiles.add(vmp4);
+
+        for (int i = 0; i < 21; i = i + 3) {
+            SnowballLauncher snowballLauncher = new SnowballLauncher(getMapTile(107, 4 + i).getLocation().subtractY(16), true);
+            enhancedMapTiles.add(snowballLauncher);
+        }
+
+        for (int i = 0; i < 12; i = i + 3) {
+            SnowballLauncher snowballLauncher = new SnowballLauncher(getMapTile(119, 6 + i).getLocation().subtractY(16), false);
+            enhancedMapTiles.add(snowballLauncher);
+        }
+
+        IceBlockRespawn iceBlockRespawn4 = new IceBlockRespawn(getMapTile(141, 15).getLocation());
+        enhancedMapTiles.add(iceBlockRespawn4);
+
+        SnowballLauncher snowballLauncher1 = new SnowballLauncher(getMapTile(127, 8).getLocation().subtractY(16), true);
+        enhancedMapTiles.add(snowballLauncher1);
+
+        SnowballLauncher snowballLauncher2 = new SnowballLauncher(getMapTile(125, 5).getLocation().subtractY(16), true);
+        enhancedMapTiles.add(snowballLauncher2);
+
+
+
+
+
+
 
 
 

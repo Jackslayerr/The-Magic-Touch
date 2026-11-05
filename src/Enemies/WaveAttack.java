@@ -2,6 +2,7 @@ package Enemies;
 
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
+import Engine.SoundEffect;
 import EnhancedMapTiles.IceBlock;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -27,6 +28,8 @@ public class WaveAttack extends Enemy {
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
     ArrayList<EnhancedMapTile> enhancedMapTiles;
+    private SoundEffect waveSound;
+    private boolean hasPlayedSound = false;
     public WaveAttack(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Player player) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("newwave.png"), 20, 20), "RIGHT");
         this.movementSpeed = movementSpeed;
@@ -35,6 +38,9 @@ public class WaveAttack extends Enemy {
         this.existenceFrames = existenceFrames;
         // if the wave was shot by the player
         this.fromPlayer = fromPlayer;
+
+        waveSound = new SoundEffect();
+        waveSound.load("/Audio/WET.wav");
         // Grabs map npcs
         facingDirection = player.getFacingDirection();
         if (facingDirection == Direction.RIGHT) {
@@ -62,6 +68,10 @@ public class WaveAttack extends Enemy {
             for (Enemy enemy : enemies) {
                 if (fromPlayer && this.intersects(enemy) && this != enemy) {
                     if (enemy instanceof LavaMonster) { // Lava Monster dies on impact
+                        if (waveSound != null) {
+                            waveSound.play();
+                            hasPlayedSound = true;// Play impact sound when hitting walls/blocks
+                        }
                         enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
                         System.out.println("PLAYER WAVE DEFEATED LAVA MONSTER!");
                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
@@ -69,6 +79,10 @@ public class WaveAttack extends Enemy {
 
                     }
                     if (enemy instanceof LavaSlime) { // Lava Slime replaced by magma block
+                        if (waveSound != null) {
+                            waveSound.play();
+                            hasPlayedSound = true; // Play impact sound when hitting walls/blocks
+                        }
                         enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
 
                         MagmaBlock magmaBlock = new MagmaBlock(enemy.getLocation());
@@ -79,7 +93,12 @@ public class WaveAttack extends Enemy {
                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
                         break;
                     } 
-                    else if (enemy.canBePushed == true) { // OTHER ENEMIES GET PUSHED BACK
+                    else if (enemy.canBePushed == true) {
+                        if (waveSound != null && !hasPlayedSound) {
+                            waveSound.play();
+                            hasPlayedSound = true;// Play impact sound when hitting walls/blocks
+                        }
+                        // OTHER ENEMIES GET PUSHED BACK
 
 
                         // push enemy in direction wave is moving
