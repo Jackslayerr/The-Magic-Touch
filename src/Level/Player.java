@@ -6,6 +6,7 @@ import Engine.ImageLoader;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.SoundEffect;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Players.Cat;
@@ -56,6 +57,8 @@ public abstract class Player extends GameObject {
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
 
+    protected SoundEffect jumpSound;
+
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
     // define keys
@@ -89,6 +92,9 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
+
+        jumpSound = new SoundEffect();
+        jumpSound.load("/Audio/JUMPAGE.wav");
     }
 
     public void setFrozen(boolean frozen) {
@@ -293,6 +299,10 @@ public abstract class Player extends GameObject {
 
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight * multiplier;
+
+            if (jumpSound != null) {
+                jumpSound.play();
+            }
 
 
             if (jumpForce > 0) {
