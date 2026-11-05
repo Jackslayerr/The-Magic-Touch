@@ -94,7 +94,7 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
 
         jumpSound = new SoundEffect();
-        jumpSound.load("/Audio/JUMPAGE.wav");
+        jumpSound.load("/Audio/JUMPAGE_TWO.wav");
     }
 
     public void setFrozen(boolean frozen) {
