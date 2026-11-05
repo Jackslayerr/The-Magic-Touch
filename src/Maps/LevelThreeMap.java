@@ -24,7 +24,8 @@ public class LevelThreeMap extends Map {
 
     public LevelThreeMap() {
         super("level_three_map.txt", new LightningTileset());
-        this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
+        //this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
+        this.playerStartPosition = getMapTile(110,178).getLocation();
     }
 
     @Override
@@ -87,6 +88,21 @@ public class LevelThreeMap extends Map {
         ThunderBirdEnemy thunderBird = new ThunderBirdEnemy(startPoint, startX, endX, Direction.LEFT);
         enemies.add(thunderBird);
 
+        Point startPoint1 = getMapTile(116, 157).getLocation();
+        float startX1 = getMapTile(111, 157).getLocation().x;
+        float endX1 = getMapTile(116, 157).getLocation().x;
+        ThunderBirdEnemy thunderBird1 = new ThunderBirdEnemy(startPoint1, startX1, endX1, Direction.LEFT);
+        enemies.add(thunderBird1);
+
+        Point startPoint2 = getMapTile(116, 169).getLocation();
+        float startX2 = getMapTile(111, 169).getLocation().x;
+        float endX2 = getMapTile(116, 169).getLocation().x;
+        ThunderBirdEnemy thunderBird2 = new ThunderBirdEnemy(startPoint2, startX2, endX2, Direction.LEFT);
+        enemies.add(thunderBird2);
+
+
+
+
         return enemies;
 
     }
@@ -138,8 +154,34 @@ public class LevelThreeMap extends Map {
 
 
 
-        BouncyCloud bouncyCloud = new BouncyCloud(getMapTile(15, 196).getLocation(), "BouncyCloud.png");
-        enhancedMapTiles.add(bouncyCloud);
+
+
+        BouncyCloud bouncyCloud1 = new BouncyCloud(getMapTile(110, 181).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud1);
+
+        BouncyCloud bouncyCloud2 = new BouncyCloud(getMapTile(114, 177).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud2);
+
+        BouncyCloud bouncyCloud3 = new BouncyCloud(getMapTile(108, 172).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud3);
+
+        BouncyCloud bouncyCloud4 = new BouncyCloud(getMapTile(117, 172).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud4);
+
+        BouncyCloud bouncyCloud5 = new BouncyCloud(getMapTile(112, 169).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud5);
+
+        BouncyCloud bouncyCloud6 = new BouncyCloud(getMapTile(109, 164).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud6);
+
+        BouncyCloud bouncyCloud7 = new BouncyCloud(getMapTile(116, 164).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud7);
+
+        BouncyCloud bouncyCloud8 = new BouncyCloud(getMapTile(112, 159).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud8);
+
+        BouncyCloud bouncyCloud9 = new BouncyCloud(getMapTile(114, 154).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud9);
 
         SnowballLauncher snowballLauncher = new SnowballLauncher(getMapTile(85, 12).getLocation().subtractY(15), false);
         enhancedMapTiles.add(snowballLauncher);
