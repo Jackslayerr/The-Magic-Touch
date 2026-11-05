@@ -13,6 +13,7 @@ import GameObject.Rectangle;
 import Tilesets.LightningTileset;
 import Utils.CheckpointManager;
 import Utils.Direction;
+import Utils.Point;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,18 @@ public class LevelThreeMap extends Map {
 
         badOrb orb = new badOrb(getMapTile(22, 193).getLocation(), 3.0f, 3.0f);
         enemies.add(orb);
+
+        //Thunder Bird adding here
+        //starting point below
+        Point startPoint = getMapTile(14, 190).getLocation();
+        //ending point 1(needs same y value since it moves linearly and this is where it flips to go
+        // to the right) below
+        float startX = getMapTile(12, 190).getLocation().x;
+        //end point 2 (where it flips to the left again) could be
+        // different below
+        float endX = getMapTile(14, 190).getLocation().x;
+        ThunderBirdEnemy thunderBird = new ThunderBirdEnemy(startPoint, startX, endX, Direction.LEFT);
+        enemies.add(thunderBird);
 
         return enemies;
 
