@@ -19,8 +19,16 @@ public class BackgroundMusic {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioURL);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
+            setVolume(-10.0f);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void setVolume(float decibels) {
+        if (clip != null && clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(decibels);
         }
     }
 
