@@ -221,35 +221,43 @@ public abstract class Player extends GameObject {
         }
     }
 
-    // FIXED PLAYER WALKING
+    // player WALKING state logic
     protected void playerWalking() {
+
+
         if (frozen) {
             return;
         }
 
+
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
             moveAmountX -= walkSpeed * speedMultiplier;
             facingDirection = Direction.LEFT;
-        } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-            moveAmountX += walkSpeed;
         }
+
 
         else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             moveAmountX += walkSpeed * speedMultiplier;
             facingDirection = Direction.RIGHT;
-        } else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) &&
-                   Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+        }
+
+
+        else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.STANDING;
         }
 
-        if (Keyboard.isKeyDown(JUMP_KEY) &&
-            !keyLocker.isKeyLocked(JUMP_KEY)) {
+
+        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
-        } else if (Keyboard.isKeyDown(CROUCH_KEY)) {
+        }
+
+
+        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
     }
+
 
     protected void playerCrouching() {
         if (frozen) {
