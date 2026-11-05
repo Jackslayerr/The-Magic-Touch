@@ -4,6 +4,7 @@ package Game;
 import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Engine.BackgroundMusic;
 import Level.Map;
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
@@ -23,6 +24,7 @@ public class ScreenCoordinator extends Screen {
     protected String backgroundImageFile;
 
     protected int destinationLevel = 1;
+    protected BackgroundMusic backgroundMusic;
 
     public int getDestinationLevel() {
         return destinationLevel;
@@ -38,15 +40,25 @@ public class ScreenCoordinator extends Screen {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+
+        // when starting an actual level, stop the music
+        if (gameState == GameState.LEVEL && backgroundMusic != null) {
+            backgroundMusic.stop();
+        }
     }
 
     @Override
     public void initialize(Map level, String backgroundImageFile) {
         this.level = level;
         this.backgroundImageFile = backgroundImageFile;
-        this.destinationLevel = 3;
+        this.destinationLevel = 1;
         this.previousGameState = null;
         this.gameState = GameState.MENU;
+
+        backgroundMusic = new BackgroundMusic();
+        backgroundMusic.loadMusic("/Audio/The_Magic_Touch.wav");
+        backgroundMusic.play();
+        backgroundMusic.loop();
     }
 
     @Override
