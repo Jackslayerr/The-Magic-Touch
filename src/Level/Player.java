@@ -6,8 +6,10 @@ import Engine.ImageLoader;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.SoundEffect;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
+import Players.Cat;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -55,6 +57,8 @@ public abstract class Player extends GameObject {
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
 
+    protected SoundEffect jumpSound;
+
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
     // define keys
@@ -88,6 +92,9 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
+
+        jumpSound = new SoundEffect();
+        jumpSound.load("/Audio/JUMPAGE_TWO.wav");
     }
 
     public void setFrozen(boolean frozen) {
@@ -293,6 +300,10 @@ public abstract class Player extends GameObject {
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight * multiplier;
 
+            if (jumpSound != null) {
+                jumpSound.play();
+            }
+
 
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
@@ -410,6 +421,8 @@ public abstract class Player extends GameObject {
 
         if (earthAnimationTimer > 0) {
             earthAnimationTimer--;
+            this.currentAnimationName =
+                    facingDirection == Direction.RIGHT ? "EARTH_RIGHT" : "EARTH_LEFT";
             return;
         }
 
@@ -725,6 +738,9 @@ public abstract class Player extends GameObject {
             keyLocker.lockKey(EARTH_KEY);
             playerBuildPlatform();
             earthCoolDown = 180;
+            earthAnimationTimer = 15;
+
+            ((Cat) this).playEarthAnimation();
         }
     }
 

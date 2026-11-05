@@ -7,6 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
+import Utils.Direction;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -14,8 +15,11 @@ import java.util.HashMap;
 // This is the class for the Cat player character
 // basically just sets some values for physics and then defines animations
 public class Cat extends Player {
+    private int earthAnimTimer = 0;
+    private static final int EARTH_ANIM_FRAMES = 20;
+
     public Cat(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("playerSpriteSheet.png"), 140, 140), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("characterSpriteSheet.png"), 140, 140), x, y, "STAND_RIGHT");
         gravity = .5f;
         terminalVelocityY = 6f;
         jumpHeight = 10.3f;
@@ -23,9 +27,18 @@ public class Cat extends Player {
         walkSpeed = 3.3f;
         momentumYIncrease = .5f;
     }
+    public void playEarthAnimation() {
+        earthAnimTimer = EARTH_ANIM_FRAMES;
+    }
 
     public void update() {
         super.update();
+
+        if (earthAnimTimer > 0) {
+            earthAnimTimer--;
+            currentAnimationName = (facingDirection == Direction.RIGHT)
+                    ? "EARTH_RIGHT" : "EARTH_LEFT";
+        }
     }
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);

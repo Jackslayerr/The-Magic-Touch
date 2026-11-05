@@ -19,6 +19,8 @@ import Utils.CheckpointManager;
 import Utils.Direction;
 import Level.*;
 import java.util.ArrayList;
+import Enemies.ElectricZap;
+import EnhancedMapTiles.ElectricZapSpawner;
 
 // Represents a test map to be used in a level
 public class LevelOneMap extends Map {
@@ -106,6 +108,9 @@ public class LevelOneMap extends Map {
 
         Checkpoint checkpoint = new Checkpoint(getMapTile(65, 18).getLocation().subtractY(72), 16, 16, this, 1);
         enhancedMapTiles.add(checkpoint);
+
+        //ElectricZapSpawner electricZapSpawner = new ElectricZapSpawner(getMapTile(6, 15).getLocation().subtractY(0));
+        //enhancedMapTiles.add(electricZapSpawner);
 
         return enhancedMapTiles;
     }
