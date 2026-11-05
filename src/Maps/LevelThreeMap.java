@@ -10,6 +10,7 @@ import EnhancedMapTiles.SnowballLauncher;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import EnhancedMapTiles.zapOrb;
 import EnhancedMapTiles.SpeedRing;
+import EnhancedMapTiles.Trigger;
 import GameObject.Rectangle;
 import Tilesets.LightningTileset;
 import Utils.CheckpointManager;
@@ -93,10 +94,12 @@ public class LevelThreeMap extends Map {
         SpeedRing speedRing = new SpeedRing(getMapTile(4, 196).getLocation());
         enhancedMapTiles.add(speedRing);
 
+        Trigger trial1 = new Trigger(getMapTile(33, 161).getLocation(), 11, 0, 0, 48, 32, this);
+        enhancedMapTiles.add(trial1);
 
 
 
-        BouncyCloud bouncyCloud = new BouncyCloud(getMapTile(20, 16).getLocation(), "BouncyCloud.png");
+        BouncyCloud bouncyCloud = new BouncyCloud(getMapTile(15, 196).getLocation(), "BouncyCloud.png");
         enhancedMapTiles.add(bouncyCloud);
 
         SnowballLauncher snowballLauncher = new SnowballLauncher(getMapTile(85, 12).getLocation().subtractY(15), false);
@@ -112,7 +115,7 @@ public class LevelThreeMap extends Map {
         Teleporter teleporter1 = new Teleporter(getMapTile(32, 196).getLocation().subtractY(48), "GoldTeleporter.png",29, 175);
         npcs.add(teleporter1);    
 
-        Teleporter teleporter2 = new Teleporter(getMapTile(69, 196).getLocation().subtractY(48), "DiamondTeleporter.png",32, 16);
+        Teleporter teleporter2 = new Teleporter(getMapTile(36, 162).getLocation().subtractY(48), "DiamondTeleporter.png",33, 196);
         npcs.add(teleporter2);
 
         return npcs;
