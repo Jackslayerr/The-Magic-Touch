@@ -10,6 +10,7 @@ import EnhancedMapTiles.SnowballLauncher;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import EnhancedMapTiles.zapOrb;
 import EnhancedMapTiles.SpeedRing;
+import EnhancedMapTiles.Trigger;
 import GameObject.Rectangle;
 import Tilesets.LightningTileset;
 import Utils.CheckpointManager;
@@ -23,7 +24,8 @@ public class LevelThreeMap extends Map {
 
     public LevelThreeMap() {
         super("level_three_map.txt", new LightningTileset());
-        this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
+        //this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
+        this.playerStartPosition = getMapTile(110,178).getLocation();
     }
 
     @Override
@@ -35,13 +37,44 @@ public class LevelThreeMap extends Map {
 
         // DragonEnemy dragonEnemy = new DragonEnemy(getMapTile(18, 7).getLocation().subtractY(-200), Direction.LEFT);
         // enemies.add(dragonEnemy);
+        GoblinEnemy goblin1  = new GoblinEnemy(getMapTile(42, 191).getLocation(), Direction.RIGHT);
+        GoblinEnemy goblin2  = new GoblinEnemy(getMapTile(43, 193).getLocation(), Direction.RIGHT);
+        enemies.add(goblin2);
+        enemies.add(goblin1);
+        GoblinEnemy goblin3  = new GoblinEnemy(getMapTile(92, 192).getLocation(), Direction.RIGHT);
+        GoblinEnemy goblin4  = new GoblinEnemy(getMapTile(88, 188).getLocation(), Direction.RIGHT);
+        enemies.add(goblin3);
+        enemies.add(goblin4);
 
 
-        LavaSlime lavaSlime = new LavaSlime(getMapTile(8, 196).getLocation().subtractY(0));
-        enemies.add(lavaSlime);
+        // LavaSlime lavaSlime = new LavaSlime(getMapTile(8, 196).getLocation().subtractY(0));
+        // enemies.add(lavaSlime);
 
-        badOrb orb = new badOrb(getMapTile(22, 193).getLocation(), 3.0f, 3.0f);
+        badOrb orb = new badOrb(getMapTile(69, 175).getLocation(), 0.0f, -3.0f);
         enemies.add(orb);
+        badOrb orb2 = new badOrb(getMapTile(72, 177).getLocation(), 0.0f, 3.0f);
+        enemies.add(orb2);
+        badOrb orb3 = new badOrb(getMapTile(65, 171).getLocation(), -3.0f, -3.0f);
+        enemies.add(orb3);
+        badOrb orb4 = new badOrb(getMapTile(76, 171).getLocation(), 3.0f, -3.0f);
+        enemies.add(orb4);
+        int currentY = 167;
+        for (int i=0;i<7;i++) {
+            badOrb tempOrb = new badOrb(getMapTile(67+i, currentY).getLocation(), 0, -3.0f);
+            if (currentY == 167) {
+                currentY = 169;
+            } else {
+                currentY = 167;
+            }
+            enemies.add(tempOrb);
+        }
+        badOrb orb5 = new badOrb(getMapTile(96, 187).getLocation(), 3.0f, 0.0f);
+        enemies.add(orb5);
+        badOrb orb6 = new badOrb(getMapTile(97, 190).getLocation(), 3.0f, 0.0f);
+        enemies.add(orb6);
+        badOrb orb7 = new badOrb(getMapTile(97, 193).getLocation(), 3.0f, 0.0f);
+        enemies.add(orb7);
+        
 
         //Thunder Bird adding here
         //starting point below
@@ -54,6 +87,21 @@ public class LevelThreeMap extends Map {
         float endX = getMapTile(14, 190).getLocation().x;
         ThunderBirdEnemy thunderBird = new ThunderBirdEnemy(startPoint, startX, endX, Direction.LEFT);
         enemies.add(thunderBird);
+
+        Point startPoint1 = getMapTile(116, 157).getLocation();
+        float startX1 = getMapTile(111, 157).getLocation().x;
+        float endX1 = getMapTile(116, 157).getLocation().x;
+        ThunderBirdEnemy thunderBird1 = new ThunderBirdEnemy(startPoint1, startX1, endX1, Direction.LEFT);
+        enemies.add(thunderBird1);
+
+        Point startPoint2 = getMapTile(116, 169).getLocation();
+        float startX2 = getMapTile(111, 169).getLocation().x;
+        float endX2 = getMapTile(116, 169).getLocation().x;
+        ThunderBirdEnemy thunderBird2 = new ThunderBirdEnemy(startPoint2, startX2, endX2, Direction.LEFT);
+        enemies.add(thunderBird2);
+
+
+
 
         return enemies;
 
@@ -93,11 +141,47 @@ public class LevelThreeMap extends Map {
         SpeedRing speedRing = new SpeedRing(getMapTile(4, 196).getLocation());
         enhancedMapTiles.add(speedRing);
 
+        Trigger trial1 = new Trigger(getMapTile(33, 161).getLocation(), 11, 0, 0, 48, 32, this);
+        enhancedMapTiles.add(trial1);
+
+        Trigger trial2 = new Trigger(getMapTile(77, 166).getLocation(), 12, 0, 0, 16, 16, this);
+        enhancedMapTiles.add(trial2);
+
+        Trigger trial3 = new Trigger(getMapTile(118, 151).getLocation(), 13, 0, 0, 16, 48, this);
+        enhancedMapTiles.add(trial3);
+
+        
 
 
 
-        BouncyCloud bouncyCloud = new BouncyCloud(getMapTile(20, 16).getLocation(), "BouncyCloud.png");
-        enhancedMapTiles.add(bouncyCloud);
+
+
+        BouncyCloud bouncyCloud1 = new BouncyCloud(getMapTile(110, 181).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud1);
+
+        BouncyCloud bouncyCloud2 = new BouncyCloud(getMapTile(114, 177).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud2);
+
+        BouncyCloud bouncyCloud3 = new BouncyCloud(getMapTile(108, 172).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud3);
+
+        BouncyCloud bouncyCloud4 = new BouncyCloud(getMapTile(117, 172).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud4);
+
+        BouncyCloud bouncyCloud5 = new BouncyCloud(getMapTile(112, 169).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud5);
+
+        BouncyCloud bouncyCloud6 = new BouncyCloud(getMapTile(109, 164).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud6);
+
+        BouncyCloud bouncyCloud7 = new BouncyCloud(getMapTile(116, 164).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud7);
+
+        BouncyCloud bouncyCloud8 = new BouncyCloud(getMapTile(112, 159).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud8);
+
+        BouncyCloud bouncyCloud9 = new BouncyCloud(getMapTile(114, 154).getLocation(), "BouncyCloud.png");
+        enhancedMapTiles.add(bouncyCloud9);
 
         SnowballLauncher snowballLauncher = new SnowballLauncher(getMapTile(85, 12).getLocation().subtractY(15), false);
         enhancedMapTiles.add(snowballLauncher);
@@ -112,8 +196,19 @@ public class LevelThreeMap extends Map {
         Teleporter teleporter1 = new Teleporter(getMapTile(32, 196).getLocation().subtractY(48), "GoldTeleporter.png",29, 175);
         npcs.add(teleporter1);    
 
-        Teleporter teleporter2 = new Teleporter(getMapTile(69, 196).getLocation().subtractY(48), "DiamondTeleporter.png",32, 16);
+        Teleporter teleporter2 = new Teleporter(getMapTile(36, 162).getLocation().subtractY(48), "DiamondTeleporter.png",33, 196);
         npcs.add(teleporter2);
+
+        Teleporter teleporter3 = new Teleporter(getMapTile(69, 196).getLocation().subtractY(48), "DiamondTeleporter.png",64, 177);
+        npcs.add(teleporter3);
+
+        Teleporter teleporter4 = new Teleporter(getMapTile(70, 165).getLocation().subtractY(48), "DiamondTeleporter.png",69, 196);
+        npcs.add(teleporter4);
+
+        Teleporter teleporter5 = new Teleporter(getMapTile(109, 196).getLocation().subtractY(48), "DiamondTeleporter.png",110, 177);
+        npcs.add(teleporter5);
+
+        
 
         return npcs;
     }

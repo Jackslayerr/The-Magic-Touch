@@ -7,20 +7,25 @@ import java.util.HashMap;
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.SoundEffect;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Utils.*;
 import Level.*;
 import Enemies.*;
+
 // A Trigger invisible block that can be used to make things happen
 public class Checkpoint extends EnhancedMapTile {
     boolean triggered = false;
+    private SoundEffect checkpointSound;
     Map map;
     int checkPointIndex;
     public Checkpoint(Point location, int boundWidth, int boundHeight, Map map, int checkPointIndex) {
         super(location.x, location.y,
             new SpriteSheet(ImageLoader.load("Checkpoint.png"), 138, 248),
             TileType.PASSABLE);
+        checkpointSound = new SoundEffect();
+        checkpointSound.load("/Audio/CHECKPOINT.wav");
         this.map = map;
         this.checkPointIndex = checkPointIndex;
     }
@@ -33,6 +38,9 @@ public class Checkpoint extends EnhancedMapTile {
             if (triggered == false) {
                 CheckpointManager.setIndex(checkPointIndex);
                 triggered = true;
+                if (checkpointSound != null) {
+                    checkpointSound.play();
+                }
                 currentAnimationName = "COLLECTED";
 
             }
