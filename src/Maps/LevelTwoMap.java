@@ -26,11 +26,8 @@ public class LevelTwoMap extends Map {
 
     public LevelTwoMap() {
         super("level_two_map.txt", new IceCaveTileset());
-        //actual
-        // 2,26
         this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
-        //test
-        //this.playerStartPosition = getMapTile(86, 2).getLocation();
+        System.out.println(CheckpointManager.getInstance().getIndex());
     }
 
     @Override

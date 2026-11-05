@@ -23,5 +23,8 @@ public class CheckpointManager {
     public static void setIndex(int index) {
         currentIndex = index;
     }
+    public static int getIndex() {
+        return currentIndex;
+    }
     
 }

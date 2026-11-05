@@ -66,7 +66,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         damageFlashTimer = 0;
         healthBarAnimationTimer = 0;
 
-        levelClearedScreen = new LevelClearedScreen(currentLevel);
+        // NOTE: levelClearedScreen is created in onLevelCompleted(), not here.
+        // Its constructor sets the next level's checkpoint index, so building it at
+        // level load would overwrite checkpoints (e.g. the level 1 checkpoint).
+        levelClearedScreen = null;
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
@@ -426,6 +429,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     @Override
     public void onLevelCompleted() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
+            levelClearedScreen = new LevelClearedScreen(currentLevel);
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
         }
     }
