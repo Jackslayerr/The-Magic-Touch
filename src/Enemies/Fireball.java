@@ -152,6 +152,9 @@ public class Fireball extends Enemy {
             }
             for (NPC npc : npcs) {
                 if (npc instanceof Torch && (this.intersects(npc) || this.touching(npc))) {
+                    if (hitSound != null) {
+                        hitSound.play(); // Play impact sound when hitting walls/blocks
+                    }
                     npc.talkedTo = true;
                     this.setMapEntityStatus(MapEntityStatus.REMOVED);
                 }
