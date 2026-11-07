@@ -78,7 +78,7 @@ public abstract class Player extends GameObject {
 
     private float speedMultiplier = 1f;
 
-    protected boolean isInvincible = false;
+    protected boolean isInvincible = true;
 
     // PLAYER HEALTH SYSTEM
     protected int health = 100;
