@@ -1,3 +1,4 @@
+
 package Screens;
 
 import Engine.*;
@@ -8,6 +9,7 @@ import SpriteFont.SpriteFont;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 // This is the class for the main menu screen
 public class MenuScreen extends Screen {
@@ -21,19 +23,61 @@ public class MenuScreen extends Screen {
     protected KeyLocker keyLocker = new KeyLocker();
     protected BufferedImage backgroundImage;
 
+    protected Font pixelFont;
+
     public MenuScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     @Override
     public void initialize(Map level, String backgroundImageFile) {
-        playGame = new SpriteFont("PLAY GAME", 345, 295, "Arial", 20, Color.white);
-        //playGame = new SpriteFont("PLAY GAME", 200, 123, "Arial", 30, new Color(49, 207, 240));
+
+        // Load Pixel Operator font
+        try {
+            File fontFile = new File(
+                "Resources/fonts/PixelOperator-Bold.ttf"
+            );
+
+            pixelFont = Font.createFont(
+                Font.TRUETYPE_FONT,
+                fontFile
+            ).deriveFont(Font.BOLD, 24f);
+
+            System.out.println("Pixel Operator font loaded!");
+
+        } catch (Exception e) {
+            System.out.println(
+                "Could not load Pixel Operator font: " + e.getMessage()
+            );
+
+            pixelFont = new Font(
+                "Monospaced",
+                Font.BOLD,
+                24
+            );
+        }
+
+        // PLAY GAME text
+        playGame = new SpriteFont(
+            "PLAY GAME",
+            345,
+            270,
+            pixelFont,
+            Color.white
+        );
+
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
 
-        credits = new SpriteFont("CREDITS", 355, 345, "Arial", 20, Color.white);
-        //credits = new SpriteFont("CREdITS", 200, 223, "Arial", 30, new Color(49, 207, 240));
+        // CREDITS text
+        credits = new SpriteFont(
+            "CREDITS",
+            355,
+            322,
+            pixelFont,
+            Color.white
+        );
+
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
 
@@ -67,20 +111,25 @@ public class MenuScreen extends Screen {
         if (currentMenuItemHovered == 0) {
             playGame.setColor(new Color(255, 215, 0));
             credits.setColor(new Color(49, 207, 240));
-            pointerLocationX = 325;
-            pointerLocationY = 295;
+
+            pointerLocationX = 320;
+            pointerLocationY = 273;
+
         } else if (currentMenuItemHovered == 1) {
             playGame.setColor(new Color(49, 207, 240));
             credits.setColor(new Color(255, 215, 0));
-            pointerLocationX = 325;
-            pointerLocationY = 345;
+
+            pointerLocationX = 330;
+            pointerLocationY = 327;
         }
 
         if (Keyboard.isKeyUp(Key.ENTER)) {
             keyLocker.unlockKey(Key.ENTER);
         }
 
-        if (!keyLocker.isKeyLocked(Key.ENTER) && Keyboard.isKeyDown(Key.ENTER)) {
+        if (!keyLocker.isKeyLocked(Key.ENTER)
+                && Keyboard.isKeyDown(Key.ENTER)) {
+
             menuItemSelected = currentMenuItemHovered;
 
             if (menuItemSelected == 0) {
@@ -92,19 +141,36 @@ public class MenuScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawImage(backgroundImage, 0, 0, 794, 576);
 
+        graphicsHandler.drawImage(
+            backgroundImage,
+            0,
+            0,
+            794,
+            576
+        );
+
+        // Disable text smoothing for crisp pixel font
+        Graphics2D g = graphicsHandler.getGraphics();
+
+        g.setRenderingHint(
+            RenderingHints.KEY_TEXT_ANTIALIASING,
+            RenderingHints.VALUE_TEXT_ANTIALIAS_OFF
+        );
+
+        // Draw menu text
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
 
+        // Draw selection indicator
         graphicsHandler.drawFilledRectangleWithBorder(
-                pointerLocationX,
-                pointerLocationY,
-                20,
-                20,
-                new Color(49, 207, 240),
-                Color.black,
-                2
+            pointerLocationX,
+            pointerLocationY,
+            20,
+            20,
+            new Color(49, 207, 240),
+            Color.black,
+            2
         );
     }
 }
