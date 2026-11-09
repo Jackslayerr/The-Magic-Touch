@@ -72,9 +72,9 @@ public class CutsceneScreen extends Screen {
             "Long ago, the kingdom faced a terrible threat. " +
             "The evil sorcerer Malodor sought to plunge the world " +
             "into darkness. But one hero stood against him: " +
-            "Bonwold the Great. Armed with a legendary magic sword, " +
+            "Bonwold the Great. Armed with a legendary magic orb, " +
             "Bonwold defeated Malodor and saved the kingdom. " +
-            "Yet the victory came at a cost. The mighty sword was " +
+            "Yet the victory came at a cost. The mighty weapon was " +
             "shattered into four pieces, scattered across the kingdom. " +
             "Centuries have passed, and the legend lives on...",
 
@@ -90,7 +90,7 @@ public class CutsceneScreen extends Screen {
             "Your journey leads you to the scorching depths " +
             "of the Fire Dungeon! Dangerous goblins guard its " +
             "ancient halls, and the first piece of Bonwold's " +
-            "legendary sword lies somewhere within. Use your " +
+            "legendary orb lies somewhere within. Use your " +
             "Fire Hand Rune to launch fireballs, defeat enemies, " +
             "and light torches to solve the dungeon's puzzles. " +
             "Objective: Defeat the goblins and retrieve the first " +
@@ -112,14 +112,14 @@ public class CutsceneScreen extends Screen {
 
         {
             "Wonderful! You're making excellent progress! " +
-            "Keep collecting those artifacts, and let's say we'll have everything we need. Ha ha! " +
+            "Keep collecting those pieces of the orb, and let's say we'll have everything we need. Ha ha! " +
             "You've done your part splendidly. " +
             "Now, onward to Thunderbolt Castle! The next artifact awaits!",
 
             "Welcome to Thunderbolt Castle! Storm-charged halls " +
             "and dangerous guardians stand in your way. Search " +
             "the fortress, overcome its trials, and continue your " +
-            "quest for Bonwold's legendary sword.!"
+            "quest for Bonwold's legendary orb.!"
         }
     };
 
