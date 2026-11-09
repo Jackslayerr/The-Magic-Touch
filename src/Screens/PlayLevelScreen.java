@@ -6,6 +6,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Maps.LevelFourMap;
 import Maps.LevelOneMap;
 import Maps.LevelTwoMap;
 import Maps.MovementTestMap;
@@ -480,6 +481,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case 3:
                 return new LevelThreeMap();
 
+            case 4:
+                return new LevelFourMap();
+
             default:
                 return new LevelOneMap();
         }
@@ -492,6 +496,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
             case 3:
                 return "game-background-level3.png";
+
+            case 4:
+                return "game-background-level4.png";
 
             default:
                 return "game-background-level1.png";

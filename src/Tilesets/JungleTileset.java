@@ -153,7 +153,7 @@ public class JungleTileset extends Tileset {
 
         Frame castleFloatingPlatformFrame = new FrameBuilder(getSubImage(2, 2))
                 .withScale(tileScale)
-                .withBounds(0, 6, 16, 4)
+                .withBounds(0, 0, 16, 4)
                 .build();
 
         MapTileBuilder castleFloatingPlatformTile = new MapTileBuilder(castleFloatingPlatformFrame)
@@ -363,7 +363,7 @@ public class JungleTileset extends Tileset {
 
         Frame cloudLightningFloatingPlatformFrame = new FrameBuilder(getSubImage(7, 2))
                 .withScale(tileScale)
-                .withBounds(0, 6, 16, 4)
+                .withBounds(0, 0, 16, 4)
                 .build();
 
         MapTileBuilder cloudLightningFloatingPlatformTile = new MapTileBuilder(cloudLightningFloatingPlatformFrame)
@@ -448,7 +448,7 @@ public class JungleTileset extends Tileset {
 
         Frame leavesTopFrame = new FrameBuilder(getSubImage(8, 4))
                 .withScale(tileScale)
-                .withBounds(0, 0, 16, 5)
+                .withBounds(0, 10, 16, 5)
                 .build();
 
         MapTileBuilder leavesTopTile = new MapTileBuilder(leavesTopFrame)
@@ -478,7 +478,7 @@ public class JungleTileset extends Tileset {
 
         Frame leavesMiddleFrame = new FrameBuilder(getSubImage(9, 1))
                 .withScale(tileScale)
-                .withBounds(0, 0, 16, 5)
+                .withBounds(0, 10, 16, 5)
                 .build();
 
         MapTileBuilder leavesMiddleTile = new MapTileBuilder(leavesMiddleFrame)
@@ -497,7 +497,7 @@ public class JungleTileset extends Tileset {
 
         Frame leavesBottomLeftFrame = new FrameBuilder(getSubImage(9, 3))
                 .withScale(tileScale)
-                .withBounds(0, 13, 16, 3)
+                .withBounds(0, 0, 16, 3)
                 .build();
 
         MapTileBuilder leavesBottomLeftTile = new MapTileBuilder(leavesBottomLeftFrame)
@@ -507,13 +507,23 @@ public class JungleTileset extends Tileset {
 
         Frame leavesBottomRightFrame = new FrameBuilder(getSubImage(9, 4))
                 .withScale(tileScale)
-                .withBounds(0, 13, 16, 3)
+                .withBounds(0, 0, 16, 3)
                 .build();
 
         MapTileBuilder leavesBottomRightTile = new MapTileBuilder(leavesBottomRightFrame)
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(leavesBottomRightTile);
+
+        Frame leavesMiddleBottomFrame = new FrameBuilder(getSubImage(9, 5))
+                .withScale(tileScale)
+                .withBounds(0, 0, 16, 5)
+                .build();
+
+        MapTileBuilder leavesMiddleBottomTile = new MapTileBuilder(leavesMiddleBottomFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(leavesMiddleBottomTile);
 
 
         return mapTiles;

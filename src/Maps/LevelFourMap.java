@@ -1,0 +1,53 @@
+package Maps;
+
+import Level.*;
+import NPCs.*;
+import Enemies.*;
+import Engine.ImageLoader;
+import EnhancedMapTiles.BouncyCloud;
+import EnhancedMapTiles.ElectricZapSpawner;
+import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.SnowballLauncher;
+import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.zapOrb;
+import EnhancedMapTiles.SpeedRing;
+import EnhancedMapTiles.Trigger;
+import GameObject.Rectangle;
+import Tilesets.JungleTileset;
+import Utils.CheckpointManager;
+import Utils.Direction;
+import Utils.Point;
+
+import java.util.ArrayList;
+
+// Represents a test map to be used in a level
+public class LevelFourMap extends Map {
+
+    public LevelFourMap() {
+        super("level_four_map.txt", new JungleTileset());
+        //this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
+        this.playerStartPosition = getMapTile(1,96).getLocation();
+    }
+
+    @Override
+    public ArrayList<Enemy> loadEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>();
+        return enemies;
+
+    }
+
+    @Override
+    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+
+        return enhancedMapTiles;
+    }
+
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        return npcs;
+    }
+}
