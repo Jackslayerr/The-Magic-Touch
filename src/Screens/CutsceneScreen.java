@@ -32,58 +32,95 @@ public class CutsceneScreen extends Screen {
     private boolean spaceWasDown = false;
     private boolean escWasDown = false;
 
-    // Cutscene titles for each level.
+    // ==========================================
+    // CUTSCENE TITLES
+    // ==========================================
+
     private final String[][] titles = {
+
+        // LEVEL 1 - FIRE DUNGEON
         {
             "THE LEGEND",
             "THE MENTOR'S QUEST",
             "THE FIRE DUNGEON"
         },
+
+        // LEVEL 2 - FROSTBITE CAVERNS
         {
             "THE FROZEN FRONTIER",
             "FROSTBITE CAVERNS"
         },
+
+        // LEVEL 3 - THUNDERBOLT CASTLE
         {
             "THE STORM APPROACHES",
             "THUNDERBOLT CASTLE"
+        },
+
+        // LEVEL 4 - EMERALD WILDS
+        {
+            "ANOTHER PIECE...",
+            "THE EMERALD WILDS"
         }
     };
 
-    // Background PNGs for each cutscene.
+    // ==========================================
+    // BACKGROUND IMAGES
+    // ==========================================
+
     private final String[][] backgroundFiles = {
+
+        // LEVEL 1
         {
             "cutscene-level1-1.png",
             "cutscene-level1-2.png",
             "cutscene-level1-3.png"
         },
+
+        // LEVEL 2
         {
             "cutscene-level2-1.png",
             "cutscene-level2-2.png"
         },
+
+        // LEVEL 3
         {
             "cutscene-level3-1.png",
             "cutscene-level3-2.png"
+        },
+
+        // LEVEL 4
+        {
+            "cutscene-level4-1.png",
+            "cutscene-level4-2.png"
         }
     };
 
-    // Story dialogue for each level.
+    // ==========================================
+    // STORY DIALOGUE
+    // ==========================================
+
     private final String[][] scenes = {
+
+        // ======================================
+        // LEVEL 1 - FIRE DUNGEON
+        // ======================================
         {
             "Long ago, the kingdom faced a terrible threat. " +
             "The evil sorcerer Malodor sought to plunge the world " +
             "into darkness. But one hero stood against him: " +
             "Bonwold the Great. Armed with a legendary magic orb, " +
             "Bonwold defeated Malodor and saved the kingdom. " +
-            "Yet the victory came at a cost. The mighty weapon was " +
+            "Yet the victory came at a cost. The mighty orb was " +
             "shattered into four pieces, scattered across the kingdom. " +
             "Centuries have passed, and the legend lives on...",
 
             "You have dreamed of becoming a treasure hunter " +
             "your entire life. One day, a retired treasure hunter " +
             "approaches you with an opportunity beyond your wildest " +
-            "dreams. He says the four pieces of Bonwold's legendary " +
-            "sword must be recovered to protect the kingdom. " +
-            "He believes you are worthy of the challenge. " +
+            "dreams. He explains that the four pieces of Bonwold's " +
+            "legendary orb must be recovered and brought together " +
+            "once more. He believes you are worthy of the challenge. " +
             "Your adventure begins now! But something about " +
             "your new mentor feels strange...",
 
@@ -93,46 +130,89 @@ public class CutsceneScreen extends Screen {
             "legendary orb lies somewhere within. Use your " +
             "Fire Hand Rune to launch fireballs, defeat enemies, " +
             "and light torches to solve the dungeon's puzzles. " +
-            "Objective: Defeat the goblins and retrieve the first " +
-            "piece! Press Z to shoot fireballs. Your quest begins here!"
+            "Defeat the goblins and recover the first piece " +
+            "of Bonwold's shattered orb! Press Z to shoot fireballs."
         },
 
+        // ======================================
+        // LEVEL 2 - FROSTBITE CAVERNS
+        // ======================================
         {
-            "Excellent work! One artifact down, three to go! " +
-            "I can already feel our kingdom becoming... safer. Ha ha! " +
-            "You've done wonderfully, my young adventurer. " +
-            "Now, onward to the Frostbite Caverns! There's no time to waste!",
+            "Excellent work! The first piece of Bonwold's orb " +
+            "is ours! Three more pieces remain before the " +
+            "legendary orb can be restored. You're doing " +
+            "wonderfully, my young adventurer. Ha ha! " +
+            "Now, onward to the Frostbite Caverns! " +
+            "The next piece awaits!",
 
-            "Welcome to Frostbite Caverns! Frozen passages and " +
-            "dangerous creatures stand between you and the next " +
-            "sword piece. Watch your footing, explore the icy halls, " +
-            "and overcome the creatures that protect this forgotten " +
-            "place. Your next trial begins now!"
+            "Welcome to Frostbite Caverns! Deep within these " +
+            "frozen passages lies the second piece of Bonwold's " +
+            "legendary orb. Dangerous creatures guard the icy " +
+            "halls, and the frozen paths are treacherous. " +
+            "Watch your footing, defeat the guardians, and " +
+            "recover the next piece. We are one step closer " +
+            "to restoring Bonwold's legendary orb!"
         },
 
+        // ======================================
+        // LEVEL 3 - THUNDERBOLT CASTLE
+        // ======================================
         {
-            "Wonderful! You're making excellent progress! " +
-            "Keep collecting those pieces of the orb, and let's say we'll have everything we need. Ha ha! " +
-            "You've done your part splendidly. " +
-            "Now, onward to Thunderbolt Castle! The next artifact awaits!",
+            "Wonderful! The second piece is ours! " +
+            "We're halfway to restoring Bonwold's legendary orb. " +
+            "I can hardly contain my excitement! Ha ha! " +
+            "Keep up the excellent work, my young adventurer. " +
+            "Now, onward to Thunderbolt Castle! " +
+            "The third piece is waiting for us!",
 
             "Welcome to Thunderbolt Castle! Storm-charged halls " +
-            "and dangerous guardians stand in your way. Search " +
-            "the fortress, overcome its trials, and continue your " +
-            "quest for Bonwold's legendary orb.!"
+            "and dangerous guardians stand between you and " +
+            "the third piece of Bonwold's legendary orb. " +
+            "Search the fortress, overcome its trials, and " +
+            "claim the next piece. Only two pieces remain " +
+            "before the legendary orb can be restored!"
+        },
+
+        // ======================================
+        // LEVEL 4 - EMERALD WILDS
+        // ======================================
+        {
+            // Scene 1 - Mentor
+            "Splendid! Another piece of the orb for me... " +
+            "I mean, for the kingdom's protection! " +
+            "You're doing a marvelous job, my young adventurer. " +
+            "Just one more piece, and Bonwold's legendary orb " +
+            "will finally be whole again. Everything will be " +
+            "as it should be. Now, off to the Emerald Wilds! " +
+            "Do hurry, I'm growing rather impatient!",
+
+            // Scene 2 - Emerald Wilds
+            "Welcome to the Emerald Wilds! Deep within the ancient ruins " +
+            "lies the final piece of Bonwold's legendary orb. " +
+            "Defeat the monsters, conquer the ancient ruins, " +
+            "and retrieve the final piece! Once we have it, " +
+            "the legendary orb can finally be reassembled!"
         }
     };
+
+    // ==========================================
+    // CONSTRUCTOR
+    // ==========================================
 
     public CutsceneScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
+
+    // ==========================================
+    // INITIALIZE
+    // ==========================================
 
     @Override
     public void initialize(Map level, String backgroundImageFile) {
 
         currentLevel = screenCoordinator.getDestinationLevel();
 
-        // Keep the level number within the implemented levels.
+        // Keep the level number within implemented levels.
         if (currentLevel < 1 || currentLevel > scenes.length) {
             currentLevel = 1;
         }
@@ -146,7 +226,10 @@ public class CutsceneScreen extends Screen {
         loadCurrentBackground();
     }
 
-    // Load the custom Pixel Operator font.
+    // ==========================================
+    // LOAD PIXEL FONT
+    // ==========================================
+
     private void loadDialogueFont() {
 
         try {
@@ -177,6 +260,10 @@ public class CutsceneScreen extends Screen {
         }
     }
 
+    // ==========================================
+    // LOAD CURRENT BACKGROUND
+    // ==========================================
+
     private void loadCurrentBackground() {
 
         String filename =
@@ -199,7 +286,10 @@ public class CutsceneScreen extends Screen {
         }
     }
 
-    // Draws wrapped dialogue using the pixel font.
+    // ==========================================
+    // DRAW WRAPPED DIALOGUE
+    // ==========================================
+
     private void drawWrappedText(
         GraphicsHandler graphicsHandler,
         String text,
@@ -208,7 +298,8 @@ public class CutsceneScreen extends Screen {
         int maxWidth,
         int lineHeight,
         int fontSize,
-        int maxLines) {
+        int maxLines
+    ) {
 
         Graphics2D g = graphicsHandler.getGraphics();
 
@@ -268,6 +359,10 @@ public class CutsceneScreen extends Screen {
         }
     }
 
+    // ==========================================
+    // UPDATE
+    // ==========================================
+
     @Override
     public void update() {
 
@@ -301,10 +396,14 @@ public class CutsceneScreen extends Screen {
         escWasDown = escIsDown;
     }
 
+    // ==========================================
+    // DRAW
+    // ==========================================
+
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
 
-        // Draw the background across the game screen.
+        // Draw background across the game screen.
         graphicsHandler.drawImage(
             backgroundImage, 0, 0, 800, 605
         );
@@ -333,7 +432,7 @@ public class CutsceneScreen extends Screen {
             2
         );
 
-        // Draw all top banner text using Pixel Operator.
+        // Draw top banner text.
         Graphics2D g = graphicsHandler.getGraphics();
 
         g.setRenderingHint(
@@ -376,6 +475,10 @@ public class CutsceneScreen extends Screen {
             60, 440, 680, 25, 17, 5
         );
     }
+
+    // ==========================================
+    // START LEVEL
+    // ==========================================
 
     private void startLevel() {
         screenCoordinator.setGameState(GameState.LEVEL);
