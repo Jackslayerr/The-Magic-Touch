@@ -43,7 +43,10 @@ public class LevelFourMap extends Map {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
         VineSprout vineSprout1 = new VineSprout(getMapTile(3,96).getLocation().subtractY(16));
-        enhancedMapTiles.add(vineSprout1);        
+        enhancedMapTiles.add(vineSprout1);       
+        
+        BurnableVine burnableVine1 = new BurnableVine(getMapTile(5,96).getLocation().subtractY(143));
+        enhancedMapTiles.add(burnableVine1);
 
         return enhancedMapTiles;
     }

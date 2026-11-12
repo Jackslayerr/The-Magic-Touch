@@ -14,6 +14,8 @@ import Level.NPC;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
+import EnhancedMapTiles.BurnableVine;
+import EnhancedMapTiles.BurnableVineAnimation;
 import EnhancedMapTiles.MagmaBlock;
 
 import java.awt.Color;
@@ -177,6 +179,11 @@ public class Fireball extends Enemy {
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
                 LavaSlime lavaSlime = new LavaSlime(entityCollidedWith.getLocation());
                 map.addEnemy(lavaSlime);
+                entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
+            } else if (entityCollidedWith instanceof BurnableVine) {
+                this.mapEntityStatus = MapEntityStatus.REMOVED;
+                BurnableVineAnimation burnableVineAnimation = new BurnableVineAnimation(entityCollidedWith.getLocation());
+                map.addEnhancedMapTile(burnableVineAnimation);
                 entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
             } else {
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
