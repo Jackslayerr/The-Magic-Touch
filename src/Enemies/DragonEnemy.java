@@ -76,8 +76,8 @@ public class DragonEnemy extends Enemy {
         // no gravity if Dragon is in the air
 
         // move Dragon
-        moveY(moveAmountY);
-        moveX(moveAmountX);
+        moveYHandleCollision(moveAmountY);
+        moveXHandleCollision(moveAmountX);
 
         // ATTACK LOGIC
         attackTimer++;

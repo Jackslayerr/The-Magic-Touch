@@ -105,9 +105,9 @@ public class WaveAttack extends Enemy {
                         float pushDistance = 3.0f;
 
                         if (facingDirection == Direction.RIGHT) {
-                            enemy.moveX(pushDistance);
+                            enemy.moveXHandleCollision(pushDistance);
                         } else {
-                            enemy.moveX(-pushDistance);
+                            enemy.moveXHandleCollision(-pushDistance);
                         }
                     }
                  }
