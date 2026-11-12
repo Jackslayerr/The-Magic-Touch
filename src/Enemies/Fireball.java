@@ -1,3 +1,4 @@
+
 package Enemies;
 
 import Builders.FrameBuilder;
@@ -14,6 +15,8 @@ import Level.NPC;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
+import EnhancedMapTiles.BurnableVine;
+import EnhancedMapTiles.BurnableVineAnimation;
 import EnhancedMapTiles.MagmaBlock;
 
 import java.awt.Color;
@@ -32,6 +35,7 @@ public class Fireball extends Enemy {
     ArrayList<Enemy> enemies;
     ArrayList<NPC> npcs;
     private SoundEffect hitSound;
+
     public Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Direction direction) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("newfireball2.png"), 15, 15), "RIGHT");
         this.movementSpeed = movementSpeed;
@@ -46,6 +50,7 @@ public class Fireball extends Enemy {
 
         hitSound = new SoundEffect();
         hitSound.load("/Audio/FIREBALL_HIT_THING.wav");
+
         if (direction == Direction.LEFT) {
             if (fromPlayer) {
                 currentAnimationName = "LEFT";
@@ -62,10 +67,11 @@ public class Fireball extends Enemy {
 
         initialize();
     }
+
     protected Fireball(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Direction direction,
-                   String imageName, int frameWidth, int frameHeight) {
-            super(location.x, location.y, new SpriteSheet(ImageLoader.load(imageName), frameWidth, frameHeight), "LEFT_LAVA");
-            this.movementSpeed = movementSpeed;
+                       String imageName, int frameWidth, int frameHeight) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load(imageName), frameWidth, frameHeight), "LEFT_LAVA");
+        this.movementSpeed = movementSpeed;
 
         // how long the fireball will exist for before disappearing
         this.existenceFrames = existenceFrames;
@@ -74,6 +80,7 @@ public class Fireball extends Enemy {
         this.fromPlayer = fromPlayer;
         // Grabs map npcs
         this.direction = direction;
+
         if (direction == Direction.LEFT) {
             if (fromPlayer) {
                 currentAnimationName = "LEFT";
@@ -93,74 +100,120 @@ public class Fireball extends Enemy {
 
     @Override
     public void update(Player player) {
+
         // if timer is up, set map entity status to REMOVED
         // the camera class will see this next frame and remove it permanently from the map
         if (existenceFrames == 0) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         } else {
+
             // move fireball forward
             moveXHandleCollision(movementSpeed);
+
             enemies = map.getEnemies();
             npcs = map.getNPCs();
+
             for (Enemy enemy : enemies) {
-                 if (fromPlayer && this.intersects(enemy) && this != enemy) {
 
-                     // CHECK IF IT'S A DRAGON
-                     if (enemy instanceof DragonEnemy) {
-                         if (hitSound != null) {
-                             hitSound.play(); // Play impact sound when hitting walls/blocks
-                         }
-                         ((DragonEnemy) enemy).takeDamage(1.0f); // reduce health by uno
-                         this.setMapEntityStatus(MapEntityStatus.REMOVED); // remove fireball
-                         break;
-                     }
+                if (fromPlayer && this.intersects(enemy) && this != enemy) {
 
+<<<<<<< HEAD
                      // CHECK IF IT'S A LAVA MONSTER OR SPIKE
-                     if (enemy instanceof LavaMonster || enemy instanceof Spike || enemy instanceof SnowBallBoss || enemy instanceof LavaSlime || enemy instanceof ElectricZap || enemy instanceof badOrb) {
+                     if (enemy instanceof LavaMonster || enemy instanceof Spike || enemy instanceof SnowBallBoss || enemy instanceof LavaSlime || enemy instanceof ElectricZap || enemy instanceof ElectricZapDown || enemy instanceof badOrb) {
                          this.setMapEntityStatus(MapEntityStatus.REMOVED);
                          break;
                      }
+=======
+                    // CHECK IF IT'S A SPORE PLANT
+                    // Each player fireball deals 1 damage.
+                    // The plant takes 3 fireballs to defeat.
+                    if (enemy instanceof SporePlant) {
+>>>>>>> eb1289d (adding plant enemy)
 
-                     // CHECK IF IT'S A SNOW GOBLIN!!!!!
-                     if (enemy instanceof SnowGoblinEnemy) {
-                         if (hitSound != null) {
-                             hitSound.play(); // Play impact sound when hitting walls/blocks
-                         }
-                         // Remove le snow goblin
-                         enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        if (hitSound != null) {
+                            hitSound.play();
+                        }
 
-                         // Instantiate a normal goblin in the same spot
-                         GoblinEnemy goblin = new GoblinEnemy(enemy.getLocation(), Direction.LEFT);
+                        ((SporePlant) enemy).takeDamage(1);
 
-                         // Add the goblin into the map
-                         map.addEnemy(goblin);
-
-                         // destroy fireball
-                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
-                         break; // Stop checking enemies with this fireball
-                     } else {
-                         // Default Behavior for all Enemies
-                         if (hitSound != null) {
-                             hitSound.play(); // Play impact sound when hitting walls/blocks
-                         }
-                         enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
-                         System.out.println("PLAYER FIREBALL DEFEATED ENEMY!");
-                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
-                         break;
-                     }
-                 }
-            }
-            for (NPC npc : npcs) {
-                if (npc instanceof Torch && (this.intersects(npc) || this.touching(npc))) {
-                    if (hitSound != null) {
-                        hitSound.play(); // Play impact sound when hitting walls/blocks
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        break;
                     }
+
+                    // CHECK IF IT'S A DRAGON
+                    if (enemy instanceof DragonEnemy) {
+
+                        if (hitSound != null) {
+                            hitSound.play();
+                        }
+
+                        ((DragonEnemy) enemy).takeDamage(1.0f);
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        break;
+                    }
+
+                    // CHECK IF IT'S A LAVA MONSTER OR SPIKE
+                    if (enemy instanceof LavaMonster ||
+                            enemy instanceof Spike ||
+                            enemy instanceof SnowBallBoss ||
+                            enemy instanceof LavaSlime ||
+                            enemy instanceof ElectricZap ||
+                            enemy instanceof badOrb) {
+
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        break;
+                    }
+
+                    // CHECK IF IT'S A SNOW GOBLIN!!!!!
+                    if (enemy instanceof SnowGoblinEnemy) {
+
+                        if (hitSound != null) {
+                            hitSound.play();
+                        }
+
+                        // Remove le snow goblin
+                        enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+
+                        // Instantiate a normal goblin in the same spot
+                        GoblinEnemy goblin = new GoblinEnemy(enemy.getLocation(), Direction.LEFT);
+
+                        // Add the goblin into the map
+                        map.addEnemy(goblin);
+
+                        // destroy fireball
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        break;
+                    } else {
+
+                        // Default Behavior for all Enemies
+                        if (hitSound != null) {
+                            hitSound.play();
+                        }
+
+                        enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+
+                        System.out.println("PLAYER FIREBALL DEFEATED ENEMY!");
+
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        break;
+                    }
+                }
+            }
+
+            for (NPC npc : npcs) {
+
+                if (npc instanceof Torch && (this.intersects(npc) || this.touching(npc))) {
+
+                    if (hitSound != null) {
+                        hitSound.play();
+                    }
+
                     npc.talkedTo = true;
                     this.setMapEntityStatus(MapEntityStatus.REMOVED);
                 }
             }
-            super.update(player);
 
+            super.update(player);
         }
 
         existenceFrames--;
@@ -168,9 +221,12 @@ public class Fireball extends Enemy {
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided) {
+
             if (hitSound != null) {
+<<<<<<< HEAD
                 hitSound.play(); // Play impact sound when hitting walls/blocks
             }
             if (entityCollidedWith instanceof MagmaBlock) {
@@ -178,15 +234,38 @@ public class Fireball extends Enemy {
                 LavaSlime lavaSlime = new LavaSlime(entityCollidedWith.getLocation());
                 map.addEnemy(lavaSlime);
                 entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
+            } else if (entityCollidedWith instanceof BurnableVine) {
+                this.mapEntityStatus = MapEntityStatus.REMOVED;
+                BurnableVineAnimation burnableVineAnimation = new BurnableVineAnimation(entityCollidedWith.getLocation());
+                map.addEnhancedMapTile(burnableVineAnimation);
+                entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
             } else {
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
+=======
+                hitSound.play();
+>>>>>>> eb1289d (adding plant enemy)
             }
 
+            if (entityCollidedWith instanceof MagmaBlock) {
+
+                this.mapEntityStatus = MapEntityStatus.REMOVED;
+
+                LavaSlime lavaSlime = new LavaSlime(entityCollidedWith.getLocation());
+
+                map.addEnemy(lavaSlime);
+
+                entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
+
+            } else {
+
+                this.mapEntityStatus = MapEntityStatus.REMOVED;
+            }
         }
     }
 
     @Override
     public void touchedPlayer(Player player) {
+
         // if fireball touches player, it disappears, unless the fireball is from the player
         if (!fromPlayer) {
             super.touchedPlayer(player);
@@ -194,16 +273,18 @@ public class Fireball extends Enemy {
         }
     }
 
-
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
+
         return new HashMap<String, Frame[]>() {{
+
             put("RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(2)
                             .withBounds(0, 0, 7, 7)
                             .build()
             });
+
             put("LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(2)
@@ -211,6 +292,7 @@ public class Fireball extends Enemy {
                             .withBounds(0, 0, 7, 7)
                             .build()
             });
+
             put("LEFT_LAVA", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(4)
@@ -218,12 +300,14 @@ public class Fireball extends Enemy {
                             .withBounds(0, 0, 7, 7)
                             .build()
             });
+
             put("RIGHT_LAVA", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(4)
                             .withBounds(0, 0, 7, 7)
                             .build()
             });
+
         }};
     }
 }

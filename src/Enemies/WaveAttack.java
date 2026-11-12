@@ -12,6 +12,8 @@ import NPCs.Torch;
 import Utils.Direction;
 import Utils.Point;
 import EnhancedMapTiles.MagmaBlock;
+import EnhancedMapTiles.Vine;
+import EnhancedMapTiles.VineSprout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,7 +125,14 @@ public class WaveAttack extends Enemy {
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided && !(entityCollidedWith instanceof IceBlock)) {
-            this.mapEntityStatus = MapEntityStatus.REMOVED;
+            if (entityCollidedWith instanceof VineSprout) {
+                this.mapEntityStatus = MapEntityStatus.REMOVED;
+                Vine vine = new Vine(entityCollidedWith.getLocation().subtractY(222).subtractX(24));
+                map.addEnhancedMapTile(vine);
+                entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
+            } else {
+                this.mapEntityStatus = MapEntityStatus.REMOVED;
+            }
         }
     }
 
