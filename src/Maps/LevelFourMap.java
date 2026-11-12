@@ -48,6 +48,9 @@ public class LevelFourMap extends Map {
         BurnableVine burnableVine1 = new BurnableVine(getMapTile(5,96).getLocation().subtractY(143));
         enhancedMapTiles.add(burnableVine1);
 
+        ElectricZapSpawner electricZapSpawner1 = new ElectricZapSpawner(getMapTile(7,94).getLocation().subtractY(16));
+        enhancedMapTiles.add(electricZapSpawner1);
+
         return enhancedMapTiles;
     }
 

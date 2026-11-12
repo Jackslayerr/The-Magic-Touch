@@ -11,6 +11,7 @@ import Level.Player;
 import Level.TileType;
 import Utils.Point;
 import Enemies.ElectricZap;
+import Enemies.ElectricZapDown;
 
 import java.util.HashMap;
 
@@ -27,23 +28,36 @@ public class ElectricZapSpawner extends EnhancedMapTile {
     public void update(Player player) {
         super.update(player);
         if (timer == 0) {
-            spawnZap();
+            spawnZap(true);
+        }
+        if (timer == 200) {
+            spawnZap(false);
         }
         timer++;
     }
 
-    public void spawnZap() {
+    public void spawnZap(boolean up) {
         // logic to shoot a zap
-        int zapX = Math.round(getX() - 8);
+        if (up) { 
+            int zapX = Math.round(getX() - 8);
+            int zapY = Math.round(getY() - 191);
 
+            // create zap enemy
+            ElectricZap electricZap = new ElectricZap(new Point(zapX, zapY));
 
-        int zapY = Math.round(getY() - 191);
+            // add zap enemy to the map for it to spawn in the level
+            map.addEnemy(electricZap);
+        }
+        if (!up) {
+            int zapX = Math.round(getX() - 8);
+            int zapY = Math.round(getY());
 
-        // create zap enemy
-        ElectricZap electricZap = new ElectricZap(new Point(zapX, zapY));
+            // create zap enemy
+            ElectricZapDown electricZapDown = new ElectricZapDown(new Point(zapX, zapY));
 
-        // add zap enemy to the map for it to spawn in the level
-        map.addEnemy(electricZap);
+            // add zap enemy to the map for it to spawn in the level
+            map.addEnemy(electricZapDown);
+        }
     }
 
 
