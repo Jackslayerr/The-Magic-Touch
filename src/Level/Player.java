@@ -123,6 +123,7 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
+        
 
         if (damageCooldown > 0) {
             damageCooldown--;
@@ -336,11 +337,13 @@ public abstract class Player extends GameObject {
             // allows movement while in the air
             if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
                 moveAmountX -= walkSpeed * speedMultiplier;
+                facingDirection = Direction.LEFT;
             }
 
 
             else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 moveAmountX += walkSpeed * speedMultiplier;
+                facingDirection = Direction.RIGHT;
             }
 
 

@@ -38,6 +38,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     private int damageFlashTimer = 0;
     private static final int DAMAGE_FLASH_DURATION = 12;
 
+    // Timer variables
+    public static int timerFrames = 420;
+    public static boolean timerRunning = false;
+
     // Health bar animation
     private int healthBarAnimationTimer = 0;
 
@@ -66,6 +70,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // Reset damage and health animations whenever a level loads
         damageFlashTimer = 0;
         healthBarAnimationTimer = 0;
+        // Timer at 0 on start up
+        timerFrames = 420;
+        timerRunning = false;
 
         // NOTE: levelClearedScreen is created in onLevelCompleted(), not here.
         // Its constructor sets the next level's checkpoint index, so building it at
@@ -122,6 +129,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
                 // Update health bar animation
                 healthBarAnimationTimer++;
+                // Timer runs if active
+                if (timerRunning) {
+                    timerFrames--;
+                }
 
                 break;
 
@@ -154,6 +165,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 // Draw health HUD above the game world
                 drawHealthBar(graphicsHandler);
 
+                if (timerFrames != 0 && timerRunning == true) {
+                    System.out.println(timerFrames);
+                    Graphics2D g = graphicsHandler.getGraphics();
+                    g.setFont(new Font("Arial", Font.BOLD, 26));
+                    g.setColor(Color.BLACK);
+                    //int secs = timerFrames / 60;
+                    int totalMs = timerFrames * 1000 / 60;   // frames -> milliseconds
+                    String text = (totalMs / 1000) + "." + String.format("%03d", totalMs % 1000);
+                    g.drawString(text, 420, 50);
+                } else if (timerFrames == 0 && timerRunning == true) {
+                    player.setLocation(576, 6768);
+                    player.setSpeedMultiplier(1.0f);
+                    timerRunning = false;
+                    timerFrames = 420;
+                }
                 // Draw existing damage flash over gameplay
                 drawDamageFlash(graphicsHandler);
                 break;

@@ -15,10 +15,12 @@ import Utils.Point;
 import java.util.HashMap;
 
 public class SHEEP2 extends Enemy {
-    private float velocityY = -6.0f;
+    private float velocityY = -12.0f;
     private float gravity = 0.25f;
     private float targetX;
     private int lifeTimer = 700;
+    float moveAmountX = 0;
+    float moveAmountY = 0;
 
     public SHEEP2(Point location, float targetX) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("S.H.E.E.P.Enemy.png"), 33, 24), "FLY_LEFT");
@@ -30,16 +32,7 @@ public class SHEEP2 extends Enemy {
     public void initialize() {
         super.initialize();
         currentAnimationName = "FLY_LEFT";
-    }
-
-    @Override
-    public void update(Player player) {
-        float moveAmountX = 0;
-        float moveAmountY = 0;
-
-        // Apply arc physics
-        velocityY += gravity;
-        moveAmountY = velocityY;
+        
 
         // Drifting horizontally towards the target X coordinate
         float currentX = this.getX();
@@ -50,6 +43,14 @@ public class SHEEP2 extends Enemy {
                 moveAmountX -= 4.0f;
             }
         }
+    }
+
+    @Override
+    public void update(Player player) {
+
+        // Apply arc physics
+        velocityY += gravity;
+        moveAmountY = velocityY;
 
         // Apply movement without block collision stopping it in mid-air
         moveX(moveAmountX);
