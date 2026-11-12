@@ -61,6 +61,15 @@ public class CutsceneScreen extends Screen {
         {
             "ANOTHER PIECE...",
             "THE EMERALD WILDS"
+        },
+
+        // LEVEL 5 - CURSED KINGDOM
+        {
+            "THE ORB RESTORED",
+            "THE BETRAYAL",
+            "MALODOR AWAKENS",
+            "THE CURSED KINGDOM",
+            "THE FINAL BATTLE"
         }
     };
 
@@ -93,6 +102,15 @@ public class CutsceneScreen extends Screen {
         {
             "cutscene-level4-1.png",
             "cutscene-level4-2.png"
+        },
+
+        // LEVEL 5 - CURSED KINGDOM
+        {
+            "cutscene-level5-1.png",
+            "cutscene-level5-2.png",
+            "cutscene-level5-3.png",
+            "cutscene-level5-4.png",
+            "cutscene-level5-5.png"
         }
     };
 
@@ -121,8 +139,7 @@ public class CutsceneScreen extends Screen {
             "dreams. He explains that the four pieces of Bonwold's " +
             "legendary orb must be recovered and brought together " +
             "once more. He believes you are worthy of the challenge. " +
-            "Your adventure begins now! But something about " +
-            "your new mentor feels strange...",
+            "Your adventure begins now!",
 
             "Your journey leads you to the scorching depths " +
             "of the Fire Dungeon! Dangerous goblins guard its " +
@@ -192,6 +209,35 @@ public class CutsceneScreen extends Screen {
             "Defeat the monsters, conquer the ancient ruins, " +
             "and retrieve the final piece! Once we have it, " +
             "the legendary orb can finally be reassembled!"
+        },
+
+        // ======================================
+        // LEVEL 5 - CURSED KINGDOM
+        // ======================================
+        {
+            // Scene 1 - The Orb Restored
+            "Magnificent! You've done it! All four pieces " +
+            "of Bonwold's legendary orb have finally been reunited.",
+
+            // Scene 2 - The Betrayal
+            "After all these centuries, the orb is finally mine! " +
+            "You foolish child. Did you truly believe I wanted " +
+            "to save the kingdom?",
+
+            // Scene 3 - Malodor Awakens
+            "The mentor begins to transform before your eyes. " +
+            "His disguise fades, revealing the evil sorcerer Malodor! " +
+            "At last, the power of Bonwold's orb will be mine!",
+
+            // Scene 4 - The Cursed Kingdom
+            "Darkness spreads across the kingdom as Malodor unleashes " +
+            "the orb's power. The land is consumed by a terrible curse. " +
+            "There is only one way to stop him!",
+
+            // Scene 5 - The Final Battle
+            "The time has come to face Malodor! " +
+            "Defeat the sorcerer and save the kingdom. " +
+            "The fate of the world rests in your hands!"
         }
     };
 
