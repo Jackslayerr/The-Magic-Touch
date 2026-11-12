@@ -23,7 +23,7 @@ public class ElectricZap extends Enemy {
             new SpriteSheet(ImageLoader.load("ElectricBar.png"), 32, 96),
             "DEFAULT"
         );
-
+        canBePushed = false;
         this.initialize();
     }
 

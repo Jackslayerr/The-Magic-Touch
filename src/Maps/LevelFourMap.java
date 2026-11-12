@@ -51,6 +51,9 @@ public class LevelFourMap extends Map {
         ElectricZapSpawner electricZapSpawner1 = new ElectricZapSpawner(getMapTile(7,94).getLocation().subtractY(16));
         enhancedMapTiles.add(electricZapSpawner1);
 
+        MudTile mudTile1 = new MudTile(getMapTile(11,97).getLocation().subtractY(0));
+        enhancedMapTiles.add(mudTile1);
+
         return enhancedMapTiles;
     }
 
