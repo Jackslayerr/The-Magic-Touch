@@ -7,12 +7,14 @@ import Engine.ImageLoader;
 import EnhancedMapTiles.BouncyCloud;
 import EnhancedMapTiles.ElectricZapSpawner;
 import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.IceBlock;
 import EnhancedMapTiles.SnowballLauncher;
 import EnhancedMapTiles.VerticalMovingPlatform;
 import EnhancedMapTiles.zapOrb;
 import EnhancedMapTiles.SpeedRing;
 import EnhancedMapTiles.Trigger;
 import GameObject.Rectangle;
+import EnhancedMapTiles.*;
 import Tilesets.JungleTileset;
 import Utils.CheckpointManager;
 import Utils.Direction;
@@ -40,6 +42,8 @@ public class LevelFourMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
+        VineSprout vineSprout1 = new VineSprout(getMapTile(3,96).getLocation().subtractY(16));
+        enhancedMapTiles.add(vineSprout1);        
 
         return enhancedMapTiles;
     }
