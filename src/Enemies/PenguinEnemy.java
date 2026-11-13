@@ -35,7 +35,7 @@ public class PenguinEnemy extends Enemy {
     protected int penguinState;
     protected int previousPenguinState;
 
-    // Constructor 1: Takes start point, end point, and facing direction
+
     public PenguinEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("penguinEnemy.png"), 160, 220), "WALK_RIGHT");
         this.startLocation = startLocation;
@@ -44,7 +44,7 @@ public class PenguinEnemy extends Enemy {
         this.initialize();
     }
 
-    // Constructor 2: Overloaded constructor that takes a single point (patrols 2 tiles left/right)
+
     public PenguinEnemy(Point location, Direction facingDirection) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("penguinEnemy.png"), 160, 220), "WALK_RIGHT");
         this.startLocation = new Point(location.x - 64, location.y);
@@ -88,7 +88,7 @@ public class PenguinEnemy extends Enemy {
                 moveXHandleCollision(-movementSpeed);
             }
 
-            // Clean boundary checks to prevent jitter oscillation
+
             if (getX2() >= endBound) {
                 setX(endBound - getWidth());
                 facingDirection = Direction.LEFT;

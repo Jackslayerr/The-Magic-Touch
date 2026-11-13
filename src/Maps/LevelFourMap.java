@@ -34,6 +34,8 @@ public class LevelFourMap extends Map {
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
+        StoneGolem stoneGolem = new StoneGolem(getMapTile(19, 96).getLocation().subtractY(0), Direction.RIGHT);
+        enemies.add(stoneGolem);
         return enemies;
 
     }

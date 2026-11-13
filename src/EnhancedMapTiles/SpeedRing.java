@@ -19,7 +19,7 @@ public class SpeedRing extends EnhancedMapTile {
     private static int speedBoostTime = 240;
 
     public SpeedRing(Point location) {
-        super(location.x, location.y - 16, new SpriteSheet(ImageLoader.load("SpeedRing.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y - 16, new SpriteSheet(ImageLoader.load("SpeedRing.png"), 48, 64), TileType.PASSABLE);
     }
 
     @Override
@@ -30,8 +30,10 @@ public class SpeedRing extends EnhancedMapTile {
         }
         
         if (activated) {
+            this.currentAnimationName = "ACTIVE";
             if (timer == 0) {
                 player.setSpeedMultiplier(2.0f);
+
             }
 
             timer++;
@@ -40,6 +42,7 @@ public class SpeedRing extends EnhancedMapTile {
                 player.setSpeedMultiplier(1.0f);
                 activated = false;
                 timer = 0;
+                this.currentAnimationName = "DEFAULT";
             }
         }
     }
@@ -50,9 +53,16 @@ public class SpeedRing extends EnhancedMapTile {
                 put("DEFAULT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
                             .withScale(2)
-                            .withBounds(0, 0, 16, 16)
+                            .withBounds(0, 0, 48, 64)
                             .build()
                 });
+
+            put("ACTIVE", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 40)
+                            .withScale(2)
+                            .withBounds(0, 0, 48, 64)
+                            .build()
+            });
             }
         };
     
