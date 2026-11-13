@@ -1,3 +1,4 @@
+
 package Maps;
 
 import Level.*;
@@ -22,7 +23,6 @@ import Utils.Point;
 
 import java.util.ArrayList;
 
-// Represents a test map to be used in a level
 public class LevelFourMap extends Map {
 
     public LevelFourMap() {
@@ -34,10 +34,15 @@ public class LevelFourMap extends Map {
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
-        StoneGolem stoneGolem = new StoneGolem(getMapTile(19, 96).getLocation().subtractY(0), Direction.RIGHT);
-        enemies.add(stoneGolem);
-        return enemies;
 
+        // Poison Spore Plant
+        SporePlant sporePlant1 = new SporePlant(
+                getMapTile(10, 95).getLocation()
+        );
+
+        enemies.add(sporePlant1);
+
+        return enemies;
     }
 
     @Override
@@ -52,6 +57,9 @@ public class LevelFourMap extends Map {
 
         ElectricZapSpawner electricZapSpawner1 = new ElectricZapSpawner(getMapTile(7,94).getLocation().subtractY(16));
         enhancedMapTiles.add(electricZapSpawner1);
+
+        MudTile mudTile1 = new MudTile(getMapTile(11,97).getLocation().subtractY(0));
+        enhancedMapTiles.add(mudTile1);
 
         return enhancedMapTiles;
     }

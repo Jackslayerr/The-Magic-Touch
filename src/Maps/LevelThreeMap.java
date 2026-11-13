@@ -26,7 +26,8 @@ public class LevelThreeMap extends Map {
     public LevelThreeMap() {
         super("level_three_map.txt", new LightningTileset());
         this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
-        // this.playerStartPosition = getMapTile(110,178).getLocation();
+        this.playerStartPosition = getMapTile(9,145).getLocation();
+        this.playerStartPosition = getMapTile(6,196).getLocation();
     }
 
     @Override
@@ -36,7 +37,7 @@ public class LevelThreeMap extends Map {
         /* SHEEP sheep = new SHEEP(getMapTile(17, 7).getLocation().subtractY(-350), Direction.LEFT);
         enemies.add(sheep);*/
 
-        DragonEnemy dragonEnemy = new DragonEnemy(getMapTile(180, 194).getLocation().subtractY(-200), Direction.LEFT);
+        DragonEnemy dragonEnemy = new DragonEnemy(getMapTile(177, 190).getLocation().subtractY(-200), Direction.LEFT);
         enemies.add(dragonEnemy);
         GoblinEnemy goblin1  = new GoblinEnemy(getMapTile(42, 191).getLocation(), Direction.RIGHT);
         GoblinEnemy goblin2  = new GoblinEnemy(getMapTile(43, 193).getLocation(), Direction.RIGHT);
@@ -137,6 +138,10 @@ public class LevelThreeMap extends Map {
         enhancedMapTiles.add(zapOrb12);
         zapOrb zapOrb13 = new zapOrb(getMapTile(40, 163).getLocation(), getMapTile(36, 175).getLocation(), this);
         enhancedMapTiles.add(zapOrb13);
+        zapOrb zapOrb14 = new zapOrb(getMapTile(16, 193).getLocation(), getMapTile(26, 193).getLocation(), this);
+        enhancedMapTiles.add(zapOrb14);
+        zapOrb zapOrb15 = new zapOrb(getMapTile(26, 193).getLocation(), getMapTile(16, 193).getLocation(), this);
+        enhancedMapTiles.add(zapOrb15);
 
 
         SpeedRing speedRing = new SpeedRing(getMapTile(14, 146).getLocation());
@@ -150,6 +155,9 @@ public class LevelThreeMap extends Map {
 
         Trigger trial3 = new Trigger(getMapTile(117, 151).getLocation(), 13, 0, 0, 16, 48, this);
         enhancedMapTiles.add(trial3);
+
+        Trigger finishLine = new Trigger(getMapTile(63, 144).getLocation(), 14, 0, 0, 16, 48, this);
+        enhancedMapTiles.add(finishLine);
 
         
 
@@ -205,29 +213,29 @@ public class LevelThreeMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Teleporter teleporter1 = new Teleporter(getMapTile(31, 196).getLocation().subtractY(48), "GoldTeleporter.png",29, 175);
+        Teleporter teleporter1 = new Teleporter(getMapTile(31, 196).getLocation().subtractY(48).addX(48), "GoldTeleporter.png",29, 175);
         npcs.add(teleporter1);    
 
-        Teleporter teleporter2 = new Teleporter(getMapTile(35, 162).getLocation().subtractY(48), "DiamondTeleporter.png",33, 196);
+        Teleporter teleporter2 = new Teleporter(getMapTile(35, 162).getLocation().subtractY(48), "GoldTeleporter.png",33, 196);
         npcs.add(teleporter2);
 
-        Teleporter teleporter3 = new Teleporter(getMapTile(68, 196).getLocation().subtractY(48), "DiamondTeleporter.png",64, 177);
+        Teleporter teleporter3 = new Teleporter(getMapTile(68, 196).getLocation().subtractY(48).addX(24), "DiamondTeleporter.png",64, 177);
         npcs.add(teleporter3);
 
-        Teleporter teleporter4 = new Teleporter(getMapTile(69, 165).getLocation().subtractY(48), "DiamondTeleporter.png",69, 196);
+        Teleporter teleporter4 = new Teleporter(getMapTile(69, 165).getLocation().subtractY(48).addX(24), "DiamondTeleporter.png",69, 196);
         npcs.add(teleporter4);
 
-        Teleporter teleporter5 = new Teleporter(getMapTile(108, 196).getLocation().subtractY(48), "DiamondTeleporter.png",110, 177);
+        Teleporter teleporter5 = new Teleporter(getMapTile(108, 196).getLocation().subtractY(48).addX(48), "GoldTeleporter.png",110, 177);
         npcs.add(teleporter5);
 
-        Teleporter teleporter6 = new Teleporter(getMapTile(118, 153).getLocation().subtractY(48), "DiamondTeleporter.png",108, 196);
+        Teleporter teleporter6 = new Teleporter(getMapTile(118, 153).getLocation().subtractY(48), "GoldTeleporter.png",108, 196);
         npcs.add(teleporter6);
 
-        Teleporter teleporter7 = new Teleporter(getMapTile(149, 196).getLocation().subtractY(48), "DiamondTeleporter.png",6, 149);
-        npcs.add(teleporter5);
+        Teleporter teleporter7 = new Teleporter(getMapTile(150, 196).getLocation().subtractY(48).addX(48), "DiamondTeleporter.png",6, 145);
+        npcs.add(teleporter7);
 
-        Teleporter teleporter8 = new Teleporter(getMapTile(66, 146).getLocation().subtractY(48), "DiamondTeleporter.png",149, 196);
-        npcs.add(teleporter6);
+        Teleporter teleporter8 = new Teleporter(getMapTile(66, 146).getLocation().subtractY(48), "DiamondTeleporter.png",150, 196);
+        npcs.add(teleporter8);
 
         
 

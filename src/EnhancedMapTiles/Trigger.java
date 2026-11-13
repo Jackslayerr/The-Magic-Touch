@@ -9,9 +9,8 @@ import Engine.ImageLoader;
 import GameObject.SpriteSheet;
 import Utils.*;
 import Level.*;
+import Screens.PlayLevelScreen;
 import Enemies.*;
-import Level.Map;
-import Level.MapTile;
 // A Trigger invisible block that can be used to make things happen
 public class Trigger extends EnhancedMapTile {
     int id;
@@ -40,7 +39,25 @@ public class Trigger extends EnhancedMapTile {
         if (id == 1) {
             Puzzle.addTiles(120, 120, 9, 11, 21, map);
             triggered = true;
+        } else if (id == 11) {
+            Puzzle.getRidOfTiles(40, 40, 195, 196, map);
+            triggered = true;
+        } else if (id == 12) {
+            Puzzle.getRidOfTiles(78, 78, 195, 196, map);
+            triggered = true;
+        } else if (id == 13) {
+            Puzzle.getRidOfTiles(118, 118, 195, 196, map);
+            triggered = true;
+        } else if (id == 14) {
+            // Speed Ring
+            Puzzle.getRidOfTiles(64, 64, 144, 146, map);
+            Puzzle.getRidOfTiles(160, 160, 195, 196, map);
+            PlayLevelScreen.timerRunning = false;
+            PlayLevelScreen.timerFrames = 420;
+            player.setSpeedMultiplier(1.0f);
+            triggered = true;
         }
+        
     }
     @Override
     public void initialize() {
