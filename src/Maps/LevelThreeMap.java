@@ -258,7 +258,7 @@ public class LevelThreeMap extends Map {
         npcs.add(sign1);
         Sign sign2 = new Sign(getMapTile(41, 173).getLocation().subtractY(13), "Sometimes the way back isen't what you think...");
         npcs.add(sign2);
-        Sign sign3 = new Sign(getMapTile(30, 196).getLocation().subtractY(13), "Get to the end of each room to advance!");
+        Sign sign3 = new Sign(getMapTile(30, 196).getLocation().subtractY(13), "Get to the end of each room to advance! \n Go to the teleporter to get to each room");
         npcs.add(sign3);
         Sign sign4 = new Sign(getMapTile(12, 146).getLocation().subtractY(13), "Speed Boost! \n Get to the end before the time runs out!");
         npcs.add(sign4);

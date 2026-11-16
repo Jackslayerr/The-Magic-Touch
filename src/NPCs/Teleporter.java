@@ -22,6 +22,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.awt.Font;
+
 // This class is for the Teleporter NPC
 public class Teleporter extends NPC {
     int xDestination;
@@ -32,6 +34,8 @@ public class Teleporter extends NPC {
     boolean wasSpacePressed = false;
     boolean playerNearby = false;
     boolean froze = false;
+
+    
 
     public Teleporter(Point location, String spriteFile, int xDestination, int yDestination) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load(spriteFile), 32, 32), "DEFAULT");
@@ -128,6 +132,15 @@ public class Teleporter extends NPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+        if (playerNearby && !talkedTo) {
+            graphicsHandler.drawString(
+                    "(Space)",
+                    (int) getCalibratedXLocation() + 12,
+                    (int) getCalibratedYLocation() - 8,
+                    new Font("Arial", Font.PLAIN, 12),
+                    Color.WHITE
+            );
+        }
     }
 
     public void setLocation(Player player, float xDestination, float yDestination) {
