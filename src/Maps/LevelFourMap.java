@@ -6,6 +6,7 @@ import NPCs.*;
 import Enemies.*;
 import EnhancedMapTiles.*;
 import Tilesets.JungleTileset;
+import Utils.Direction;
 import Utils.Point;
 
 import java.util.ArrayList;
@@ -27,7 +28,11 @@ public class LevelFourMap extends Map {
                 getMapTile(10, 95).getLocation()
         );
 
+
         enemies.add(sporePlant1);
+
+        StoneGolem golem = new StoneGolem(getMapTile(46,96).getLocation(), Direction.LEFT);
+        enemies.add(golem);
 
         return enemies;
     }

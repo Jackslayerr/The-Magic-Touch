@@ -39,7 +39,7 @@ public class StoneGolem extends Enemy {
     protected int throwTimer;
 
 
-    public StoneGolem(Point startLocation, Point endLocation, Direction facingDirection) {
+    public StoneGolem(Point startLocation) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("stoneGolem1.png"), 170, 114), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
@@ -149,11 +149,12 @@ public class StoneGolem extends Enemy {
         super.update(player);
         previousPenguinState = penguinState;
     }
-
+/*
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
         drawBounds(graphicsHandler,new Color(255, 0, 0, 100));
     }
+ */
 
 
     @Override
