@@ -121,14 +121,14 @@ public class SporePlant extends Enemy {
 
         // Horizontal spread
         float[] horizontalSpeeds = {
-                -2.5f, -1.5f, -0.5f,
-                 0.5f,  1.5f,  2.5f
+            -3.0f, -2.5f, -2.0f, -1.5f, -0.8f,
+            0.8f,  1.5f,  2.0f,  2.5f,  3.0f
         };
 
         // Initial upward velocities
         float[] upwardSpeeds = {
-                -7.0f, -8.0f, -6.5f,
-                -7.5f, -8.0f, -7.0f
+            -7.0f, -8.0f, -7.5f, -8.0f, -7.0f,
+            -7.0f, -8.0f, -7.5f, -8.0f, -7.0f
         };
 
         // Spawn from the center of the plant

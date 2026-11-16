@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class SpeedRing extends EnhancedMapTile {
 
     public SpeedRing(Point location) {
-        super(location.x, location.y - 16, new SpriteSheet(ImageLoader.load("SpeedRing.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y - 16, new SpriteSheet(ImageLoader.load("SpeedRing.png"), 48, 64), TileType.PASSABLE);
     }
 
     @Override
@@ -26,6 +26,10 @@ public class SpeedRing extends EnhancedMapTile {
         if (intersects(player)) {
             player.setSpeedMultiplier(2.0f);
             PlayLevelScreen.timerRunning = true;
+            currentAnimationName = "CHECKED";
+        }
+        if (PlayLevelScreen.timerRunning == false) {
+            currentAnimationName = "DEFAULT";
         }
     }
 
@@ -33,9 +37,15 @@ public class SpeedRing extends EnhancedMapTile {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
                 put("DEFAULT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 40)
-                            .withScale(2)
-                            .withBounds(0, 0, 16, 16)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 0)
+                            .withScale(1.5f)
+                            .withBounds(0, 0, 48, 64)
+                            .build()
+                });
+                put("CHECKED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 0)
+                            .withScale(1.5f)
+                            .withBounds(0, 0, 48, 64)
                             .build()
                 });
             }

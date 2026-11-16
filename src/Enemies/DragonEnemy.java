@@ -12,6 +12,7 @@ import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import Utils.Puzzle;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class DragonEnemy extends Enemy {
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
-    private float health = 30.0f; // takes 30 hits to slay the dragon
+    private float health = 20.0f; // takes 30 hits to slay the dragon
 
     private int attackTimer = 0;
     private final int ATTACK_COOLDOWN = 180;
@@ -113,6 +114,7 @@ public class DragonEnemy extends Enemy {
 
         // when health is zero, she dies :(
         if (this.health <= 0) {
+            Puzzle.getRidOfTiles(185, 185, 197, 198, map);
             this.setMapEntityStatus(Level.MapEntityStatus.REMOVED);
         }
     }
