@@ -27,6 +27,8 @@ public class GolemBoulder extends Enemy {
     private final float gravity = 0.3f;
     private final float bounceSpeed = 5f;
 
+    private boolean reflected = false;
+
     public GolemBoulder(Point location, float movementSpeed, int existenceFrames, boolean fromPlayer, Direction direction) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("golemBoulder.png"), 16, 16), "RIGHT");
 
@@ -42,13 +44,20 @@ public class GolemBoulder extends Enemy {
         }
         initialize();
     }
-
+/*
    public void draw(GraphicsHandler graphicsHandler) {
        super.draw(graphicsHandler);
        drawBounds(graphicsHandler,new Color(255, 0, 0, 100));
    }
+ */
 
-
+    public void reflect() {
+        if (reflected) return;   // only flip once
+        reflected = true;
+        movementSpeed = -movementSpeed;
+        direction = (direction == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
+        currentAnimationName = (direction == Direction.LEFT) ? "LEFT" : "RIGHT";
+    }
     @Override
     public void update(Player player) {
         if (existenceFrames == 0) {
@@ -63,6 +72,12 @@ public class GolemBoulder extends Enemy {
 
             for (Enemy enemy : enemies) {
                 if (fromPlayer && this.intersects(enemy) && this != enemy) {
+                    enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                    break;
+                }
+
+                if (reflected && enemy instanceof StoneGolem && this.intersects(enemy)) {
                     enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
                     this.setMapEntityStatus(MapEntityStatus.REMOVED);
                     break;

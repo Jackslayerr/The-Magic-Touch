@@ -80,6 +80,15 @@ public class WaveAttack extends Enemy {
                         break;
 
                     }
+                    if (enemy instanceof GolemBoulder) {
+                        ((GolemBoulder) enemy).reflect();
+                        if (waveSound != null) {
+                            waveSound.play();
+                        }
+                        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+                        break;
+                    }
+
                     if (enemy instanceof LavaSlime) { // Lava Slime replaced by magma block
                         if (waveSound != null) {
                             waveSound.play();
@@ -94,8 +103,8 @@ public class WaveAttack extends Enemy {
 
                         this.setMapEntityStatus(MapEntityStatus.REMOVED);
                         break;
-                    } 
-                    else if (enemy.canBePushed == true) {
+                    }
+                    else if (enemy.canBePushed && !(enemy instanceof StoneGolem)) {
                         if (waveSound != null && !hasPlayedSound) {
                             waveSound.play();
                             hasPlayedSound = true;// Play impact sound when hitting walls/blocks

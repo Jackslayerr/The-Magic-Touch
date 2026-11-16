@@ -237,6 +237,7 @@ public class Fireball extends Enemy {
             } else {
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
                 hitSound.play();
+
             }
 
             if (entityCollidedWith instanceof MagmaBlock) {

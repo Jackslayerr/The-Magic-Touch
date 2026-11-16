@@ -4,20 +4,8 @@ package Maps;
 import Level.*;
 import NPCs.*;
 import Enemies.*;
-import Engine.ImageLoader;
-import EnhancedMapTiles.BouncyCloud;
-import EnhancedMapTiles.ElectricZapSpawner;
-import EnhancedMapTiles.EndLevelBox;
-import EnhancedMapTiles.IceBlock;
-import EnhancedMapTiles.SnowballLauncher;
-import EnhancedMapTiles.VerticalMovingPlatform;
-import EnhancedMapTiles.zapOrb;
-import EnhancedMapTiles.SpeedRing;
-import EnhancedMapTiles.Trigger;
-import GameObject.Rectangle;
 import EnhancedMapTiles.*;
 import Tilesets.JungleTileset;
-import Utils.CheckpointManager;
 import Utils.Direction;
 import Utils.Point;
 
@@ -27,8 +15,8 @@ public class LevelFourMap extends Map {
 
     public LevelFourMap() {
         super("level_four_map.txt", new JungleTileset());
-        //this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
-        this.playerStartPosition = getMapTile(1,96).getLocation();
+        // this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
+        this.playerStartPosition = getMapTile(1, 96).getLocation();
     }
 
     @Override
@@ -40,7 +28,11 @@ public class LevelFourMap extends Map {
                 getMapTile(10, 95).getLocation()
         );
 
+
         enemies.add(sporePlant1);
+
+        StoneGolem golem = new StoneGolem(getMapTile(46,96).getLocation(), Direction.LEFT);
+        enemies.add(golem);
 
         return enemies;
     }
@@ -49,16 +41,28 @@ public class LevelFourMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        VineSprout vineSprout1 = new VineSprout(getMapTile(3,96).getLocation().subtractY(16));
-        enhancedMapTiles.add(vineSprout1);       
-        
-        BurnableVine burnableVine1 = new BurnableVine(getMapTile(5,96).getLocation().subtractY(143));
+        // Vine Sprout
+        VineSprout vineSprout1 = new VineSprout(
+                getMapTile(3, 96).getLocation().subtractY(16)
+        );
+        enhancedMapTiles.add(vineSprout1);
+
+        // Burnable Vine
+        BurnableVine burnableVine1 = new BurnableVine(
+                getMapTile(5, 96).getLocation().subtractY(143)
+        );
         enhancedMapTiles.add(burnableVine1);
 
-        ElectricZapSpawner electricZapSpawner1 = new ElectricZapSpawner(getMapTile(7,94).getLocation().subtractY(16));
+        // Electric Zap Spawner
+        ElectricZapSpawner electricZapSpawner1 = new ElectricZapSpawner(
+                getMapTile(7, 94).getLocation().subtractY(16)
+        );
         enhancedMapTiles.add(electricZapSpawner1);
 
-        MudTile mudTile1 = new MudTile(getMapTile(11,97).getLocation().subtractY(0));
+        // Mud Tile
+        MudTile mudTile1 = new MudTile(
+                getMapTile(11, 97).getLocation()
+        );
         enhancedMapTiles.add(mudTile1);
 
         return enhancedMapTiles;
@@ -67,7 +71,6 @@ public class LevelFourMap extends Map {
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
-
         return npcs;
     }
 }

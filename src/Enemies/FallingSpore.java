@@ -18,33 +18,46 @@ public class FallingSpore extends Enemy {
 
     private static final String IMAGE_NAME = "spore.png";
 
-    // Your spore spritesheet is 17 x 16:
-    // Two 8 x 16 frames with a 1-pixel gap
     private static final int FRAME_WIDTH = 8;
     private static final int FRAME_HEIGHT = 16;
+
     private static final float SCALE = 2.0f;
 
     private static final float GRAVITY = 0.25f;
-    private static final float TERMINAL_VELOCITY = 7.0f;
+    private static final float TERMINAL_VELOCITY = 5.0f;
+
     private static final int MAX_LIFETIME = 360;
 
+    // Main movement
     private float horizontalSpeed;
     private float fallSpeed;
 
+    // Fly-like movement
+    private float wigglePhase;
+    private float wiggleAmplitude = 1.9f;
+    private float wiggleFrequency = 0.9f;
+
+    private int age = 0;
     private int lifetimeFrames = MAX_LIFETIME;
 
     public FallingSpore(Point location, float horizontalSpeed, float upwardSpeed) {
 
-        super(location.x, location.y,
+        super(
+                location.x,
+                location.y,
                 new SpriteSheet(
                         ImageLoader.load(IMAGE_NAME),
                         FRAME_WIDTH,
                         FRAME_HEIGHT
                 ),
-                "BLINK");
+                "BLINK"
+        );
 
         this.horizontalSpeed = horizontalSpeed;
         this.fallSpeed = upwardSpeed;
+
+        // Give each spore a slightly different flight pattern.
+        this.wigglePhase = (float) (Math.random() * Math.PI * 2);
 
         initialize();
     }
@@ -56,20 +69,36 @@ public class FallingSpore extends Enemy {
             return;
         }
 
-        // Apply gravity
+        age++;
+
+        // Gravity gradually pulls the spore back down.
         fallSpeed += GRAVITY;
 
         if (fallSpeed > TERMINAL_VELOCITY) {
             fallSpeed = TERMINAL_VELOCITY;
         }
 
-        // Spread horizontally
-        moveXHandleCollision(horizontalSpeed);
+        // Side-to-side fly-like movement.
+        float horizontalWiggle =
+                (float) Math.sin(age * wiggleFrequency + wigglePhase)
+                        * wiggleAmplitude;
 
-        // Move upward first, then fall back down
-        moveYHandleCollision(fallSpeed);
+        // Small vertical flutter.
+        float verticalWiggle =
+                (float) Math.sin(age * 0.22f + wigglePhase)
+                        * 0.70f;
 
-        // Remove spores that have existed too long
+        // Combine the original launch direction with the wiggling.
+        float actualHorizontalSpeed =
+                horizontalSpeed + horizontalWiggle;
+
+        float actualVerticalSpeed =
+                fallSpeed + verticalWiggle;
+
+        moveXHandleCollision(actualHorizontalSpeed);
+        moveYHandleCollision(actualVerticalSpeed);
+
+        // Remove after its lifetime expires.
         lifetimeFrames--;
 
         if (lifetimeFrames <= 0) {
@@ -77,7 +106,6 @@ public class FallingSpore extends Enemy {
             return;
         }
 
-        // Check player collision
         super.update(player);
     }
 
@@ -85,9 +113,10 @@ public class FallingSpore extends Enemy {
     public void onEndCollisionCheckY(
             boolean hasCollided,
             Direction direction,
-            MapEntity entityCollidedWith) {
+            MapEntity entityCollidedWith
+    ) {
 
-        // Remove spore when it hits the ground
+        // Remove the spore when it hits the ground.
         if (hasCollided && direction == Direction.DOWN) {
             mapEntityStatus = MapEntityStatus.REMOVED;
         }
@@ -97,9 +126,9 @@ public class FallingSpore extends Enemy {
     public void onEndCollisionCheckX(
             boolean hasCollided,
             Direction direction,
-            MapEntity entityCollidedWith) {
+            MapEntity entityCollidedWith
+    ) {
 
-        // Remove spore if it hits a wall
         if (hasCollided) {
             mapEntityStatus = MapEntityStatus.REMOVED;
         }
@@ -108,14 +137,14 @@ public class FallingSpore extends Enemy {
     @Override
     public void touchedPlayer(Player player) {
 
-        // Damage player and remove the spore
         super.touchedPlayer(player);
+
         mapEntityStatus = MapEntityStatus.REMOVED;
     }
 
     @Override
     public int getDamage() {
-        return 12;
+        return 5;
     }
 
     @Override
@@ -125,13 +154,11 @@ public class FallingSpore extends Enemy {
 
             put("BLINK", new Frame[] {
 
-                    // First blinking frame
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(SCALE)
                             .withBounds(2, 2, 4, 12)
                             .build(),
 
-                    // Second blinking frame
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(SCALE)
                             .withBounds(2, 2, 4, 12)
