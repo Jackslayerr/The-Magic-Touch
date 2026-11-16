@@ -222,7 +222,6 @@ public class Fireball extends Enemy {
         if (hasCollided) {
 
             if (hitSound != null) {
-<<<<<<< HEAD
                 hitSound.play(); // Play impact sound when hitting walls/blocks
             }
             if (entityCollidedWith instanceof MagmaBlock) {
@@ -237,9 +236,7 @@ public class Fireball extends Enemy {
                 entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
             } else {
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
-=======
                 hitSound.play();
->>>>>>> eb1289d (adding plant enemy)
             }
 
             if (entityCollidedWith instanceof MagmaBlock) {

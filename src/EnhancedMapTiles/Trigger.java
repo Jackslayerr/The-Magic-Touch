@@ -16,6 +16,7 @@ public class Trigger extends EnhancedMapTile {
     int id;
     boolean triggered = false;
     Map map;
+    ArrayList<EnhancedMapTile> EMTs = new ArrayList<EnhancedMapTile>();
     public Trigger(Point location, int id, int boundx, int boundy, int boundWidth, int boundHeight, Map map) {
         super(location.x, location.y, new FrameBuilder(ImageLoader.load("transparent.png"))
               .withScale(3)
@@ -40,21 +41,31 @@ public class Trigger extends EnhancedMapTile {
             Puzzle.addTiles(120, 120, 9, 11, 21, map);
             triggered = true;
         } else if (id == 11) {
-            Puzzle.getRidOfTiles(40, 40, 195, 196, map);
+            Puzzle.getRidOfTiles(40, 40, 187, 196, map);
             triggered = true;
         } else if (id == 12) {
-            Puzzle.getRidOfTiles(78, 78, 195, 196, map);
+            Puzzle.getRidOfTiles(78, 78, 188, 196, map);
             triggered = true;
         } else if (id == 13) {
-            Puzzle.getRidOfTiles(118, 118, 195, 196, map);
+            Puzzle.getRidOfTiles(118, 118, 184, 196, map);
             triggered = true;
         } else if (id == 14) {
             // Speed Ring
             Puzzle.getRidOfTiles(64, 64, 144, 146, map);
-            Puzzle.getRidOfTiles(160, 160, 195, 196, map);
+            Puzzle.getRidOfTiles(160, 160, 188, 196, map);
             PlayLevelScreen.timerRunning = false;
             PlayLevelScreen.timerFrames = 420;
             player.setSpeedMultiplier(1.0f);
+            triggered = true;
+            EMTs = map.getEnhancedMapTiles();
+            for (EnhancedMapTile emt: EMTs) {
+                if (emt instanceof SpeedRing) {
+                    emt.setMapEntityStatus(MapEntityStatus.REMOVED);
+                }
+            }
+        } else if (id == 15) {
+            DragonEnemy dragonEnemy = new DragonEnemy(map.getMapTile(177, 190).getLocation().subtractY(-200), Direction.LEFT);
+            map.addEnemy(dragonEnemy);
             triggered = true;
         }
         

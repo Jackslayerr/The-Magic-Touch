@@ -12,6 +12,9 @@ public class CheckpointManager {
         checkPointLists.add(new Point(3120.0f, 864.0f)); // Level 1 Checkpoint, Index 1
         checkPointLists.add(new Point(96.0f, 1248.0f)); // Level 2 Start, Index 2
         checkPointLists.add(new Point(96.0f, 9408.0f)); // Level 3 Start, Index 3
+        checkPointLists.add(new Point(3936.0f, 9408.0f)); // Level 3 Checkpoint 1, Index 4
+        checkPointLists.add(new Point(8160.0f, 9024.0f)); // Level 3 Checkpoint 2, Index 5
+        
 
     }
     public static CheckpointManager getInstance() {

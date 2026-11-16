@@ -5,6 +5,7 @@ import NPCs.*;
 import Enemies.*;
 import Engine.ImageLoader;
 import EnhancedMapTiles.BouncyCloud;
+import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.ElectricZapSpawner;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.SnowballLauncher;
@@ -26,8 +27,8 @@ public class LevelThreeMap extends Map {
     public LevelThreeMap() {
         super("level_three_map.txt", new LightningTileset());
         this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
-        this.playerStartPosition = getMapTile(9,145).getLocation();
-        this.playerStartPosition = getMapTile(6,196).getLocation();
+       // this.playerStartPosition = getMapTile(80,194).getLocation();
+       // this.playerStartPosition = getMapTile(6,196).getLocation();
     }
 
     @Override
@@ -37,8 +38,7 @@ public class LevelThreeMap extends Map {
         /* SHEEP sheep = new SHEEP(getMapTile(17, 7).getLocation().subtractY(-350), Direction.LEFT);
         enemies.add(sheep);*/
 
-        DragonEnemy dragonEnemy = new DragonEnemy(getMapTile(177, 190).getLocation().subtractY(-200), Direction.LEFT);
-        enemies.add(dragonEnemy);
+        
         GoblinEnemy goblin1  = new GoblinEnemy(getMapTile(42, 191).getLocation(), Direction.RIGHT);
         GoblinEnemy goblin2  = new GoblinEnemy(getMapTile(43, 193).getLocation(), Direction.RIGHT);
         enemies.add(goblin2);
@@ -62,7 +62,7 @@ public class LevelThreeMap extends Map {
         enemies.add(orb4);
         int currentY = 167;
         for (int i=0;i<7;i++) {
-            badOrb tempOrb = new badOrb(getMapTile(67+i, currentY).getLocation(), 0, -3.0f);
+            badOrb tempOrb = new badOrb(getMapTile(67+i, currentY).getLocation(), 0, -1.0f);
             if (currentY == 167) {
                 currentY = 169;
             } else {
@@ -70,11 +70,11 @@ public class LevelThreeMap extends Map {
             }
             enemies.add(tempOrb);
         }
-        badOrb orb5 = new badOrb(getMapTile(96, 187).getLocation(), 3.0f, 0.0f);
+        badOrb orb5 = new badOrb(getMapTile(96, 187).getLocation(), 1.5f, 0.0f);
         enemies.add(orb5);
-        badOrb orb6 = new badOrb(getMapTile(97, 190).getLocation(), 3.0f, 0.0f);
+        badOrb orb6 = new badOrb(getMapTile(97, 190).getLocation(), 1.5f, 0.0f);
         enemies.add(orb6);
-        badOrb orb7 = new badOrb(getMapTile(97, 193).getLocation(), 3.0f, 0.0f);
+        badOrb orb7 = new badOrb(getMapTile(97, 193).getLocation(), 1.5f, 0.0f);
         enemies.add(orb7);
         
 
@@ -142,9 +142,16 @@ public class LevelThreeMap extends Map {
         enhancedMapTiles.add(zapOrb14);
         zapOrb zapOrb15 = new zapOrb(getMapTile(26, 193).getLocation(), getMapTile(16, 193).getLocation(), this);
         enhancedMapTiles.add(zapOrb15);
+        zapOrb zapOrb16 = new zapOrb(getMapTile(172, 186).getLocation(), getMapTile(176, 186).getLocation(), this);
+        enhancedMapTiles.add(zapOrb16);
+        zapOrb zapOrb17 = new zapOrb(getMapTile(176, 186).getLocation(), getMapTile(172, 171).getLocation(), this);
+        enhancedMapTiles.add(zapOrb17);
+        zapOrb zapOrb18 = new zapOrb(getMapTile(172, 171).getLocation(), getMapTile(176, 187).getLocation(), this);
+        enhancedMapTiles.add(zapOrb18);
+        
 
 
-        SpeedRing speedRing = new SpeedRing(getMapTile(14, 146).getLocation());
+        SpeedRing speedRing = new SpeedRing(getMapTile(14, 146).getLocation().subtractY(28).subtractX(11));
         enhancedMapTiles.add(speedRing);
 
         Trigger trial1 = new Trigger(getMapTile(33, 161).getLocation(), 11, 0, 0, 48, 32, this);
@@ -159,6 +166,17 @@ public class LevelThreeMap extends Map {
         Trigger finishLine = new Trigger(getMapTile(63, 144).getLocation(), 14, 0, 0, 16, 48, this);
         enhancedMapTiles.add(finishLine);
 
+        Trigger boss = new Trigger(getMapTile(175, 196).getLocation(), 15, 0, 0, 48, 48, this);
+        enhancedMapTiles.add(boss);
+
+        EndLevelBox elb = new EndLevelBox(getMapTile(189, 198).getLocation(), "LightningChest.png");
+        enhancedMapTiles.add(elb);
+
+        Checkpoint checkpoint1 = new Checkpoint(getMapTile(81, 194).getLocation().addY(24), 16, 16, this, 4);
+        enhancedMapTiles.add(checkpoint1);
+
+        Checkpoint checkpoint2 = new Checkpoint(getMapTile(169, 186).getLocation().addY(24), 16, 16, this, 5);
+        enhancedMapTiles.add(checkpoint2);
         
 
 
@@ -203,8 +221,7 @@ public class LevelThreeMap extends Map {
         enhancedMapTiles.add(eSpawn3);
         ElectricZapSpawner eSpawn4 = new ElectricZapSpawner(getMapTile(129, 192).getLocation());
         enhancedMapTiles.add(eSpawn4);
-        ElectricZapSpawner eSpawn5 = new ElectricZapSpawner(getMapTile(126, 192).getLocation());
-        enhancedMapTiles.add(eSpawn5);
+        
 
         return enhancedMapTiles;
     }
@@ -225,18 +242,34 @@ public class LevelThreeMap extends Map {
         Teleporter teleporter4 = new Teleporter(getMapTile(69, 165).getLocation().subtractY(48).addX(24), "DiamondTeleporter.png",69, 196);
         npcs.add(teleporter4);
 
-        Teleporter teleporter5 = new Teleporter(getMapTile(108, 196).getLocation().subtractY(48).addX(48), "GoldTeleporter.png",110, 177);
+        Teleporter teleporter5 = new Teleporter(getMapTile(108, 196).getLocation().subtractY(48).addX(24), "GoldTeleporter.png",110, 177);
         npcs.add(teleporter5);
 
         Teleporter teleporter6 = new Teleporter(getMapTile(118, 153).getLocation().subtractY(48), "GoldTeleporter.png",108, 196);
         npcs.add(teleporter6);
 
-        Teleporter teleporter7 = new Teleporter(getMapTile(150, 196).getLocation().subtractY(48).addX(48), "DiamondTeleporter.png",6, 145);
+        Teleporter teleporter7 = new Teleporter(getMapTile(149, 196).getLocation().subtractY(48).addX(24), "DiamondTeleporter.png",6, 145);
         npcs.add(teleporter7);
 
         Teleporter teleporter8 = new Teleporter(getMapTile(66, 146).getLocation().subtractY(48), "DiamondTeleporter.png",150, 196);
         npcs.add(teleporter8);
 
+        Sign sign1 = new Sign(getMapTile(8, 196).getLocation().subtractY(13), "Welcome to the Thunter Halls \n Complete the five trials to get the treasure!");
+        npcs.add(sign1);
+        Sign sign2 = new Sign(getMapTile(41, 173).getLocation().subtractY(13), "Sometimes the way back isen't what you think...");
+        npcs.add(sign2);
+        Sign sign3 = new Sign(getMapTile(30, 196).getLocation().subtractY(13), "Get to the end of each room to advance!");
+        npcs.add(sign3);
+        Sign sign4 = new Sign(getMapTile(12, 146).getLocation().subtractY(13), "Speed Boost! \n Get to the end before the time runs out!");
+        npcs.add(sign4);
+        Sign sign5 = new Sign(getMapTile(15, 196).getLocation().subtractY(13), "You got the lightning power! \n Press Z to use lightning strike \n What happens when you zap different things?");
+        npcs.add(sign5);
+        Sign sign6 = new Sign(getMapTile(175, 173).getLocation().subtractY(13), "Bonwolds Bussin Box");
+        npcs.add(sign6);
+        Sign sign7 = new Sign(getMapTile(171, 188).getLocation().subtractY(13), "You'll need to use all your powers for this final trial...");
+        npcs.add(sign7);
+        // Sign sign8 = new Sign(getMapTile(181, 188).getLocation().subtractY(13), "Nothing here :)");
+        // npcs.add(sign8);
         
 
         return npcs;
