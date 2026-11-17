@@ -96,7 +96,16 @@ public class FallingSpore extends Enemy {
                 fallSpeed + verticalWiggle;
 
         moveXHandleCollision(actualHorizontalSpeed);
+
+        if (mapEntityStatus == MapEntityStatus.REMOVED) {
+            return;
+        }
+
         moveYHandleCollision(actualVerticalSpeed);
+
+        if (mapEntityStatus == MapEntityStatus.REMOVED) {
+            return;
+        }
 
         // Remove after its lifetime expires.
         lifetimeFrames--;
@@ -106,6 +115,7 @@ public class FallingSpore extends Enemy {
             return;
         }
 
+        // Check collision with the player.
         super.update(player);
     }
 
@@ -129,6 +139,7 @@ public class FallingSpore extends Enemy {
             MapEntity entityCollidedWith
     ) {
 
+        // Remove the spore when it hits a wall.
         if (hasCollided) {
             mapEntityStatus = MapEntityStatus.REMOVED;
         }
@@ -137,8 +148,10 @@ public class FallingSpore extends Enemy {
     @Override
     public void touchedPlayer(Player player) {
 
+        // Deal damage using the existing player health system.
         super.touchedPlayer(player);
 
+        // Remove the spore after contact.
         mapEntityStatus = MapEntityStatus.REMOVED;
     }
 
@@ -156,12 +169,12 @@ public class FallingSpore extends Enemy {
 
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(SCALE)
-                            .withBounds(2, 2, 4, 12)
+                            .withBounds(0, 0, 8, 16)
                             .build(),
 
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(SCALE)
-                            .withBounds(2, 2, 4, 12)
+                            .withBounds(0, 0, 8, 16)
                             .build()
 
             });
