@@ -8,6 +8,7 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
+import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Utils.*;
 import Level.*;
@@ -21,12 +22,13 @@ public class Button extends EnhancedMapTile {
     int y2;
     boolean triggered = false;
     Map map;
-    public Button(Point location, int x1, int x2, int y1, int y2, Map map, String spriteFile) {
+    public Button(Point location, int x1, int x2, int y1, int y2, Map map, String spriteFile, int id) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load(spriteFile), 16, 16), TileType.PASSABLE);
           this.x1 = x1;
           this.x2 = x2;
           this.y1 = y1;
           this.y2 = y2;
+          this.id = id;
         this.map = map;
     }
     
@@ -43,8 +45,25 @@ public class Button extends EnhancedMapTile {
     }
 
     public void doSomething() {
-        Puzzle.getRidOfTiles(x1, x2, y1, y2, map);
-        triggered = true;
+        if(id == 1) {
+            Puzzle.getRidOfTiles(x1, x2, y1, y2, map);
+            triggered = true;
+        }
+        if (id == 3) {
+            for (int i = 0; i < 9; i = i + 3) {
+                VerticalMovingPlatform vmp2 = new VerticalMovingPlatform(
+                    ImageLoader.load("IceCaveMovingPlatform.png"),
+                    map.getMapTile(112 + i, 34).getLocation(),
+                    map.getMapTile(112 + i, 58).getLocation(),
+                    TileType.JUMP_THROUGH_PLATFORM,
+                    3,
+                    new Rectangle(0, 0, 48, 4),
+                    Direction.DOWN
+                );
+                map.addEnhancedMapTile(vmp2);
+            }
+            triggered = true;
+        }
     }
 
     @Override

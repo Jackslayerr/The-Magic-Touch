@@ -236,23 +236,9 @@ public class Fireball extends Enemy {
                 entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
             } else {
                 this.mapEntityStatus = MapEntityStatus.REMOVED;
-                hitSound.play();
-
-            }
-
-            if (entityCollidedWith instanceof MagmaBlock) {
-
-                this.mapEntityStatus = MapEntityStatus.REMOVED;
-
-                LavaSlime lavaSlime = new LavaSlime(entityCollidedWith.getLocation());
-
-                map.addEnemy(lavaSlime);
-
-                entityCollidedWith.setMapEntityStatus(MapEntityStatus.REMOVED);
-
-            } else {
-
-                this.mapEntityStatus = MapEntityStatus.REMOVED;
+                if (hitSound != null) {
+                    hitSound.play();
+                }
             }
         }
     }

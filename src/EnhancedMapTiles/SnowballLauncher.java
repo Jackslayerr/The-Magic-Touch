@@ -55,15 +55,15 @@ public class SnowballLauncher extends EnhancedMapTile {
         // logic to shoot a snowball
         int snowballX;
         if (Right) {
-            snowballX = Math.round(getX() + 178);
+            snowballX = Math.round(getX() + 145);
         } else {
-            snowballX = Math.round(getX() + 30);
+            snowballX = Math.round(getX() + 25);
         }
 
-        int snowballY = Math.round(getY() + 105);
+        int snowballY = Math.round(getY() + 85);
 
         // create Snowball enemy
-        snowball snowball = new snowball(new Point(snowballX, snowballY), Right, 2.5f);
+        snowball snowball = new snowball(new Point(snowballX, snowballY), Right, 1.8f);
 
         // add Snowball enemy to the map for it to spawn in the level
         map.addEnemy(snowball);
@@ -76,35 +76,35 @@ public class SnowballLauncher extends EnhancedMapTile {
         return new HashMap<String, Frame[]>() {{
                 put("DEFAULT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 50)
-                            .withScale(2)
+                            .withScale(1.5f)
                             .withBounds(0, 0, 128, 128)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 35)
-                            .withScale(2)
+                            .withScale(1.5f)
                             .withBounds(0, 0, 128, 128)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 35)
-                            .withScale(2)
+                            .withScale(1.5f)
                             .withBounds(0, 0, 128, 128)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 15)
-                            .withScale(2)
+                            .withScale(1.5f)
                             .withBounds(0, 0, 128, 128)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 15)
-                            .withScale(2)
+                            .withScale(1.5f)
                             .withBounds(0, 0, 128, 128)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 15)
-                            .withScale(2)
+                            .withScale(1.5f)
                             .withBounds(0, 0, 128, 128)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 35)
-                            .withScale(2)
+                            .withScale(1.5f)
                             .withBounds(0, 0, 128, 128)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 2), 25)
-                            .withScale(2)
+                            .withScale(1.5f)
                             .withBounds(0, 0, 128, 128)
                             .build()
                 });
