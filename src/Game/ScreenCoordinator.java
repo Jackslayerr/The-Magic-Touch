@@ -14,6 +14,7 @@ import Maps.LevelFourMap;
 import Maps.LevelOneMap;
 import Maps.LevelTwoMap;
 import Maps.LevelThreeMap;
+import Maps.LevelFiveMap;
 
 public class ScreenCoordinator extends Screen {
 
@@ -52,7 +53,7 @@ public class ScreenCoordinator extends Screen {
     public void initialize(Map level, String backgroundImageFile) {
         this.level = level;
         this.backgroundImageFile = backgroundImageFile;
-        this.destinationLevel = 2;
+        this.destinationLevel = 5;
         this.previousGameState = null;
         this.gameState = GameState.MENU;
 
@@ -107,6 +108,13 @@ public class ScreenCoordinator extends Screen {
                                 currentScreen.initialize(
                                     new LevelFourMap(),
                                     "game-background-level4.png"
+                                );
+                                break;
+                            
+                            case 5:
+                                currentScreen.initialize(
+                                    new LevelFiveMap(),
+                                    "game-background-level5.png"
                                 );
                                 break;
 
