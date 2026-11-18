@@ -27,8 +27,8 @@ public class LevelTwoMap extends Map {
 
     public LevelTwoMap() {
         super("level_two_map.txt", new IceCaveTileset());
-        //this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
-        this.playerStartPosition = getMapTile(128, 22).getLocation().subtractY(0);
+        this.playerStartPosition = CheckpointManager.getInstance().getCheckPoint();
+        //this.playerStartPosition = getMapTile(150, 10).getLocation().subtractY(0);
     }
 
     @Override
@@ -243,6 +243,18 @@ public class LevelTwoMap extends Map {
         PenguinEnemy penguinEnemy9 = new PenguinEnemy(getMapTile(142, 12).getLocation().subtractY(0), Direction.LEFT);
         enemies.add(penguinEnemy9);
 
+        Spike Spike32 = new Spike(getMapTile(170, 38).getLocation().subtractY(0));
+        enemies.add(Spike32);
+
+        Spike Spike33 = new Spike(getMapTile(171, 38).getLocation().subtractY(0));
+        enemies.add(Spike33);
+
+        Spike Spike34 = new Spike(getMapTile(173, 38).getLocation().subtractY(0));
+        enemies.add(Spike34);
+
+        Spike Spike35 = new Spike(getMapTile(174, 38).getLocation().subtractY(0));
+        enemies.add(Spike35);
+
         return enemies;
 
 
@@ -408,6 +420,23 @@ public class LevelTwoMap extends Map {
             enhancedMapTiles.add(iceBlock);
         }
 
+        for (int i = 0; i < 4; i++) {
+            IceBlock iceBlock = new IceBlock(getMapTile(169 + i, 24).getLocation());
+            enhancedMapTiles.add(iceBlock);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            IceBlock iceBlock = new IceBlock(getMapTile(169 + i, 23).getLocation());
+            enhancedMapTiles.add(iceBlock);
+        }
+
+        Trigger trigger1 = new Trigger(getMapTile(153, 17).getLocation(), 2, 0, 0, 240, 16, this);
+        enhancedMapTiles.add(trigger1);
+
+
+        Trigger trigger2 = new Trigger(getMapTile(153, 24).getLocation(), 3, 0, 0, 240, 16, this);
+        enhancedMapTiles.add(trigger2);
+
         return enhancedMapTiles;
     }
 
@@ -442,6 +471,39 @@ public class LevelTwoMap extends Map {
 
         npcs.add(sign3);
 
+        Torch torch10 = new Torch(
+                getMapTile(169, 10).getLocation().subtractY(13),
+                10
+        );
+
+        Torch torch11 = new Torch(
+                getMapTile(170, 17).getLocation().subtractY(13),
+                10000
+        );
+
+        npcs.add(torch10);
+        npcs.add(torch11);
+
+        Torch torch12 = new Torch(
+                getMapTile(151, 17).getLocation().subtractY(13),
+                12
+        );
+
+        npcs.add(torch12);
+
+        Torch torch13 = new Torch(
+                getMapTile(173, 24).getLocation().subtractY(13),
+                13
+        );
+
+        npcs.add(torch13);
+
+        Torch torch14 = new Torch(
+                getMapTile(170, 32).getLocation().subtractY(13),
+                14
+        );
+
+        npcs.add(torch14);
 
         return npcs;
     }

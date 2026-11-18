@@ -67,6 +67,27 @@ public class Trigger extends EnhancedMapTile {
             DragonEnemy dragonEnemy = new DragonEnemy(map.getMapTile(177, 190).getLocation().subtractY(-200), Direction.LEFT);
             map.addEnemy(dragonEnemy);
             triggered = true;
+        } else if (id == 2) {
+            PenguinEnemy penguin5 = new PenguinEnemy(map.getMapTile(154, 17).getLocation().subtractY(0), Direction.LEFT);
+            map.addEnemy(penguin5);
+
+            PenguinEnemy penguin6 = new PenguinEnemy(map.getMapTile(167, 17).getLocation().subtractY(0), Direction.LEFT);
+            map.addEnemy(penguin6);
+
+
+
+            triggered = true;
+        } else if (id == 3) {
+            SnowballLauncher snowballLauncher = new SnowballLauncher(map.getMapTile(156, 22).getLocation().subtractY(0), true);
+            map.addEnhancedMapTile(snowballLauncher);
+
+            SnowballLauncher snowballLauncher3 = new SnowballLauncher(map.getMapTile(154, 22).getLocation().subtractX(8), true);
+            map.addEnhancedMapTile(snowballLauncher3);
+
+            SnowballLauncher snowballLauncher2 = new SnowballLauncher(map.getMapTile(152, 22).getLocation().subtractX(16), true);
+            map.addEnhancedMapTile(snowballLauncher2);
+
+            triggered = true;
         }
         
     }

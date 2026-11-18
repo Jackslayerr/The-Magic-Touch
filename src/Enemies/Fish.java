@@ -61,12 +61,7 @@ public class Fish extends Enemy {
                 }
             }
 
-            for (NPC npc : npcs) {
-                if (npc instanceof Torch && (this.intersects(npc) || this.touching(npc))) {
-                    npc.talkedTo = true;
-                    this.setMapEntityStatus(MapEntityStatus.REMOVED);
-                }
-            }
+
             super.update(player);
         }
         existenceFrames--;
