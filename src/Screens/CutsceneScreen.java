@@ -22,8 +22,6 @@ public class CutsceneScreen extends Screen {
 
     private ScreenCoordinator screenCoordinator;
     private BufferedImage backgroundImage;
-
-    // Custom pixel font.
     private Font dialogueFont;
 
     private int currentScene = 0;
@@ -70,6 +68,16 @@ public class CutsceneScreen extends Screen {
             "MALODOR AWAKENS",
             "THE CURSED KINGDOM",
             "THE FINAL BATTLE"
+        },
+
+        // LEVEL 6 - THE ENDING
+        {
+            "THE SORCERER'S FALL",
+            "THE POWER WITHIN",
+            "THE RETURN OF BONWOLD",
+            "THE LAST TWO ORBS",
+            "THE FINAL RELEASE",
+            "A NEW BEGINNING"
         }
     };
 
@@ -104,13 +112,23 @@ public class CutsceneScreen extends Screen {
             "cutscene-level4-2.png"
         },
 
-        // LEVEL 5 - CURSED KINGDOM
+        // LEVEL 5
         {
             "cutscene-level5-1.png",
             "cutscene-level5-2.png",
             "cutscene-level5-3.png",
             "cutscene-level5-4.png",
             "cutscene-level5-5.png"
+        },
+
+        // LEVEL 6 - FINAL CUTSCENES
+        {
+            "cutscene-level6-1.png",
+            "cutscene-level6-2.png",
+            "cutscene-level6-3.png",
+            "cutscene-level6-4.png",
+            "cutscene-level6-5.png",
+            "cutscene-level6-6.png"
         }
     };
 
@@ -137,7 +155,7 @@ public class CutsceneScreen extends Screen {
             "your entire life. One day, a retired treasure hunter " +
             "approaches you with an opportunity beyond your wildest " +
             "dreams. He explains that the four pieces of Bonwold's " +
-            "legendary orb must be recovered and brought together " +
+            "legendary orb of salvation must be recovered and brought together " +
             "once more. He believes you are worthy of the challenge. " +
             "Your adventure begins now!",
 
@@ -155,12 +173,12 @@ public class CutsceneScreen extends Screen {
         // LEVEL 2 - FROSTBITE CAVERNS
         // ======================================
         {
-            "Excellent work! The first piece of Bonwold's orb " +
+            "'Excellent work! The first piece of Bonwold's orb " +
             "is ours! Three more pieces remain before the " +
             "legendary orb can be restored. You're doing " +
             "wonderfully, my young adventurer. Ha ha! " +
             "Now, onward to the Frostbite Caverns! " +
-            "The next piece awaits!",
+            "The next piece awaits!'",
 
             "Welcome to Frostbite Caverns! Deep within these " +
             "frozen passages lies the second piece of Bonwold's " +
@@ -175,12 +193,12 @@ public class CutsceneScreen extends Screen {
         // LEVEL 3 - THUNDERBOLT CASTLE
         // ======================================
         {
-            "Wonderful! The second piece is ours! " +
+            "'Wonderful! The second piece is ours! " +
             "We're halfway to restoring Bonwold's legendary orb. " +
             "I can hardly contain my excitement! Ha ha! " +
             "Keep up the excellent work, my young adventurer. " +
             "Now, onward to Thunderbolt Castle! " +
-            "The third piece is waiting for us!",
+            "The third piece is waiting for us!'",
 
             "Welcome to Thunderbolt Castle! Storm-charged halls " +
             "and dangerous guardians stand between you and " +
@@ -195,13 +213,13 @@ public class CutsceneScreen extends Screen {
         // ======================================
         {
             // Scene 1 - Mentor
-            "Splendid! Another piece of the orb for me... " +
+            "'Splendid! Another piece of the orb for me... " +
             "I mean, for the kingdom's protection! " +
             "You're doing a marvelous job, my young adventurer. " +
             "Just one more piece, and Bonwold's legendary orb " +
             "will finally be whole again. Everything will be " +
             "as it should be. Now, off to the Emerald Wilds! " +
-            "Do hurry, I'm growing rather impatient!",
+            "Do hurry, I'm growing rather impatient!'",
 
             // Scene 2 - Emerald Wilds
             "Welcome to the Emerald Wilds! Deep within the ancient ruins " +
@@ -216,28 +234,73 @@ public class CutsceneScreen extends Screen {
         // ======================================
         {
             // Scene 1 - The Orb Restored
-            "Magnificent! You've done it! All four pieces " +
-            "of Bonwold's legendary orb have finally been reunited.",
+            "'Magnificent! You've done it! All four pieces " +
+            "of Bonwold's legendary orb have finally been reunited.'",
 
             // Scene 2 - The Betrayal
-            "After all these centuries, the orb is finally mine! " +
+            "'After all these centuries, the orb is finally mine! " +
             "You foolish child. Did you truly believe I wanted " +
-            "to save the kingdom?",
+            "to save the kingdom?'",
 
             // Scene 3 - Malodor Awakens
-            "The mentor begins to transform before your eyes. " +
-            "His disguise fades, revealing the evil sorcerer Malodor! " +
-            "At last, the power of Bonwold's orb will be mine!",
+            "'At last, my power returns to me!'",
 
             // Scene 4 - The Cursed Kingdom
-            "Darkness spreads across the kingdom as Malodor unleashes " +
-            "the orb's power. The land is consumed by a terrible curse. " +
-            "There is only one way to stop him!",
+            "'I will spread darkness across the kingdom! " +
+            "With the powerful orb of doom, nothing can stop me!'",
 
             // Scene 5 - The Final Battle
             "The time has come to face Malodor! " +
             "Defeat the sorcerer and save the kingdom. " +
             "The fate of the world rests in your hands!"
+        },
+
+        // ======================================
+        // LEVEL 6 - AFTER MALODOR
+        // ======================================
+        {
+            // Scene 1 - The Sorcerer's Fall
+            "The sorcerer erupts in violent magic. Leaving nothing " +
+            "but his orb of doom" +
+            "He is defeated... but his evil still remains.",
+
+            // Scene 2 - The Power Within
+            "The elements start streaming out of you to form " +
+            "a beautiful orb. You are left holding the orb of salvation " +
+            "in one hand and the orb of doom in the other" ,
+
+            // Scene 3 - The Return of Bonwold
+            "A warrior manifests, the spirit of Bonwold " + 
+            "After all these years, the  " +
+            "has returned. Thank you, young hero.",
+
+            // Scene 4 - The Last Two Orbs
+            "Bonwold: Listen carefully. The purple orb holds " +
+            "the darkness Malodor has carried for centuries. " +
+            "Long ago, I could only divide its power and scatter " +
+            "its fragments. I could never truly destroy it. " +
+            "Your rainbow orb holds the four elements you have " +
+            "gathered. Together, their power can end his darkness. " +
+            "Both orbs must be destroyed. Are you ready?",
+
+            // Scene 5 - The Final Release
+            "You raise both orbs toward the heavens. Their powers " +
+            "collide in a blinding explosion of light. The purple " +
+            "orb fractures into countless jagged pieces, while the " +
+            "rainbow orb bursts into brilliant elemental fragments. " +
+            "Fire, ice, lightning, and nature spiral across the sky " +
+            "before fading into the light. At last, Malodor's " +
+            "darkness is destroyed. The kingdom is free!",
+
+            // Scene 6 - A New Beginning
+            "The darkness has lifted. The curse is broken, and " +
+            "the kingdom can finally begin to heal. Peace has " +
+            "returned to the land. Bonwold: You have proven " +
+            "yourself a true hero. Remember, true power does not " +
+            "come from the magic we possess, but from how we " +
+            "choose to use it. And so, the legend of Bonwold " +
+            "lives on alongside the story of a young adventurer " +
+            "who saved the kingdom."
         }
     };
 
@@ -350,7 +413,8 @@ public class CutsceneScreen extends Screen {
         Graphics2D g = graphicsHandler.getGraphics();
 
         Font font = dialogueFont.deriveFont(
-            Font.BOLD, (float) fontSize
+            Font.BOLD,
+            (float) fontSize
         );
 
         FontMetrics metrics = g.getFontMetrics(font);
@@ -451,7 +515,8 @@ public class CutsceneScreen extends Screen {
 
         // Draw background across the game screen.
         graphicsHandler.drawImage(
-            backgroundImage, 0, 0, 800, 605
+            backgroundImage,
+            0, 0, 800, 605
         );
 
         // Small tan title banner.
