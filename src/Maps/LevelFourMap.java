@@ -28,8 +28,11 @@ public class LevelFourMap extends Map {
                 getMapTile(10, 95).getLocation()
         );
 
+        WheelEnemy wheel1 = new WheelEnemy(getMapTile(11, 95).getLocation(), Direction.LEFT);
+
 
         enemies.add(sporePlant1);
+        enemies.add(wheel1);
 
         StoneGolem golem = new StoneGolem(getMapTile(46,96).getLocation(), Direction.LEFT);
         enemies.add(golem);
