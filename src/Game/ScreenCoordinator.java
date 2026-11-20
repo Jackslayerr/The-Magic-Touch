@@ -53,7 +53,7 @@ public class ScreenCoordinator extends Screen {
     public void initialize(Map level, String backgroundImageFile) {
         this.level = level;
         this.backgroundImageFile = backgroundImageFile;
-        this.destinationLevel = 2;
+        this.destinationLevel = 4;
         this.previousGameState = null;
         this.gameState = GameState.MENU;
 

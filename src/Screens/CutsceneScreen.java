@@ -271,17 +271,14 @@ public class CutsceneScreen extends Screen {
 
             // Scene 3 - The Return of Bonwold
             "A warrior manifests, the spirit of Bonwold " + 
-            "After all these years, the  " +
-            "has returned. Thank you, young hero.",
+            "'After all these years, the  " +
+            "has returned. Thank you, young hero.'",
 
             // Scene 4 - The Last Two Orbs
-            "Bonwold: Listen carefully. The purple orb holds " +
-            "the darkness Malodor has carried for centuries. " +
-            "Long ago, I could only divide its power and scatter " +
+            "Long ago, I could only divide the orb of door and scatter " +
             "its fragments. I could never truly destroy it. " +
-            "Your rainbow orb holds the four elements you have " +
-            "gathered. Together, their power can end his darkness. " +
-            "Both orbs must be destroyed. Are you ready?",
+            "The orb of salvation holds the four elements that you earned" +
+            "What are you going to do?",
 
             // Scene 5 - The Final Release
             "You raise both orbs toward the heavens. Their powers " +
