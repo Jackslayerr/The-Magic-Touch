@@ -40,10 +40,15 @@ public class Cat extends Player {
                     ? "EARTH_RIGHT" : "EARTH_LEFT";
         }
     }
+    /*
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-         //drawBounds(graphicsHandler, new Color(255, 0, 0, 170));
+         drawBounds(graphicsHandler, new Color(255, 0, 0, 170));
     }
+
+     */
+
+
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -153,12 +158,15 @@ public class Cat extends Player {
             put("DEATH_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(5, 0), 8)
                             .withScale(.4f)
+                            .withBounds(36, 20, 48, 110)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(5, 1), 8)
                             .withScale(.4f)
+                            .withBounds(36, 20, 48, 110)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(5, 2), 8)
                             .withScale(.4f)
+                            .withBounds(36, 20, 48, 110)
                             .build()
             });
 
@@ -166,14 +174,17 @@ public class Cat extends Player {
                     new FrameBuilder(spriteSheet.getSprite(5, 0), 8)
                             .withScale(.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(36, 20, 48, 110)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(5, 1), 8)
                             .withScale(.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(36, 20, 48, 110)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(5, 2), 8)
                             .withScale(.4f)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(36, 20, 48, 110)
                             .build()
             });
 
