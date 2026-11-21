@@ -106,6 +106,18 @@ public class Torch extends NPC {
             } else if (id == 9) {
                 Puzzle.getRidOfTiles(90, 90, 9, 11, map);
                 puzzleDone = true;
+            } else if (id == 10) {
+                Puzzle.getRidOfTiles(153, 168, 12, 12, map);
+                puzzleDone = true;
+            } else if (id == 12) {
+                Puzzle.getRidOfTiles(153, 168, 19, 19, map);
+                puzzleDone = true;
+            } else if (id == 13) {
+                Puzzle.getRidOfTiles(158, 168, 26, 26, map);
+                puzzleDone = true;
+            } else if (id == 14) {
+                Puzzle.getRidOfTiles(157, 157, 35, 38, map);
+                puzzleDone = true;
             }
 
         }

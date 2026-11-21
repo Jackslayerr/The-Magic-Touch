@@ -6,6 +6,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Maps.LevelFiveMap;
 import Maps.LevelFourMap;
 import Maps.LevelOneMap;
 import Maps.LevelTwoMap;
@@ -29,7 +30,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
 
     protected int currentLevel = 1;
-    protected static int totalLevels = 3;
+    protected static int totalLevels = 5;
 
     // Background music
     private BackgroundMusic backgroundMusic;
@@ -509,6 +510,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
             case 4:
                 return new LevelFourMap();
+            case 5:
+                return new LevelFiveMap();
 
             default:
                 return new LevelOneMap();
@@ -525,6 +528,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
             case 4:
                 return "game-background-level4.png";
+            case 5:
+                return "game-background-level5.png";
 
             default:
                 return "game-background-level1.png";

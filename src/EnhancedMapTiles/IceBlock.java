@@ -57,7 +57,7 @@ public class IceBlock extends EnhancedMapTile {
             
             moveBlock();
         }
-        moveYHandleCollision(3.0f);
+        moveYHandleCollision(6.0f);
     }
 
     @Override
